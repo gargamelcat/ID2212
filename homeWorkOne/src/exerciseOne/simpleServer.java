@@ -6,32 +6,22 @@ import java.net.Socket;
 
 public class simpleServer {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) throws IOException {
 		boolean listening = true;
 		ServerSocket serverSocket = null;
 		
-		try{
+		try {
 			serverSocket = new ServerSocket(4444);
-			
-		}catch(IOException e){
-			System.err.println("could not listen to port 4444");
+		} catch (IOException e) {
+			System.err.println("Could not listen on port: 4444.");
 			System.exit(1);
 		}
-		
-		try{
-			while(listening){
-				Socket clientSocket = serverSocket.accept();
-				(new SimpleConnectionHandler(clientSocket)).start();
-				
-				serverSocket.close();
-			}
-		}catch(IOException e){
-			System.out.println(e.toString());
-		}
-	}
 
+		while(listening) {
+			Socket clientSocket = serverSocket.accept();
+			(new SimpleConnectionHandler(clientSocket)).start();
+		}
+
+		serverSocket.close();
+	}
 }
