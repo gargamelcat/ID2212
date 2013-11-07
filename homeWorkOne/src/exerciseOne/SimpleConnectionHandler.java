@@ -5,7 +5,7 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class SimpleConnectionHandler {
+public class SimpleConnectionHandler extends Thread {
 	
 	private Socket clientSocket;
 	

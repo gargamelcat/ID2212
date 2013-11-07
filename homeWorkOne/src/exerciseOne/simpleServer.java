@@ -21,13 +21,17 @@ public class simpleServer {
 			System.err.println("could not listen to port 4444");
 			System.exit(1);
 		}
-		while(listening){
-			Socket clientSocket = serverSocket.accept();
-			(new SimpleConnectionHandler(clientSocket)).start();
-		}
-	
-		serverSocket.close();
 		
+		try{
+			while(listening){
+				Socket clientSocket = serverSocket.accept();
+				(new SimpleConnectionHandler(clientSocket)).start();
+				
+				serverSocket.close();
+			}
+		}catch(IOException e){
+			System.out.println(e.toString());
+		}
 	}
 
 }
