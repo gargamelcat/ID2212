@@ -11,18 +11,26 @@ public interface IData {
 
 	
 	/**
-	 * This method will add a player to the existing game.
+	 * This method will add a player to the existing 
 	 * @param An object of the new player.
 	 * @return True if it worked well, false if not.
 	 */	
 	void addPlayer (Player newPlayer);
+
+		/**
+	 * This method will update the score of a player with id given by parameter.
+	 * @param id Id of the player that has to be updated.
+	 * @param score New score that will be updated.
+	 */	
+	void updatePlayersScore (int id, int score);
+	
 	
 	/**
-	 * This method will  update a players information. That includes the last move.
+	 * This method will  update the last hand that the player played.
 	 * @param Player with updated information.
 	 * @return DTOcustomer
 	 */	
-	void updatePlayer(Player existingPlayer);
+	void updatePlayersLastHand(int id, Hand lastHand);
 	
 	/**
 	 * This method will return an object of Game. That contains all information about an actual game.
