@@ -15,7 +15,7 @@ public interface IData {
 	 * @param An object of the new player.
 	 * @return True if it worked well, false if not.
 	 */	
-	boolean addPlayer (Player newPlayer);
+	void addPlayer (Player newPlayer);
 	
 	/**
 	 * This method will  update a players information. That includes the last move.
