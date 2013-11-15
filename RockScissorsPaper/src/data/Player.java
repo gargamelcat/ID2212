@@ -2,31 +2,22 @@ package data;
 
 public class Player {
 
-	private int id;
 	private String name = null;
 	private int score = 0;
-	private Hand lastHand = null;
+	private Hand hand = null;
 	private int port;
 	private String ipAddress = null;
 	
 	public Player(int id, String name, int port,
 			String ipAddress) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.score = 0;
-		this.lastHand = Hand.UNDEF;
+		this.hand = Hand.UNDEF;
 		this.port = port;
 		this.ipAddress = ipAddress;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
@@ -45,11 +36,11 @@ public class Player {
 	}
 
 	public Hand getLastHand() {
-		return lastHand;
+		return hand;
 	}
 
 	public void setLastHand(Hand lastHand) {
-		this.lastHand = lastHand;
+		this.hand = lastHand;
 	}
 
 	public int getPort() {

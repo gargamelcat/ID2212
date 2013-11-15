@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 public class Game {
 
-	ArrayList<Player> playerList = null;
+	private ArrayList<Player> playerList = null;
+	private int round;
 
 	public Game() {
 		playerList = new ArrayList<Player>();
+		round = 1;
 	}
 
 	public void addPlayer(Player newPlayer) {
@@ -33,5 +35,21 @@ public class Game {
 			}
 		}
 		return searchedPlayer;
+	}
+
+	public ArrayList<Player> getPlayerList() {
+		return playerList;
+	}
+
+	public void setPlayerList(ArrayList<Player> playerList) {
+		this.playerList = playerList;
+	}
+
+	public int getRound() {
+		return round;
+	}
+
+	public void setRound(int round) {
+		this.round = round;
 	}
 }
