@@ -8,11 +8,23 @@ public class GameLeader implements IGui {
 	
 	Game mainGame = null;
 	ScoreCalculator scoreCalc = null;
+	PeerHandler peerHandler = null;
+	Sender sender = null;
 	
-	public GameLeader(){
+	public GameLeader(Player player){
 		scoreCalc = new ScoreCalculator();
+		peerHandler = new PeerHandler(player);
+		sender = new Sender();
 	}
 	
+	public void listen(){
+		
+		peerHandler.listen();
+	}
+	
+	public void send(Player player, String message){
+		sender.sendMessageTo(player, message);
+	}
 	
 	@Override
 	public void setPlayerInfo(Player me) {
