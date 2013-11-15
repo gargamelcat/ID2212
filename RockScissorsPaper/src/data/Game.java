@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 public class Game {
 
+	
+	private ArrayList<Round> roundList = null;
 	private ArrayList<Player> playerList = null;
 	private int round;
 
