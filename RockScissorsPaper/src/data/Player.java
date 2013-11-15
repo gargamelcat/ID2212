@@ -1,15 +1,17 @@
 package data;
 
+import java.net.InetAddress;
+
 public class Player {
 
 	private String name = null;
 	private int score = 0;
 	private Hand hand = null;
 	private int port;
-	private String ipAddress = null;
+	private InetAddress ipAddress = null;
 	
 	public Player(int id, String name, int port,
-			String ipAddress) {
+			InetAddress ipAddress) {
 		super();
 		this.name = name;
 		this.score = 0;
@@ -51,11 +53,11 @@ public class Player {
 		this.port = port;
 	}
 
-	public String getIpAddress() {
+	public InetAddress getIpAddress() {
 		return ipAddress;
 	}
 
-	public void setIpAddress(String ipAddress) {
+	public void setIpAddress(InetAddress ipAddress) {
 		this.ipAddress = ipAddress;
 	}
 }
