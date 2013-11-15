@@ -25,11 +25,15 @@ public interface IGui {
 	void addFriend(Player you);
 
 	/**
-	 * This method will start a new game.
-	 * @param An object of the new player.
+	 * This method will create a new game.
+	 */
+	void createGame();
+	
+	/**
+	 * This method will start the game.
 	 */
 	void startGame();
-
+	
 	/**
 	 * This method will return an object of the actual game.
 	 * @param An object of the new player.

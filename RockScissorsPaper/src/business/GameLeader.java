@@ -23,7 +23,7 @@ public class GameLeader implements IGui {
 		mainGame.addPlayer(you);
 	}
 	@Override
-	public void startGame() {
+	public void createGame() {
 		mainGame = new Game();
 	}
 	@Override
@@ -35,6 +35,12 @@ public class GameLeader implements IGui {
 	public void playRound(Player me, Hand hand) {
 		
 		mainGame.updatePlayersLastHand(me.getIpAddress(), hand);
+	}
+
+
+	@Override
+	public void startGame() {
+		
 	}
 
 }
