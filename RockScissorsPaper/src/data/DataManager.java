@@ -1,5 +1,7 @@
 package data;
 
+import java.net.InetAddress;
+
 public class DataManager implements IData {
 	
 	private Game game = null;
@@ -14,19 +16,18 @@ public class DataManager implements IData {
 	}
 
 	@Override
-	public void updatePlayersScore(int id, int score) {
-		game.updatePlayersScore(id, score);
+	public void updatePlayersScore(InetAddress ipAddress, int score) {
+		game.updatePlayersScore(ipAddress, score);
 		
 	}
 
 	@Override
-	public void updatePlayersLastHand(int id, Hand lastHand) {
-		game.updatePlayersLastHand(id, lastHand);
+	public void updatePlayersLastHand(InetAddress ipAddress, Hand lastHand) {
+		game.updatePlayersLastHand(ipAddress, lastHand);
 	}
 	
 	@Override
 	public Game getGame() {
 		return game;
 	}
-	
 }
