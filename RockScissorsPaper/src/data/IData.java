@@ -18,6 +18,8 @@ public interface IData {
 	 * @return True if it worked well, false if not.
 	 */	
 	void addPlayer (Player newPlayer);
+	
+	void removePlayer (Player Player);
 
 		/**
 	 * This method will update the score of a player with IP address given by parameter.

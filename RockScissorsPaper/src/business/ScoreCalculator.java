@@ -46,8 +46,7 @@ public class ScoreCalculator {
 			if(game.getPlayerList().get(i).getLastHand() == Hand.UNDEF) {
 				ready = false;
 			}			
-		}
-		
+		}	
 		return ready;
 	}
 	

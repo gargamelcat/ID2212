@@ -19,6 +19,11 @@ public class Game {
 		playerList.add(newPlayer);
 
 	}
+	
+	public void removePlayer(Player Player) {
+		playerList.add(Player);
+
+	}
 
 	public void updatePlayersLastHand(InetAddress ipAddress, Hand lastHand) {
 		getPlayerByAddress(ipAddress).setLastHand(lastHand);

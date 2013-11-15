@@ -14,7 +14,12 @@ public class DataManager implements IData {
 	public void addPlayer(Player newPlayer) {
 		game.addPlayer(newPlayer);
 	}
-
+	
+	@Override
+	public void removePlayer(Player Player) {
+		game.removePlayer(Player);
+	}
+	
 	@Override
 	public void updatePlayersScore(InetAddress ipAddress, int score) {
 		game.updatePlayersScore(ipAddress, score);
@@ -30,4 +35,6 @@ public class DataManager implements IData {
 	public Game getGame() {
 		return game;
 	}
+
+	
 }
