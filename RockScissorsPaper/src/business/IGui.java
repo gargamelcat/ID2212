@@ -1,6 +1,7 @@
 package business;
 
 import data.Game;
+import data.Hand;
 import data.Player;
 
 /**
@@ -34,4 +35,6 @@ public interface IGui {
 	 * @param An object of the new player.
 	 */
 	Game getGame();
+	
+	void playRound(Player me, Hand hand);
 }
