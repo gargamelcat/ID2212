@@ -46,7 +46,6 @@ public class Sender {
 			if (n != fromServer.length) {
 				System.out.println("Some data are lost ...");
 			}
-			System.out.println(new String(fromServer));
 
 			out.close();
 			in.close();

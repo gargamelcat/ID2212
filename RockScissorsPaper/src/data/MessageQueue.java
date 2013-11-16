@@ -11,22 +11,22 @@ public class MessageQueue {
 		queue = new LinkedList<String>();
 	}
 	
-	public static MessageQueue getInstance(){
+	public synchronized static MessageQueue getInstance(){
 		if(instance == null){
 			instance = new MessageQueue();
 		}
 		return instance;
 	}
 	
-	public void addNewMessage(String newMessage){
+	public synchronized void addNewMessage(String newMessage){
 		queue.add(newMessage);
 	}
 	
-	public String getOldestEntry(){
+	public synchronized String getOldestEntry(){
 		return queue.removeFirst();
 	}
 	
-	public int getSize(){
+	public synchronized int getSize(){
 		return queue.size();
 	}
 }
