@@ -11,7 +11,6 @@ public class Player {
 	private Hand hand = null;
 	private int port;
 	private InetAddress ipAddress = null;
-	private ArrayList<String> messageQueue = null;
 	
 	public Player(int id, String name, int port,
 			InetAddress ipAddress) {
@@ -21,7 +20,6 @@ public class Player {
 		this.hand = Hand.UNDEF;
 		this.port = port;
 		this.ipAddress = ipAddress;
-		this.messageQueue = new ArrayList<String>();
 	}
 
 
@@ -65,11 +63,4 @@ public class Player {
 		this.ipAddress = ipAddress;
 	}
 	
-	public ArrayList<String> getMessageQueue(){
-		return messageQueue;
-	}
-	
-	public void addMessage(String newMessage){
-		messageQueue.add(newMessage);
-	}
 }
