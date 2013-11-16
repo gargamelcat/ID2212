@@ -21,6 +21,7 @@ public class MainTwo {
 			//you = new Player(1, "listener", 4445, InetAddress.getByName("127.0.0.1"));
 			otherPlayer = new Player(4, "bliblabla", 4444, InetAddress.getByName("127.0.0.1"));
 			GameLeader clientLeader = new GameLeader(otherPlayer);
+			
 			clientLeader.send(otherPlayer, "hallo du depp");
 			clientLeader.send(otherPlayer, "hallo du gschide siech");
 		

@@ -14,16 +14,15 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Player me;
 		try {
 			me = new Player(1, "listener", 4444, InetAddress.getLocalHost());
 			GameLeader serverLeader = new GameLeader(me);
 			serverLeader.listen();
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 
 }
