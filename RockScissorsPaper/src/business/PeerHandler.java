@@ -6,7 +6,7 @@ import java.net.Socket;
 
 import data.Player;
 
-public class PeerHandler {
+public class PeerHandler extends Thread{
 
 	boolean listening = true;
 	ServerSocket serverSocket = null;
@@ -16,7 +16,7 @@ public class PeerHandler {
 		this.player = player;
 	}
 
-	public void listen() {
+	public void run() {
 
 		try {
 			serverSocket = new ServerSocket(player.getPort());
