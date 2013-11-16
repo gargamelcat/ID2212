@@ -44,12 +44,14 @@ public class Peer extends Thread{
 				}
 			}
 			
-			//System.out.println(new String(msg));
+			//save messages in queue
 			MessageQueue.getInstance().addNewMessage(new String(msg));
-			for(int i=bytesRead; i>0; i--) {
-				out.write(msg[i-1]);
+			
+			
+			//send same message back, for debug purposes
+			for(int i=0; i<bytesRead; i++) {
+				out.write(msg[i]);
 			}
-
 			out.flush();
 
 		} catch(IOException e) {
