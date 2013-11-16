@@ -4,10 +4,14 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import data.MessageQueue;
+
+import data.MessageQueue;
 
 public class Peer extends Thread{
 
 	private Socket clientSocket = null;
+	
 	
 	public Peer(Socket clientSocket){
 		this.clientSocket = clientSocket;
@@ -39,7 +43,9 @@ public class Peer extends Thread{
 					break;
 				}
 			}
-
+			
+			//System.out.println(new String(msg));
+			MessageQueue.getInstance().addNewMessage(new String(msg));
 			for(int i=bytesRead; i>0; i--) {
 				out.write(msg[i-1]);
 			}

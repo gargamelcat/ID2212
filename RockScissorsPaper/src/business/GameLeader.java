@@ -10,11 +10,14 @@ public class GameLeader implements IGui {
 	ScoreCalculator scoreCalc = null;
 	PeerHandler peerHandler = null;
 	Sender sender = null;
+	MessageProcessor messageProcessor = null;
 	
 	public GameLeader(Player player){
 		scoreCalc = new ScoreCalculator();
 		peerHandler = new PeerHandler(player);
 		sender = new Sender();
+		messageProcessor = new MessageProcessor();
+		messageProcessor.start();
 	}
 	
 	public void listen(){

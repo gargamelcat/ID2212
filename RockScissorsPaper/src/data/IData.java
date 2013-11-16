@@ -41,5 +41,5 @@ public interface IData {
 	 * @return The actual game.
 	 */	
 	Game getGame();
-
+	
 }
