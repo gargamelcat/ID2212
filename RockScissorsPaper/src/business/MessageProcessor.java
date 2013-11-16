@@ -13,8 +13,8 @@ public class MessageProcessor extends Thread {
 
 			String message = null;
 			while (MessageQueue.getInstance().getSize() == 0) {
-
 			}
+			
 			message = MessageQueue.getInstance().getOldestEntry();
 			System.out.println(message);
 
