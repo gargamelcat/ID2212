@@ -17,13 +17,14 @@ public class GameLeader implements IGui {
 		peerHandler = new PeerHandler(player);
 		sender = new Sender();
 		messageProcessor = new MessageProcessor();
-		messageProcessor.start();
 	}
 	
 	public void listen(){
 		
-		peerHandler.listen();
+		messageProcessor.start();
+		peerHandler.start();
 	}
+	
 	
 	public void send(Player player, String message){
 		sender.sendMessageTo(player, message);
