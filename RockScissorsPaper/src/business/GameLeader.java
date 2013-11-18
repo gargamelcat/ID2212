@@ -50,7 +50,7 @@ public class GameLeader implements IGui {
 	@Override
 	public void playRound(Player me, Hand hand) {
 		
-		mainGame.updatePlayersLastHand(me.getIpAddress(), hand);
+		mainGame.updatePlayersLastHand(me.getSocketAddress(), hand);
 	}
 
 

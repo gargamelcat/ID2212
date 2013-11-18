@@ -1,6 +1,7 @@
 package data;
 
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 
 
 /**
@@ -26,7 +27,7 @@ public interface IData {
 	 * @param id Id of the player that has to be updated.
 	 * @param score New score that will be updated.
 	 */	
-	void updatePlayersScore (InetAddress ipAddress, int score);
+	void updatePlayersScore (InetSocketAddress socketAddress, int score);
 	
 	
 	/**
@@ -34,7 +35,7 @@ public interface IData {
 	 * @param Player with updated information.
 	 * @return DTOcustomer
 	 */	
-	void updatePlayersLastHand(InetAddress ipAddress, Hand lastHand);
+	void updatePlayersLastHand(InetSocketAddress socketAddress, Hand lastHand);
 	
 	/**
 	 * This method will return an object of Game. That contains all information about an actual game.

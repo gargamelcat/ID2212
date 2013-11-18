@@ -1,6 +1,7 @@
 package data;
 
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 
 public class Game {
@@ -25,20 +26,20 @@ public class Game {
 
 	}
 
-	public void updatePlayersLastHand(InetAddress ipAddress, Hand lastHand) {
-		getPlayerByAddress(ipAddress).setLastHand(lastHand);
+	public void updatePlayersLastHand(InetSocketAddress socketAddress, Hand lastHand) {
+		getPlayerBySocketAddress(socketAddress).setLastHand(lastHand);
 	}
 
-	public void updatePlayersScore(InetAddress ipAddress, int score) {
-		getPlayerByAddress(ipAddress).setScore(score);
+	public void updatePlayersScore(InetSocketAddress socketAddress, int score) {
+		getPlayerBySocketAddress(socketAddress).setScore(score);
 	}
 
-	private Player getPlayerByAddress(InetAddress ipAddress) {
+	private Player getPlayerBySocketAddress(InetSocketAddress ipAddress) {
 
 		Player searchedPlayer = null;
 
 		for (int i = 0; i < playerList.size(); i++) {
-			if (playerList.get(i).getIpAddress() == ipAddress) {
+			if (playerList.get(i).getSocketAddress() == ipAddress) {
 				searchedPlayer = playerList.get(i);
 			}
 		}

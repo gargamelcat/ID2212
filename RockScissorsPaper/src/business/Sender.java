@@ -19,14 +19,14 @@ public class Sender {
 	public void sendMessageTo(Player player, String message) {
 
 		try {
-			clientSocket = new Socket(player.getIpAddress(), player.getPort());
+			clientSocket = new Socket(player.getSocketAddress().getAddress(), player.getSocketAddress().getPort());
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host: "
-					+ player.getIpAddress() + ".");
+					+ player.getSocketAddress() + ".");
 			System.exit(1);
 		} catch (IOException e) {
 			System.err.println("Couldn't get I/O for " + "the connection to: "
-					+ player.getIpAddress() + "");
+					+ player.getSocketAddress() + "");
 			System.exit(1);
 		}
 

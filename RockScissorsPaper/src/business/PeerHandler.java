@@ -19,9 +19,9 @@ public class PeerHandler extends Thread{
 	public void run() {
 
 		try {
-			serverSocket = new ServerSocket(player.getPort());
+			serverSocket = new ServerSocket(player.getSocketAddress().getPort());
 		} catch (IOException e) {
-			System.err.println("Could not listen on port: " + player.getPort() + ".");
+			System.err.println("Could not listen on port: " + player.getSocketAddress().getPort() + ".");
 			System.exit(1);
 		}
 

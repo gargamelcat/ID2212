@@ -16,7 +16,7 @@ public class Main {
 	public static void main(String[] args) {
 		Player me;
 		try {
-			me = new Player(1, "listener", 4444, InetAddress.getLocalHost());
+			me = new Player(4, "bliblabla", new InetSocketAddress(InetAddress.getByName("127.0.0.1"), 4444));
 			GameLeader serverLeader = new GameLeader(me);
 			serverLeader.listen();
 		} catch (UnknownHostException e) {

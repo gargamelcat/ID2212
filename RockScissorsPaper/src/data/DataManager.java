@@ -1,6 +1,7 @@
 package data;
 
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 
 public class DataManager implements IData {
 	
@@ -21,14 +22,14 @@ public class DataManager implements IData {
 	}
 	
 	@Override
-	public void updatePlayersScore(InetAddress ipAddress, int score) {
-		game.updatePlayersScore(ipAddress, score);
+	public void updatePlayersScore(InetSocketAddress socketAddress, int score) {
+		game.updatePlayersScore(socketAddress, score);
 		
 	}
 
 	@Override
-	public void updatePlayersLastHand(InetAddress ipAddress, Hand lastHand) {
-		game.updatePlayersLastHand(ipAddress, lastHand);
+	public void updatePlayersLastHand(InetSocketAddress socketAddress, Hand lastHand) {
+		game.updatePlayersLastHand(socketAddress, lastHand);
 	}
 	
 	@Override

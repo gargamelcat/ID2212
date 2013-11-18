@@ -2,6 +2,7 @@ package data;
 
 import java.lang.reflect.Array;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 
 public class Player {
@@ -9,19 +10,15 @@ public class Player {
 	private String name = null;
 	private int score = 0;
 	private Hand hand = null;
-	private int port;
-	private InetAddress ipAddress = null;
-	
-	public Player(int id, String name, int port,
-			InetAddress ipAddress) {
+	private InetSocketAddress socketAddress = null;
+
+	public Player(int id, String name, InetSocketAddress socketAddress) {
 		super();
 		this.name = name;
 		this.score = 0;
 		this.hand = Hand.UNDEF;
-		this.port = port;
-		this.ipAddress = ipAddress;
+		this.socketAddress = socketAddress;
 	}
-
 
 	public String getName() {
 		return name;
@@ -47,20 +44,12 @@ public class Player {
 		this.hand = lastHand;
 	}
 
-	public int getPort() {
-		return port;
+	public InetSocketAddress getSocketAddress() {
+		return socketAddress;
 	}
 
-	public void setPort(int port) {
-		this.port = port;
+	public void setSocketAddress(InetSocketAddress socketAddress) {
+		this.socketAddress = socketAddress;
 	}
 
-	public InetAddress getIpAddress() {
-		return ipAddress;
-	}
-
-	public void setIpAddress(InetAddress ipAddress) {
-		this.ipAddress = ipAddress;
-	}
-	
 }
