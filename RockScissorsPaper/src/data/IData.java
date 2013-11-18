@@ -32,10 +32,11 @@ public interface IData {
 	
 	/**
 	 * This method will  update the move that the player played.
+	 * @param round TODO
 	 * @param Player with updated information.
 	 * @return DTOcustomer
 	 */	
-	void updateMove(InetSocketAddress socketAddress, Move move);
+	void addMove(InetSocketAddress socketAddress, Move move, int round);
 	
 	/**
 	 * This method will return an object of Game. That contains all information about an actual game.

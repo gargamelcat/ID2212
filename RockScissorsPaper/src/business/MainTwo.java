@@ -22,8 +22,7 @@ public class MainTwo {
 			otherPlayer = new Player("bliblabla", new InetSocketAddress(InetAddress.getByName("127.0.0.1"), 4444));
 			GameLeader clientLeader = new GameLeader(otherPlayer);
 			
-			clientLeader.send(otherPlayer, "hallo du depp");
-			clientLeader.send(otherPlayer, "hallo du gschide siech");
+			clientLeader.send(otherPlayer, "player;add;joel;127.0.0.1;4444;end");
 		
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block

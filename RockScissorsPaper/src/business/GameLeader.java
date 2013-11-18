@@ -50,8 +50,8 @@ public class GameLeader implements IGui {
 
 	@Override
 	public void playRound(Player me, Move move) {
-		
-		mainGame.updateMove(me.getSocketAddress(), move);
+		//@Joel check, need to be changed, round is fix right now
+		mainGame.addMove(me.getSocketAddress(), move, 1);
 	}
 
 

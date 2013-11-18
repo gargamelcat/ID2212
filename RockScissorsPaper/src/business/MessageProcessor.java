@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import data.Game;
 import data.MessageQueue;
+import data.Move;
 import data.Player;
 
 public class MessageProcessor extends Thread {
@@ -49,21 +50,23 @@ public class MessageProcessor extends Thread {
 		String name = null;
 		InetSocketAddress socketAddress = null;
 		String ipAddress = null;
+		String portAsString = null;
 		int port = 0;
 
 		name = command[2];
 		ipAddress = command[3];
+		portAsString = command[4];
 		port = Integer.parseInt(command[4]);
 
-		if (command.length == 5) {
-			if (command[1] == "add") {
+		if (command.length == 6) {
+			if (command[1].equals("add")) {
 				try {
 					game.addPlayer(new Player(name, new InetSocketAddress(
 							InetAddress.getByName(ipAddress), port)));
 				} catch (UnknownHostException e) {
 					e.printStackTrace();
 				}
-			} else if (command[1] == "remove") {
+			} else if (command[1].equals("remove")) {
 				try {
 					game.removePlayer(new Player(name, new InetSocketAddress(
 							InetAddress.getByName(ipAddress), port)));
@@ -86,18 +89,45 @@ public class MessageProcessor extends Thread {
 		InetSocketAddress socketAddress = null;
 		String ipAddress = null;
 		int port = 0;
-		String moveAsString = null
-		
+		String portAsString = null;
+		String moveAsString = null;
+		Move move = null;
+		String round = null;
 
 		name = command[2];
 		ipAddress = command[3];
 		port = Integer.parseInt(command[4]);
+		moveAsString = command[5];
+		move = convertStringToMove(moveAsString);
+		round = command[6];
 		
-		if(command.length == 5){
-			
+		if(command.length == 8){
+			try {
+				game.addMove(new InetSocketAddress(InetAddress.getByName(ipAddress), port), move, Integer.parseInt(round));
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}else{
 			System.out.println("The following command is corrupt: " + command);
 		}
 	}
 
+	private Move convertStringToMove(String moveAsString){
+		Move result = null;
+		switch(moveAsString){
+		case "rock":
+			result = Move.ROCK;
+			break;
+		case "scissors":
+			result = Move.SCISSORS;
+			break;
+		case "paper":
+			result = Move.PAPER;
+			break;
+		default:
+			System.out.println("Illegal move: " + moveAsString);
+		}
+		return result;
+	}
 }

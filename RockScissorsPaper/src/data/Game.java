@@ -18,6 +18,9 @@ public class Game {
 
 	public void addPlayer(Player newPlayer) {
 		playerList.add(newPlayer);
+		System.out.println(newPlayer.getName());
+		System.out.println(newPlayer.getSocketAddress().getAddress());
+		System.out.println(newPlayer.getSocketAddress().getPort());
 
 	}
 	
@@ -26,7 +29,7 @@ public class Game {
 
 	}
 
-	public void updateMove(InetSocketAddress socketAddress, Move move) {
+	public void addMove(InetSocketAddress socketAddress, Move move, int round) {
 		getPlayerBySocketAddress(socketAddress).setMove(move);
 	}
 
