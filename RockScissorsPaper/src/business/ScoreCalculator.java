@@ -1,7 +1,7 @@
 package business;
 
 import data.Game;
-import data.Hand;
+import data.Move;
 
 public class ScoreCalculator {
 
@@ -16,18 +16,18 @@ public class ScoreCalculator {
 		int points = 0;
 		int sizeArray = game.getPlayerList().size(); 
 		for(int i = 0 ;i < sizeArray ;i++) {
-			Hand temp = game.getPlayerList().get(i).getLastHand();
+			Move temp = game.getPlayerList().get(i).getMove();
 			for(int k = 0; k < sizeArray; k++) {
 				if(i != k) {
-					Hand other = game.getPlayerList().get(k).getLastHand(); 
-					if(temp == Hand.PAPER) {
-						points += (other == Hand.ROCK ? 1 : 0);
+					Move other = game.getPlayerList().get(k).getMove(); 
+					if(temp == Move.PAPER) {
+						points += (other == Move.ROCK ? 1 : 0);
 					}
-					if(temp == Hand.ROCK) {
-						points += (other == Hand.SCISSORS ? 1 : 0);
+					if(temp == Move.ROCK) {
+						points += (other == Move.SCISSORS ? 1 : 0);
 					}
-					if(temp == Hand.SCISSORS) {
-						points += (other == Hand.PAPER ? 1 : 0);
+					if(temp == Move.SCISSORS) {
+						points += (other == Move.PAPER ? 1 : 0);
 					}
 				}
 			}
@@ -43,7 +43,7 @@ public class ScoreCalculator {
 		
 		boolean ready = true;		
 		for(int i=0; i < game.getPlayerList().size(); i++) {
-			if(game.getPlayerList().get(i).getLastHand() == Hand.UNDEF) {
+			if(game.getPlayerList().get(i).getMove() == Move.UNDEF) {
 				ready = false;
 			}			
 		}	

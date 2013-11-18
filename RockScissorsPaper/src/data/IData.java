@@ -31,11 +31,11 @@ public interface IData {
 	
 	
 	/**
-	 * This method will  update the last hand that the player played.
+	 * This method will  update the move that the player played.
 	 * @param Player with updated information.
 	 * @return DTOcustomer
 	 */	
-	void updatePlayersLastHand(InetSocketAddress socketAddress, Hand lastHand);
+	void updateMove(InetSocketAddress socketAddress, Move move);
 	
 	/**
 	 * This method will return an object of Game. That contains all information about an actual game.

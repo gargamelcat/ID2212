@@ -26,8 +26,8 @@ public class Game {
 
 	}
 
-	public void updatePlayersLastHand(InetSocketAddress socketAddress, Hand lastHand) {
-		getPlayerBySocketAddress(socketAddress).setLastHand(lastHand);
+	public void updateMove(InetSocketAddress socketAddress, Move move) {
+		getPlayerBySocketAddress(socketAddress).setMove(move);
 	}
 
 	public void updatePlayersScore(InetSocketAddress socketAddress, int score) {

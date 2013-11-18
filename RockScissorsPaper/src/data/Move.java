@@ -7,6 +7,6 @@ package data;
  * @version 1.0
  */
 
-public enum Hand {
+public enum Move {
 	ROCK, SCISSORS, PAPER, UNDEF
 }

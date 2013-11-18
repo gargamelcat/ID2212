@@ -1,7 +1,7 @@
 package business;
 
 import data.Game;
-import data.Hand;
+import data.Move;
 import data.Player;
 
 public class GameLeader implements IGui {
@@ -16,7 +16,8 @@ public class GameLeader implements IGui {
 		scoreCalc = new ScoreCalculator();
 		peerHandler = new PeerHandler(player);
 		sender = new Sender();
-		messageProcessor = new MessageProcessor();
+		mainGame = new Game();
+		messageProcessor = new MessageProcessor(mainGame);
 	}
 	
 	public void listen(){
@@ -40,7 +41,7 @@ public class GameLeader implements IGui {
 	}
 	@Override
 	public void createGame() {
-		mainGame = new Game();
+		//@Joel check
 	}
 	@Override
 	public Game getGame() {
@@ -48,9 +49,9 @@ public class GameLeader implements IGui {
 	}
 
 	@Override
-	public void playRound(Player me, Hand hand) {
+	public void playRound(Player me, Move move) {
 		
-		mainGame.updatePlayersLastHand(me.getSocketAddress(), hand);
+		mainGame.updateMove(me.getSocketAddress(), move);
 	}
 
 

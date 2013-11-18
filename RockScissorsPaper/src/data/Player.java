@@ -9,14 +9,14 @@ public class Player {
 
 	private String name = null;
 	private int score = 0;
-	private Hand hand = null;
+	private Move move = null;
 	private InetSocketAddress socketAddress = null;
 
-	public Player(int id, String name, InetSocketAddress socketAddress) {
+	public Player(String name, InetSocketAddress socketAddress) {
 		super();
 		this.name = name;
 		this.score = 0;
-		this.hand = Hand.UNDEF;
+		this.move = Move.UNDEF;
 		this.socketAddress = socketAddress;
 	}
 
@@ -36,12 +36,12 @@ public class Player {
 		this.score = score;
 	}
 
-	public Hand getLastHand() {
-		return hand;
+	public Move getMove() {
+		return move;
 	}
 
-	public void setLastHand(Hand lastHand) {
-		this.hand = lastHand;
+	public void setMove(Move move) {
+		this.move = move;
 	}
 
 	public InetSocketAddress getSocketAddress() {

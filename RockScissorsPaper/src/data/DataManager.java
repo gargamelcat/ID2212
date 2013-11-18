@@ -28,8 +28,8 @@ public class DataManager implements IData {
 	}
 
 	@Override
-	public void updatePlayersLastHand(InetSocketAddress socketAddress, Hand lastHand) {
-		game.updatePlayersLastHand(socketAddress, lastHand);
+	public void updateMove(InetSocketAddress socketAddress, Move move) {
+		game.updateMove(socketAddress, move);
 	}
 	
 	@Override

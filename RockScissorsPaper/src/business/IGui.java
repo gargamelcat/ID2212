@@ -1,7 +1,7 @@
 package business;
 
 import data.Game;
-import data.Hand;
+import data.Move;
 import data.Player;
 
 /**
@@ -40,5 +40,5 @@ public interface IGui {
 	 */
 	Game getGame();
 	
-	void playRound(Player me, Hand hand);
+	void playRound(Player me, Move hand);
 }
