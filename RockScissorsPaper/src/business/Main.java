@@ -15,14 +15,16 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		Player me;
-		try {
-			me = new Player("bliblabla", new InetSocketAddress(InetAddress.getByName("127.0.0.1"), 4444));
-			GameLeader serverLeader = new GameLeader(me);
-			serverLeader.listen();
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
+		if (args.length == 3){
+			try {
+				me = new Player(args[0], new InetSocketAddress(InetAddress.getByName(args[1]), Integer.parseInt(args[2])));
+				GameLeader serverLeader = new GameLeader(me);
+				serverLeader.listen();
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+			}
 		}
-		
+		else System.out.println("This programs needs three argumenst to start the game: Player_name IP PORT");
 	}
 
 }
