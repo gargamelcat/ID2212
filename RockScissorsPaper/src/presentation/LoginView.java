@@ -19,7 +19,7 @@ import java.awt.Font;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-public class MainWindow extends JFrame {
+public class LoginView extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -34,8 +34,8 @@ public class MainWindow extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainWindow frame = new MainWindow();
-					frame.setVisible(true);
+					//LoginView frame = new LoginView();
+					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -46,7 +46,7 @@ public class MainWindow extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainWindow() {
+	public LoginView(ActionListener connectListener) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 434, 330);
 		contentPane = new JPanel();
@@ -124,11 +124,7 @@ public class MainWindow extends JFrame {
 		});
 		
 		JButton btnPlayAgainsIa = new JButton("Play Agains IA");
-		btnPlayAgainsIa.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-					
-			}
-		});
+		btnPlayAgainsIa.addActionListener(connectListener);
 		btnPlayAgainsIa.setFont(new Font("Dialog", Font.BOLD, 10));
 		GridBagConstraints gbc_btnPlayAgainsIa = new GridBagConstraints();
 		gbc_btnPlayAgainsIa.insets = new Insets(0, 0, 5, 5);
