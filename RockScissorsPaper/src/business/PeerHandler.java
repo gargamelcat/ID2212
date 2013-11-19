@@ -26,6 +26,7 @@ public class PeerHandler extends Thread{
 		}
 
 		try {
+			System.out.println("Waiting for Connection...please wait");
 			while (listening) {
 				Socket clientSocket = serverSocket.accept();
 				(new Peer(clientSocket)).start();
