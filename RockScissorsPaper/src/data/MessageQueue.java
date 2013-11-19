@@ -7,7 +7,7 @@ public class MessageQueue {
 	private static MessageQueue instance = null;
 	private LinkedList<String> queue = null;
 	
-	public MessageQueue(){
+	private MessageQueue(){
 		queue = new LinkedList<String>();
 	}
 	
