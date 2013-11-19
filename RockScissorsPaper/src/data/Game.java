@@ -36,8 +36,6 @@ public class Game implements IData {
 		getPlayerBySocketAddress(socketAddress).setScore(score);
 	}
 
-
-
 	@Override
 	public ArrayList<Player> getPlayerList() {
 		return playerList;

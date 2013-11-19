@@ -51,5 +51,14 @@ public class Player {
 	public void setSocketAddress(InetSocketAddress socketAddress) {
 		this.socketAddress = socketAddress;
 	}
+	
+	public boolean comparePlayerBySocketAddress(Player otherPlayer){
+		boolean result = false;
+		if(this.getSocketAddress().getPort() == otherPlayer.getSocketAddress().getPort()){
+			//@Joel check ip as well!!!!!!!!!
+			result = true;
+		}
+		return result;
+	}
 
 }

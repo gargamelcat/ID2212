@@ -20,6 +20,7 @@ public class MainTwo {
 		try {
 			//you = new Player( "listener", 4445, InetAddress.getByName("127.0.0.1"));
 			otherPlayer = new Player("bliblabla", new InetSocketAddress(InetAddress.getByName("127.0.0.1"), 4444));
+			
 			GameLeader clientLeader = new GameLeader(otherPlayer);
 			
 			clientLeader.send(otherPlayer, "player;add;joel;127.0.0.1;4444;end");
