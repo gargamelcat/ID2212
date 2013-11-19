@@ -105,7 +105,6 @@ public class MessageProcessor extends Thread {
 		if(command.length == 8){
 			try {
 				InetSocketAddress tempSocketAddress = new InetSocketAddress(InetAddress.getByName(ipAddress), port);
-				game.getPlayerBySocketAddress(tempSocketAddress);
 				game.addMove(tempSocketAddress, move);
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block

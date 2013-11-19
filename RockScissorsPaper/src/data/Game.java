@@ -52,13 +52,16 @@ public class Game implements IData {
 
 	@Override
 	public Player getPlayerBySocketAddress(InetSocketAddress socketAddress) {
-		Player searchedPlayer = null;
+		Player searchedPlayer = new Player(null , socketAddress);
 
 		for (int i = 0; i < playerList.size(); i++) {
-			if (playerList.get(i).getSocketAddress() == socketAddress) {
+			if (playerList.get(i).comparePlayerBySocketAddress(searchedPlayer)) {
 				searchedPlayer = playerList.get(i);
 			}
 		}
+		if(searchedPlayer.getName() == null){
+			System.out.println("player with this socket address does not exist: "+ socketAddress.getAddress()+"/"+socketAddress.getPort());
+		}
 		return searchedPlayer;
-	}		// TODO Auto-generated method stub
+	}
 }
