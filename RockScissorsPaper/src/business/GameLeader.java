@@ -1,12 +1,13 @@
 package business;
 
 import data.Game;
+import data.IData;
 import data.Move;
 import data.Player;
 
 public class GameLeader implements IGui {
 	
-	Game mainGame = null;
+	IData mainGame = null;
 	ScoreCalculator scoreCalc = null;
 	PeerHandler peerHandler = null;
 	Sender sender = null;
@@ -51,7 +52,7 @@ public class GameLeader implements IGui {
 	@Override
 	public void playRound(Player me, Move move) {
 		//@Joel check, need to be changed, round is fix right now
-		mainGame.addMove(me.getSocketAddress(), move, 1);
+		mainGame.addMove(me.getSocketAddress(), move);
 	}
 
 

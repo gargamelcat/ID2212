@@ -6,6 +6,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import data.Game;
+import data.IData;
 import data.MessageQueue;
 import data.Move;
 import data.Player;
@@ -14,8 +15,8 @@ public class MessageProcessor extends Thread {
 
 	private Game game = null;
 
-	public MessageProcessor(Game game) {
-		this.game = game;
+	public MessageProcessor(IData game) {
+		this.game = (Game) game;
 
 	}
 
@@ -103,7 +104,9 @@ public class MessageProcessor extends Thread {
 		
 		if(command.length == 8){
 			try {
-				game.addMove(new InetSocketAddress(InetAddress.getByName(ipAddress), port), move, Integer.parseInt(round));
+				InetSocketAddress tempSocketAddress = new InetSocketAddress(InetAddress.getByName(ipAddress), port);
+				game.getPlayerBySocketAddress(tempSocketAddress);
+				game.addMove(tempSocketAddress, move);
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
