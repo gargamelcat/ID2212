@@ -7,10 +7,15 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.UIManager;
 
+import business.GameLeader;
+import business.IGui;
+
 public class MainController {
 
 	private MainController mainController = null;
 	LoginView loginView = null;
+	MainView mainView = null;
+	IGui gameLeader = null;
 
 	/**
 	 * Main method for MainController.
@@ -34,7 +39,9 @@ public class MainController {
 	 */
 	public MainController() {
 		mainController = this;
+		gameLeader = new GameLeader();
 		loginView = new LoginView(new connectListener());
+		mainView = new MainView(new playMmoveListener(), new addPlayerListener(), new exitListener());
 		loginView.setVisible(true);
 
 	}
@@ -42,7 +49,31 @@ public class MainController {
 	class connectListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			gameLeader.startGame(loginView.getUserName(), loginView.getIpAddress(), Integer.parseInt(loginView.getPort()));
+			loginView.setVisible(false);
+			mainView.setVisible(true);
+		}
+	}
+
+	class playMmoveListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
 			loginView.setVisible(false);
 		}
 	}
+
+	class addPlayerListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			loginView.setVisible(false);
+		}
+	}
+
+	class exitListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			loginView.setVisible(false);
+		}
+	}
+
 }

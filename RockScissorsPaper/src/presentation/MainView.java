@@ -32,8 +32,8 @@ public class MainView extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainView frame = new MainView();
-					frame.setVisible(true);
+					//MainView frame = new MainView();
+					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -44,16 +44,16 @@ public class MainView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainView() {
+	public MainView(ActionListener playMoveListener, ActionListener addPlayerListener, ActionListener exitListener) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 711, 411);
+		setBounds(100, 100, 640, 411);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[] {0, 344, 94, 0, 0, 0, 3};
-		gbl_contentPane.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3};
-		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[] {83, 205, 68, 0, 0, 0, 0, 3};
+		gbl_contentPane.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 3};
+		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
@@ -98,13 +98,10 @@ public class MainView extends JFrame {
 		contentPane.add(radioButtonRock, gbc_radioButtonRock);
 		
 		JButton buttonPlayMove = new JButton("Play Move!!");
-		buttonPlayMove.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		buttonPlayMove.addActionListener(playMoveListener);
 		GridBagConstraints gbc_buttonPlayMove = new GridBagConstraints();
 		gbc_buttonPlayMove.insets = new Insets(0, 0, 5, 5);
-		gbc_buttonPlayMove.gridx = 4;
+		gbc_buttonPlayMove.gridx = 2;
 		gbc_buttonPlayMove.gridy = 7;
 		contentPane.add(buttonPlayMove, gbc_buttonPlayMove);
 		
@@ -126,31 +123,27 @@ public class MainView extends JFrame {
 		
 		tableResult = new JTable();
 		GridBagConstraints gbc_tableResult = new GridBagConstraints();
-		gbc_tableResult.gridwidth = 2;
+		gbc_tableResult.gridwidth = 3;
 		gbc_tableResult.insets = new Insets(0, 0, 5, 5);
 		gbc_tableResult.fill = GridBagConstraints.BOTH;
 		gbc_tableResult.gridx = 1;
 		gbc_tableResult.gridy = 11;
 		contentPane.add(tableResult, gbc_tableResult);
 		
-		JButton btnNewButton = new JButton("New button");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 2;
-		gbc_btnNewButton.gridy = 11;
-		contentPane.add(btnNewButton, gbc_btnNewButton);
 		
 		JButton buttonAddPlayer = new JButton("Add Player");
+		buttonAddPlayer.addActionListener(addPlayerListener);
 		GridBagConstraints gbc_buttonAddPlayer = new GridBagConstraints();
 		gbc_buttonAddPlayer.insets = new Insets(0, 0, 5, 5);
-		gbc_buttonAddPlayer.gridx = 4;
+		gbc_buttonAddPlayer.gridx = 5;
 		gbc_buttonAddPlayer.gridy = 11;
 		contentPane.add(buttonAddPlayer, gbc_buttonAddPlayer);
 		
 		JButton buttonExit = new JButton("Exit");
+		buttonExit.addActionListener(exitListener);
 		GridBagConstraints gbc_buttonExit = new GridBagConstraints();
 		gbc_buttonExit.insets = new Insets(0, 0, 5, 5);
-		gbc_buttonExit.gridx = 4;
+		gbc_buttonExit.gridx = 5;
 		gbc_buttonExit.gridy = 13;
 		contentPane.add(buttonExit, gbc_buttonExit);
 	}

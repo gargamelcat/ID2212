@@ -18,8 +18,8 @@ public class Main {
 		if (args.length == 3){
 			try {
 				me = new Player(args[0], new InetSocketAddress(InetAddress.getByName(args[1]), Integer.parseInt(args[2])));
-				GameLeader serverLeader = new GameLeader(me);
-				serverLeader.listen();
+				//GameLeader serverLeader = new GameLeader(me);
+				//serverLeader.listen();
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
 			}

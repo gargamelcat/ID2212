@@ -1,5 +1,8 @@
 package business;
 
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+
 import data.Game;
 import data.IData;
 import data.Move;
@@ -13,9 +16,8 @@ public class GameLeader implements IGui {
 	Sender sender = null;
 	MessageProcessor messageProcessor = null;
 	
-	public GameLeader(Player player){
+	public GameLeader(){
 		scoreCalc = new ScoreCalculator();
-		peerHandler = new PeerHandler(player);
 		sender = new Sender();
 		mainGame = new Game();
 		messageProcessor = new MessageProcessor(mainGame);
@@ -33,17 +35,20 @@ public class GameLeader implements IGui {
 	}
 	
 	@Override
-	public void setPlayerInfo(Player me) {
-		mainGame.addPlayer(me);
+	public void startGame(String name, String ipAddress, int port) {
+		InetSocketAddress tempSocketAddr = new InetSocketAddress(ipAddress, port);
+		Player tempPlayer = new Player(name,tempSocketAddr);
+		mainGame.addPlayer(tempPlayer);
+		peerHandler = new PeerHandler(tempPlayer);
 	}
-	@Override
-	public void addFriend(Player you) {
-		mainGame.addPlayer(you);
+	
+		@Override
+	public void addFriend(String name, String ipAddress, int port) {
+		InetSocketAddress tempSocketAddr = new InetSocketAddress(ipAddress, port);
+		Player tempPlayer = new Player(name,tempSocketAddr);
+		mainGame.addPlayer(tempPlayer);
 	}
-	@Override
-	public void createGame() {
-		//@Joel check
-	}
+		
 	@Override
 	public Game getGame() {
 		return mainGame.getGame();
@@ -54,11 +59,4 @@ public class GameLeader implements IGui {
 		//@Joel check, need to be changed, round is fix right now
 		mainGame.addMove(me.getSocketAddress(), move);
 	}
-
-
-	@Override
-	public void startGame() {
-		
-	}
-
 }

@@ -22,9 +22,9 @@ import javax.swing.Action;
 public class LoginView extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField textFieldPort;
+	private JTextField textFieldIpAddress;
+	private JTextField textFieldUserName;
 	private final Action action = new SwingAction();
 
 	/**
@@ -75,14 +75,14 @@ public class LoginView extends JFrame {
 		gbc_lblName.gridy = 2;
 		contentPane.add(lblName, gbc_lblName);
 		
-		textField_2 = new JTextField();
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.anchor = GridBagConstraints.WEST;
-		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_2.gridx = 4;
-		gbc_textField_2.gridy = 2;
-		contentPane.add(textField_2, gbc_textField_2);
-		textField_2.setColumns(10);
+		textFieldUserName = new JTextField();
+		GridBagConstraints gbc_textFieldUserName = new GridBagConstraints();
+		gbc_textFieldUserName.anchor = GridBagConstraints.WEST;
+		gbc_textFieldUserName.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldUserName.gridx = 4;
+		gbc_textFieldUserName.gridy = 2;
+		contentPane.add(textFieldUserName, gbc_textFieldUserName);
+		textFieldUserName.setColumns(10);
 		
 		JLabel lblIp = new JLabel("IP");
 		GridBagConstraints gbc_lblIp = new GridBagConstraints();
@@ -91,14 +91,14 @@ public class LoginView extends JFrame {
 		gbc_lblIp.gridy = 4;
 		contentPane.add(lblIp, gbc_lblIp);
 		
-		textField_1 = new JTextField();
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.anchor = GridBagConstraints.WEST;
-		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_1.gridx = 4;
-		gbc_textField_1.gridy = 4;
-		contentPane.add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		textFieldIpAddress = new JTextField();
+		GridBagConstraints gbc_textFieldIpAddress = new GridBagConstraints();
+		gbc_textFieldIpAddress.anchor = GridBagConstraints.WEST;
+		gbc_textFieldIpAddress.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldIpAddress.gridx = 4;
+		gbc_textFieldIpAddress.gridy = 4;
+		contentPane.add(textFieldIpAddress, gbc_textFieldIpAddress);
+		textFieldIpAddress.setColumns(10);
 		
 		JLabel lblPort = new JLabel("Port");
 		GridBagConstraints gbc_lblPort = new GridBagConstraints();
@@ -107,21 +107,17 @@ public class LoginView extends JFrame {
 		gbc_lblPort.gridy = 6;
 		contentPane.add(lblPort, gbc_lblPort);
 		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.anchor = GridBagConstraints.WEST;
-		gbc_textField.gridx = 4;
-		gbc_textField.gridy = 6;
-		contentPane.add(textField, gbc_textField);
-		textField.setColumns(10);
+		textFieldPort = new JTextField();
+		GridBagConstraints gbc_textFieldPort = new GridBagConstraints();
+		gbc_textFieldPort.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldPort.anchor = GridBagConstraints.WEST;
+		gbc_textFieldPort.gridx = 4;
+		gbc_textFieldPort.gridy = 6;
+		contentPane.add(textFieldPort, gbc_textFieldPort);
+		textFieldPort.setColumns(10);
 		
 		JButton btnConnect = new JButton("CONNECT");
-		btnConnect.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
+		btnConnect.addActionListener(connectListener);
 		
 		JButton btnPlayAgainsIa = new JButton("Play Agains IA");
 		btnPlayAgainsIa.addActionListener(connectListener);
@@ -147,5 +143,17 @@ public class LoginView extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 		}
+	}
+	
+	public String getUserName(){
+		return textFieldUserName.getText();
+	}
+	
+	public String getIpAddress(){
+		return textFieldIpAddress.getText();
+	}
+	
+	public String getPort(){
+		return textFieldPort.getText();
 	}
 }

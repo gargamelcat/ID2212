@@ -13,26 +13,16 @@ import data.Player;
 public interface IGui {
 	
 	/**
-	 * This method will set the player information about the player on this computer.
-	 * @param An object of the new player.
-	 */
-	void setPlayerInfo(Player me);
-	
-	/**
 	 * This method will add a player to the game.
 	 * @param An object of the new player.
 	 */
-	void addFriend(Player you);
+	void addFriend(String name, String ipAddress, int port);
 
-	/**
-	 * This method will create a new game.
-	 */
-	void createGame();
 	
 	/**
 	 * This method will start the game.
 	 */
-	void startGame();
+	void startGame(String name, String ipAddress, int port);
 	
 	/**
 	 * This method will return an object of the actual game.
