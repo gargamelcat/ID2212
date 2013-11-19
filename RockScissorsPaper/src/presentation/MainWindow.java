@@ -13,6 +13,11 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 
 public class MainWindow extends JFrame {
 
@@ -20,6 +25,7 @@ public class MainWindow extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private final Action action = new SwingAction();
 
 	/**
 	 * Launch the application.
@@ -111,6 +117,25 @@ public class MainWindow extends JFrame {
 		textField.setColumns(10);
 		
 		JButton btnConnect = new JButton("CONNECT");
+		btnConnect.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		
+		JButton btnPlayAgainsIa = new JButton("Play Agains IA");
+		btnPlayAgainsIa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					
+			}
+		});
+		btnPlayAgainsIa.setFont(new Font("Dialog", Font.BOLD, 10));
+		GridBagConstraints gbc_btnPlayAgainsIa = new GridBagConstraints();
+		gbc_btnPlayAgainsIa.insets = new Insets(0, 0, 5, 5);
+		gbc_btnPlayAgainsIa.anchor = GridBagConstraints.WEST;
+		gbc_btnPlayAgainsIa.gridx = 2;
+		gbc_btnPlayAgainsIa.gridy = 8;
+		contentPane.add(btnPlayAgainsIa, gbc_btnPlayAgainsIa);
 		GridBagConstraints gbc_btnConnect = new GridBagConstraints();
 		gbc_btnConnect.insets = new Insets(0, 0, 5, 0);
 		gbc_btnConnect.anchor = GridBagConstraints.WEST;
@@ -119,4 +144,12 @@ public class MainWindow extends JFrame {
 		contentPane.add(btnConnect, gbc_btnConnect);
 	}
 
+	private class SwingAction extends AbstractAction {
+		public SwingAction() {
+			putValue(NAME, "SwingAction");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+		}
+	}
 }
