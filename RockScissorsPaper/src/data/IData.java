@@ -2,6 +2,7 @@ package data;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
 
 
 /**
@@ -36,12 +37,18 @@ public interface IData {
 	 * @param Player with updated information.
 	 * @return DTOcustomer
 	 */	
-	void addMove(InetSocketAddress socketAddress, Move move, int round);
+	void addMove(InetSocketAddress socketAddress, Move move);
 	
 	/**
 	 * This method will return an object of Game. That contains all information about an actual game.
 	 * @return The actual game.
 	 */	
 	Game getGame();
+	
+	ArrayList<Player> getPlayerList();
+	
+	Player getPlayerBySocketAddress(InetSocketAddress socketAddress);
+	
+	
 	
 }

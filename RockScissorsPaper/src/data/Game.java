@@ -4,18 +4,15 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 
-public class Game {
+public class Game implements IData {
 
-	
-	private ArrayList<Round> roundList = null;
 	private ArrayList<Player> playerList = null;
-	private int round;
 
 	public Game() {
 		playerList = new ArrayList<Player>();
-		round = 1;
 	}
 
+	@Override
 	public void addPlayer(Player newPlayer) {
 		playerList.add(newPlayer);
 		System.out.println(newPlayer.getName());
@@ -23,32 +20,25 @@ public class Game {
 		System.out.println(newPlayer.getSocketAddress().getPort());
 
 	}
-	
-	public void removePlayer(Player Player) {
-		playerList.add(Player);
 
+	@Override
+	public void removePlayer(Player player) {
+		playerList.remove(player);
 	}
 
-	public void addMove(InetSocketAddress socketAddress, Move move, int round) {
+	@Override
+	public void addMove(InetSocketAddress socketAddress, Move move) {
 		getPlayerBySocketAddress(socketAddress).setMove(move);
 	}
 
+	@Override
 	public void updatePlayersScore(InetSocketAddress socketAddress, int score) {
 		getPlayerBySocketAddress(socketAddress).setScore(score);
 	}
 
-	private Player getPlayerBySocketAddress(InetSocketAddress ipAddress) {
 
-		Player searchedPlayer = null;
 
-		for (int i = 0; i < playerList.size(); i++) {
-			if (playerList.get(i).getSocketAddress() == ipAddress) {
-				searchedPlayer = playerList.get(i);
-			}
-		}
-		return searchedPlayer;
-	}
-
+	@Override
 	public ArrayList<Player> getPlayerList() {
 		return playerList;
 	}
@@ -57,15 +47,20 @@ public class Game {
 		this.playerList = playerList;
 	}
 
-	public int getRound() {
-		return round;
-	}
-
-	public void setRound(int round) {
-		this.round = round;
-	}
-
+	@Override
 	public Game getGame() {
 		return this;
 	}
+
+	@Override
+	public Player getPlayerBySocketAddress(InetSocketAddress socketAddress) {
+		Player searchedPlayer = null;
+
+		for (int i = 0; i < playerList.size(); i++) {
+			if (playerList.get(i).getSocketAddress() == socketAddress) {
+				searchedPlayer = playerList.get(i);
+			}
+		}
+		return searchedPlayer;
+	}		// TODO Auto-generated method stub
 }
