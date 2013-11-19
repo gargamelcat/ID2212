@@ -3,7 +3,9 @@ package business;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 import data.Player;
@@ -19,7 +21,10 @@ public class Sender {
 	public void sendMessageTo(Player player, String message) {
 
 		try {
-			clientSocket = new Socket(player.getSocketAddress().getAddress(), player.getSocketAddress().getPort());
+			clientSocket = new Socket();
+			clientSocket.setSoTimeout(300000);
+			clientSocket.connect(new InetSocketAddress(player.getSocketAddress().getAddress(), player.getSocketAddress().getPort()), 3000000);			
+			
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host: "
 					+ player.getSocketAddress() + ".");

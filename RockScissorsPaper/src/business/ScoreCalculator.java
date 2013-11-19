@@ -13,10 +13,10 @@ public class ScoreCalculator {
 	
 	public Game calcScore(Game game){
 		
-		int points = 0;
 		int sizeArray = game.getPlayerList().size(); 
 		for(int i = 0 ;i < sizeArray ;i++) {
 			Move temp = game.getPlayerList().get(i).getMove();
+			int points = game.getPlayerList().get(i).getScore();
 			for(int k = 0; k < sizeArray; k++) {
 				if(i != k) {
 					Move other = game.getPlayerList().get(k).getMove(); 
@@ -31,8 +31,7 @@ public class ScoreCalculator {
 					}
 				}
 			}
-			game.getPlayerList().get(i).setScore(points);
-			points = 0;			
+			game.getPlayerList().get(i).setScore(points);		
 		}	
 		
 		return game;
