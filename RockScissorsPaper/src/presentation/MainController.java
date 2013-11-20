@@ -41,7 +41,7 @@ public class MainController {
 		mainController = this;
 		gameLeader = new GameLeader();
 		loginView = new LoginView(new connectListener());
-		mainView = new MainView(new playMmoveListener(), new addPlayerListener(), new exitListener());
+		mainView = new MainView(new playMoveListener(), new addPlayerListener(), new exitListener());
 		loginView.setVisible(true);
 
 	}
@@ -58,7 +58,7 @@ public class MainController {
 		}
 	}
 
-	class playMmoveListener implements ActionListener {
+	class playMoveListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			loginView.setVisible(false);
