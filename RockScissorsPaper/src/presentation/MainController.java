@@ -19,6 +19,7 @@ public class MainController {
 	private MainController mainController = null;
 	LoginView loginView = null;
 	MainView mainView = null;
+	AddPlayerView addPlayerView = null;
 	IGui gameLeader = null;
 	Player me = null;
 
@@ -49,6 +50,8 @@ public class MainController {
 		loginView = new LoginView(new connectListener());
 		mainView = new MainView(new playMoveListener(),
 				new addPlayerListener(), new exitListener());
+		addPlayerView = new AddPlayerView(new addFriendListener(),
+				new cancelListener());
 		loginView.setVisible(true);
 
 	}
@@ -79,16 +82,33 @@ public class MainController {
 			}
 		}
 	}
-}
 
-class addPlayerListener implements ActionListener {
-	@Override
-	public void actionPerformed(ActionEvent e) {
+	class addPlayerListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			addPlayerView.setVisible(true);
+		}
 	}
-}
 
-class exitListener implements ActionListener {
-	@Override
-	public void actionPerformed(ActionEvent e) {
+	class exitListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.exit(0);
+		}
 	}
+
+	class addFriendListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+		}
+	}
+
+	class cancelListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			addPlayerView.setVisible(false);
+		}
+	}
+
 }
