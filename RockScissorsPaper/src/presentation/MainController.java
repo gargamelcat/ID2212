@@ -49,12 +49,13 @@ public class MainController {
 		gameLeader = new GameLeader();
 		me = new Player("temp", new InetSocketAddress(0));
 		loginView = new LoginView(new connectListener());
+		playerListModel = new PlayerListModel();
 		mainView = new MainView(new playMoveListener(),
 				new addPlayerListener(), new exitListener(), playerListModel);
 		addPlayerView = new AddPlayerView(new addFriendListener(),
 				new cancelListener());
-		loginView.setVisible(true);
-
+		loginView.setVisible(true);	
+		
 	}
 
 	class connectListener implements ActionListener {
@@ -67,6 +68,8 @@ public class MainController {
 			mainView.setUserName(loginView.getUserName());
 			mainView.setIpAddress(loginView.getIpAddress());
 			mainView.setPort(loginView.getPort());
+			System.out.println(gameLeader.getGame().getPlayerList().get(0).getName());
+			playerListModel.setGame(gameLeader.getGame());
 			playerListModel.fireTableDataChanged();
 			mainView.setVisible(true);
 		}
