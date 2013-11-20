@@ -14,6 +14,8 @@ public class Game implements IData {
 
 	@Override
 	public void addPlayer(Player newPlayer) {
+		newPlayer.setScore(0);
+		newPlayer.setMove(Move.UNDEF);
 		playerList.add(newPlayer);
 		System.out.println(newPlayer.getName());
 		System.out.println(newPlayer.getSocketAddress().getAddress());

@@ -30,6 +30,7 @@ public class MainView extends JFrame {
 	private JRadioButton radioButtonRock;
 	private JRadioButton radioButtonScissors;
 	private JRadioButton radioButtonPaper;
+	private PlayerListModel playerListModel;
 
 	/**
 	 * Launch the application.
@@ -52,6 +53,7 @@ public class MainView extends JFrame {
 	 */
 	public MainView(ActionListener playMoveListener,
 			ActionListener addPlayerListener, ActionListener exitListener, PlayerListModel playerListModel) {
+		this.playerListModel = playerListModel;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 411);
 		contentPane = new JPanel();
@@ -201,5 +203,9 @@ public class MainView extends JFrame {
 
 	public boolean isPaperSelected() {
 		return radioButtonPaper.isSelected();
+	}
+	
+	public void updateTable(){
+		tableResult.updateUI();
 	}
 }

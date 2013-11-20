@@ -2,6 +2,7 @@ package presentation;
 
 import javax.swing.table.AbstractTableModel;
 
+import data.Game;
 import data.IData;
 
 public class PlayerListModel extends AbstractTableModel {
@@ -9,7 +10,7 @@ public class PlayerListModel extends AbstractTableModel {
 	private IData game = null;
 
 	public PlayerListModel() {
-
+		game = new Game();
 	}
 
 	public IData getGame() {
@@ -18,6 +19,7 @@ public class PlayerListModel extends AbstractTableModel {
 
 	public void setGame(IData game) {
 		this.game = game;
+		System.out.println("in player list model: " + this.game.getPlayerList().get(0).getName());
 	}
 
 	@Override
@@ -34,28 +36,30 @@ public class PlayerListModel extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		String result = null;
+		int temp;
 		
 		switch(columnIndex){
 		case 0:
-			game.getPlayerList().get(rowIndex).getName();
+			result = game.getPlayerList().get(rowIndex).getName();
 			break;
 		case 1:
-			game.getPlayerList().get(rowIndex).getSocketAddress().getAddress();
+			result = game.getPlayerList().get(rowIndex).getSocketAddress().getHostString().toString();
 			break;
 		case 2:
-			game.getPlayerList().get(rowIndex).getSocketAddress().getPort();
+			temp = game.getPlayerList().get(rowIndex).getSocketAddress().getPort();
+			result = Integer.toString(temp);
 			break;
 		case 3:
-			game.getPlayerList().get(rowIndex).getScore();
+			temp = game.getPlayerList().get(rowIndex).getScore();
+			result = Integer.toString(temp);
 			break;
 		case 4:
-			game.getPlayerList().get(rowIndex).getMove();
+			result = game.getPlayerList().get(rowIndex).getMove().toString();
 			break;
 		default:
 			throw new IllegalArgumentException(String.format("Column {0} does not exist", columnIndex));	
 		}
-		
-		return null;
+		return result;
 	}
 	
     public String getColumnName(int column) {

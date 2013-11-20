@@ -26,7 +26,7 @@ public interface IData {
 		/**
 	 * This method will update the score of a player with IP address given by parameter.
 	 * @param id Id of the player that has to be updated.
-	 * @param score New score that will be updated.
+	 * @param score New sbcore that will be updated.
 	 */	
 	void updatePlayersScore (InetSocketAddress socketAddress, int score);
 	

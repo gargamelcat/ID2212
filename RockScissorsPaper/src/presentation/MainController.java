@@ -68,8 +68,13 @@ public class MainController {
 			mainView.setUserName(loginView.getUserName());
 			mainView.setIpAddress(loginView.getIpAddress());
 			mainView.setPort(loginView.getPort());
-			System.out.println(gameLeader.getGame().getPlayerList().get(0).getName());
+			
 			playerListModel.setGame(gameLeader.getGame());
+			System.out.println(playerListModel.getValueAt(0, 0));
+			System.out.println(playerListModel.getValueAt(0, 1));
+			System.out.println(playerListModel.getValueAt(0, 2));
+			System.out.println(playerListModel.getValueAt(0, 3));
+			System.out.println(playerListModel.getValueAt(0, 4));
 			playerListModel.fireTableDataChanged();
 			mainView.setVisible(true);
 		}
