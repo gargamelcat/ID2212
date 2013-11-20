@@ -21,6 +21,7 @@ public class MainController {
 	MainView mainView = null;
 	AddPlayerView addPlayerView = null;
 	IGui gameLeader = null;
+	PlayerListModel playerListModel = null;
 	Player me = null;
 
 	/**
@@ -49,7 +50,7 @@ public class MainController {
 		me = new Player("temp", new InetSocketAddress(0));
 		loginView = new LoginView(new connectListener());
 		mainView = new MainView(new playMoveListener(),
-				new addPlayerListener(), new exitListener());
+				new addPlayerListener(), new exitListener(), playerListModel);
 		addPlayerView = new AddPlayerView(new addFriendListener(),
 				new cancelListener());
 		loginView.setVisible(true);
@@ -66,6 +67,7 @@ public class MainController {
 			mainView.setUserName(loginView.getUserName());
 			mainView.setIpAddress(loginView.getIpAddress());
 			mainView.setPort(loginView.getPort());
+			playerListModel.fireTableDataChanged();
 			mainView.setVisible(true);
 		}
 	}

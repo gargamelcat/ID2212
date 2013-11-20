@@ -51,7 +51,7 @@ public class MainView extends JFrame {
 	 * Create the frame.
 	 */
 	public MainView(ActionListener playMoveListener,
-			ActionListener addPlayerListener, ActionListener exitListener) {
+			ActionListener addPlayerListener, ActionListener exitListener, PlayerListModel playerListModel) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 411);
 		contentPane = new JPanel();
@@ -150,7 +150,7 @@ public class MainView extends JFrame {
 		gbc_radioButtonPaper.gridy = 9;
 		contentPane.add(radioButtonPaper, gbc_radioButtonPaper);
 
-		tableResult = new JTable();
+		tableResult = new JTable(playerListModel);
 		GridBagConstraints gbc_tableResult = new GridBagConstraints();
 		gbc_tableResult.gridwidth = 3;
 		gbc_tableResult.insets = new Insets(0, 0, 5, 5);
