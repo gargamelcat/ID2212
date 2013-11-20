@@ -51,6 +51,9 @@ public class MainController {
 		public void actionPerformed(ActionEvent e) {
 			gameLeader.startGame(loginView.getUserName(), loginView.getIpAddress(), Integer.parseInt(loginView.getPort()));
 			loginView.setVisible(false);
+			mainView.setUserName(loginView.getUserName());
+			mainView.setIpAddress(loginView.getIpAddress());
+			mainView.setPort(loginView.getPort());
 			mainView.setVisible(true);
 		}
 	}

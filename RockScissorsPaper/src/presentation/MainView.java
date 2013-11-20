@@ -24,6 +24,9 @@ public class MainView extends JFrame {
 
 	private JPanel contentPane;
 	private JTable tableResult;
+	private JLabel labelUserName;
+	private JLabel labelIpAddress;
+	private JLabel labelPort;
 
 	/**
 	 * Launch the application.
@@ -64,7 +67,7 @@ public class MainView extends JFrame {
 		gbc_labelTitle.gridy = 1;
 		contentPane.add(labelTitle, gbc_labelTitle);
 		
-		JLabel labelUserName = new JLabel("User name:");
+		labelUserName = new JLabel("User name:");
 		GridBagConstraints gbc_labelUserName = new GridBagConstraints();
 		gbc_labelUserName.anchor = GridBagConstraints.WEST;
 		gbc_labelUserName.insets = new Insets(0, 0, 5, 5);
@@ -72,21 +75,21 @@ public class MainView extends JFrame {
 		gbc_labelUserName.gridy = 3;
 		contentPane.add(labelUserName, gbc_labelUserName);
 		
-		JLabel lblIpAddress = new JLabel("IP address:");
-		GridBagConstraints gbc_lblIpAddress = new GridBagConstraints();
-		gbc_lblIpAddress.anchor = GridBagConstraints.WEST;
-		gbc_lblIpAddress.insets = new Insets(0, 0, 5, 5);
-		gbc_lblIpAddress.gridx = 1;
-		gbc_lblIpAddress.gridy = 4;
-		contentPane.add(lblIpAddress, gbc_lblIpAddress);
+		labelIpAddress = new JLabel("IP address:");
+		GridBagConstraints gbc_labelIpAddress = new GridBagConstraints();
+		gbc_labelIpAddress.anchor = GridBagConstraints.WEST;
+		gbc_labelIpAddress.insets = new Insets(0, 0, 5, 5);
+		gbc_labelIpAddress.gridx = 1;
+		gbc_labelIpAddress.gridy = 4;
+		contentPane.add(labelIpAddress, gbc_labelIpAddress);
 		
-		JLabel lblPort = new JLabel("Port:");
-		GridBagConstraints gbc_lblPort = new GridBagConstraints();
-		gbc_lblPort.anchor = GridBagConstraints.WEST;
-		gbc_lblPort.insets = new Insets(0, 0, 5, 5);
-		gbc_lblPort.gridx = 1;
-		gbc_lblPort.gridy = 5;
-		contentPane.add(lblPort, gbc_lblPort);
+		labelPort = new JLabel("Port:");
+		GridBagConstraints gbc_labelPort = new GridBagConstraints();
+		gbc_labelPort.anchor = GridBagConstraints.WEST;
+		gbc_labelPort.insets = new Insets(0, 0, 5, 5);
+		gbc_labelPort.gridx = 1;
+		gbc_labelPort.gridy = 5;
+		contentPane.add(labelPort, gbc_labelPort);
 		
 		JRadioButton radioButtonRock = new JRadioButton("Rock");
 		radioButtonRock.setSelected(true);
@@ -146,6 +149,21 @@ public class MainView extends JFrame {
 		gbc_buttonExit.gridx = 5;
 		gbc_buttonExit.gridy = 13;
 		contentPane.add(buttonExit, gbc_buttonExit);
+	}
+
+	public void setUserName(String userName) {
+		
+		labelUserName.setText("UserName: " + userName);
+	}
+
+	public void setIpAddress(String ipAddress) {
+		labelIpAddress.setText("IP address: " + ipAddress);
+		
+	}
+
+	public void setPort(String port) {
+		labelPort.setText("Port: " + port);
+		
 	}
 
 }
