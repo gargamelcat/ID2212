@@ -21,8 +21,12 @@ public interface IGui {
 	
 	/**
 	 * This method will start the game.
+	 * @param name Player Name.
+	 * @param ipAddress Ip address of the player.
+	 * @param port Port of the player.
+	 * @return Player an instance of the player on this computer.
 	 */
-	void startGame(String name, String ipAddress, int port);
+	Player startGame(String name, String ipAddress, int port);
 	
 	/**
 	 * This method will return an object of the actual game.
@@ -30,5 +34,5 @@ public interface IGui {
 	 */
 	Game getGame();
 	
-	void playRound(Player me, Move hand);
+	void playMove(Player me, Move hand);
 }

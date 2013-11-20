@@ -4,8 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.InetSocketAddress;
 
 import javax.swing.UIManager;
+
+import data.Move;
+import data.Player;
 
 import business.GameLeader;
 import business.IGui;
@@ -16,6 +20,7 @@ public class MainController {
 	LoginView loginView = null;
 	MainView mainView = null;
 	IGui gameLeader = null;
+	Player me = null;
 
 	/**
 	 * Main method for MainController.
@@ -40,8 +45,10 @@ public class MainController {
 	public MainController() {
 		mainController = this;
 		gameLeader = new GameLeader();
+		me = new Player("temp", new InetSocketAddress(0));
 		loginView = new LoginView(new connectListener());
-		mainView = new MainView(new playMoveListener(), new addPlayerListener(), new exitListener());
+		mainView = new MainView(new playMoveListener(),
+				new addPlayerListener(), new exitListener());
 		loginView.setVisible(true);
 
 	}
@@ -49,7 +56,9 @@ public class MainController {
 	class connectListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			gameLeader.startGame(loginView.getUserName(), loginView.getIpAddress(), Integer.parseInt(loginView.getPort()));
+			me = gameLeader.startGame(loginView.getUserName(),
+					loginView.getIpAddress(),
+					Integer.parseInt(loginView.getPort()));
 			loginView.setVisible(false);
 			mainView.setUserName(loginView.getUserName());
 			mainView.setIpAddress(loginView.getIpAddress());
@@ -61,22 +70,25 @@ public class MainController {
 	class playMoveListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			loginView.setVisible(false);
+			if (mainView.isRockSelected()) {
+				gameLeader.playMove(me, Move.ROCK);
+			} else if (mainView.isScissorsSelected()) {
+				gameLeader.playMove(me, Move.SCISSORS);
+			} else {
+				gameLeader.playMove(me, Move.PAPER);
+			}
 		}
 	}
+}
 
-	class addPlayerListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			loginView.setVisible(false);
-		}
+class addPlayerListener implements ActionListener {
+	@Override
+	public void actionPerformed(ActionEvent e) {
 	}
+}
 
-	class exitListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			loginView.setVisible(false);
-		}
+class exitListener implements ActionListener {
+	@Override
+	public void actionPerformed(ActionEvent e) {
 	}
-
 }

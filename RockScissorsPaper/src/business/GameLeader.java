@@ -35,11 +35,12 @@ public class GameLeader implements IGui {
 	}
 	
 	@Override
-	public void startGame(String name, String ipAddress, int port) {
+	public Player startGame(String name, String ipAddress, int port) {
 		InetSocketAddress tempSocketAddr = new InetSocketAddress(ipAddress, port);
 		Player tempPlayer = new Player(name,tempSocketAddr);
 		mainGame.addPlayer(tempPlayer);
 		peerHandler = new PeerHandler(tempPlayer);
+		return mainGame.getPlayerBySocketAddress(tempSocketAddr);
 	}
 	
 		@Override
@@ -55,7 +56,7 @@ public class GameLeader implements IGui {
 	}
 
 	@Override
-	public void playRound(Player me, Move move) {
+	public void playMove(Player me, Move move) {
 		//@Joel check, need to be changed, round is fix right now
 		mainGame.addMove(me.getSocketAddress(), move);
 	}
