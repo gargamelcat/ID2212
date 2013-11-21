@@ -24,7 +24,6 @@ import javax.swing.JScrollPane;
 public class MainView extends JFrame {
 
 	private JPanel contentPane;
-	private JTable tableResult;
 	private JLabel labelUserName;
 	private JLabel labelIpAddress;
 	private JLabel labelPort;
@@ -33,6 +32,7 @@ public class MainView extends JFrame {
 	private JRadioButton radioButtonPaper;
 	private PlayerListModel playerListModel;
 	private JScrollPane scrollPane;
+	private JTable tableResult;
 
 	/**
 	 * Launch the application.
@@ -67,7 +67,7 @@ public class MainView extends JFrame {
 		gbl_contentPane.columnWeights = new double[] { 1.0, 0.0,
 				0.0, Double.MIN_VALUE };
 		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0,
 				Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
@@ -162,7 +162,7 @@ public class MainView extends JFrame {
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 7;
 		contentPane.add(scrollPane, gbc_scrollPane);
-
+		
 		tableResult = new JTable(playerListModel);
 		scrollPane.setViewportView(tableResult);
 

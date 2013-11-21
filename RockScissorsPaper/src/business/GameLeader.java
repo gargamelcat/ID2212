@@ -72,7 +72,6 @@ public class GameLeader implements IGui {
 		Player tempPlayer = new Player(name, tempSocketAddr);
 		
 		if(mainGame.getPlayerByName(name) == null){
-			System.out.println("i got heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeee");
 			mainGame.addPlayer(tempPlayer);
 			distributePlayerList(tempPlayer);
 		}
