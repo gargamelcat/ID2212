@@ -10,6 +10,7 @@ public class Player {
 	private String name = null;
 	private int score = 0;
 	private Move move = null;
+	private Move lastMove = null;
 	private InetSocketAddress socketAddress = null;
 
 	public Player(String name, InetSocketAddress socketAddress) {
@@ -17,6 +18,7 @@ public class Player {
 		this.name = name;
 		this.score = 0;
 		this.move = Move.UNDEF;
+		this.lastMove = Move.UNDEF;
 		this.socketAddress = socketAddress;
 	}
 	
@@ -46,6 +48,14 @@ public class Player {
 
 	public void setMove(Move move) {
 		this.move = move;
+	}
+
+	public Move getLastMove() {
+		return lastMove;
+	}
+
+	public void setLastMove(Move lastMove) {
+		this.lastMove = lastMove;
 	}
 
 	public InetSocketAddress getSocketAddress() {

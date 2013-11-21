@@ -53,7 +53,7 @@ public class PlayerListModel extends AbstractTableModel {
 			result = Integer.toString(temp);
 			break;
 		case 4:
-			result = game.getPlayerList().get(rowIndex).getMove().toString();
+			result = game.getPlayerList().get(rowIndex).getLastMove().toString();
 			break;
 		default:
 			throw new IllegalArgumentException(String.format("Column {0} does not exist", columnIndex));	

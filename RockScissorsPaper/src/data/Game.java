@@ -31,7 +31,9 @@ public class Game extends Observable implements IData {
 
 	@Override
 	public void addMove(InetSocketAddress socketAddress, Move move) {
-		getPlayerBySocketAddress(socketAddress).setMove(move);
+		Player playerToUpdate = getPlayerBySocketAddress(socketAddress);
+		playerToUpdate.setLastMove(playerToUpdate.getMove());
+		playerToUpdate.setMove(move);
 		dataChanged();
 	}
 
