@@ -21,7 +21,7 @@ public class MainController implements Observer {
 	private MainController mainController = null;
 	LoginView loginView = null;
 	MainView mainView = null;
-	AddPlayerView addPlayerView = null;
+	AddFriendView addFriendView = null;
 	IGui gameLeader = null;
 	PlayerListModel playerListModel = null;
 	Player me = null;
@@ -54,7 +54,7 @@ public class MainController implements Observer {
 		playerListModel = new PlayerListModel();
 		mainView = new MainView(new playMoveListener(),
 				new addPlayerListener(), new exitListener(), playerListModel);
-		addPlayerView = new AddPlayerView(new addFriendListener(),
+		addFriendView = new AddFriendView(new addFriendListener(),
 				new cancelListener());
 		loginView.setVisible(true);	
 		
@@ -98,7 +98,8 @@ public class MainController implements Observer {
 	class addPlayerListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			addPlayerView.setVisible(true);
+			mainView.setVisible(false);
+			addFriendView.setVisible(true);
 		}
 	}
 
@@ -112,15 +113,20 @@ public class MainController implements Observer {
 	class addFriendListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			gameLeader.addFriend(addPlayerView.getName(), addPlayerView.getIpAddress(), Integer.parseInt(addPlayerView.getPort()));
-			addPlayerView.setVisible(false);
+			System.out.println("direct from playerView: "+addFriendView.getName());
+			System.out.println("direct from playerView: "+addFriendView.getIpAddress());
+			System.out.println("direct from playerView: "+addFriendView.getPort());
+			
+			gameLeader.addFriend(addFriendView.getName(), addFriendView.getIpAddress(), Integer.parseInt(addFriendView.getPort()));
+			addFriendView.setVisible(false);
+			mainView.setVisible(true);
 		}
 	}
 
 	class cancelListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			addPlayerView.setVisible(false);
+			addFriendView.setVisible(false);
 		}
 	}
 
@@ -128,6 +134,7 @@ public class MainController implements Observer {
 	public void update(Observable o, Object arg) {
 		playerListModel.setGame(gameLeader.getGame());
 		playerListModel.fireTableDataChanged();
+		System.out.println("observed some changes hoho");
 		
 	}
 

@@ -20,22 +20,25 @@ public class Game extends Observable implements IData {
 		newPlayer.setScore(0);
 		newPlayer.setMove(Move.UNDEF);
 		playerList.add(newPlayer);
-
+		dataChanged();
 	}
 
 	@Override
 	public void removePlayer(Player player) {
 		playerList.remove(player);
+		dataChanged();
 	}
 
 	@Override
 	public void addMove(InetSocketAddress socketAddress, Move move) {
 		getPlayerBySocketAddress(socketAddress).setMove(move);
+		dataChanged();
 	}
 
 	@Override
 	public void updatePlayersScore(InetSocketAddress socketAddress, int score) {
 		getPlayerBySocketAddress(socketAddress).setScore(score);
+		dataChanged();
 	}
 
 	@Override
@@ -45,6 +48,7 @@ public class Game extends Observable implements IData {
 
 	public void setPlayerList(ArrayList<Player> playerList) {
 		this.playerList = playerList;
+		dataChanged();
 	}
 
 	@Override
@@ -93,5 +97,6 @@ public class Game extends Observable implements IData {
 	private void dataChanged(){
 		setChanged();
 		notifyObservers();
+		System.out.println("notified the observers right noww");
 	}
 }
