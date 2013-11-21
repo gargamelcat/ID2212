@@ -1,5 +1,7 @@
 package business;
 
+import java.util.ArrayList;
+
 import data.Game;
 import data.Move;
 import data.Player;
@@ -16,7 +18,7 @@ public class ScoreCalculator extends Thread {
 	
 	public void run (){
 		System.out.println("hello i am a thread");
-		waitMoves(20000);
+		waitMoves(2000000);
 	}
 	
 	public Game calcScore(){
@@ -51,10 +53,12 @@ public class ScoreCalculator extends Thread {
 		long t= System.currentTimeMillis();
 		long end = t+timeOut;
 		boolean ready = true;	
+		System.out.println("START WHILE");
 		while(end > System.currentTimeMillis()) {
-			for(int i=0; i < game.getPlayerList().size(); i++) {
-				if(game.getPlayerList().get(i).getMove()!=null){
-					if(game.getPlayerList().get(i).getMove() == Move.UNDEF) {
+			ArrayList<Player> tempPlayerList =  game.getPlayerList();
+			for(int i=0; i < tempPlayerList.size(); i++) {
+				if(tempPlayerList.get(i).getMove()!=null){
+					if(tempPlayerList.get(i).getMove() == Move.UNDEF) {
 						ready = false;
 					}
 				}
