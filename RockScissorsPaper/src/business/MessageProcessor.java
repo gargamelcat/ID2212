@@ -13,10 +13,10 @@ import data.Player;
 
 public class MessageProcessor extends Thread {
 
-	private Game game = null;
+	private GameLeader gameLeader = null;
 
-	public MessageProcessor(IData game) {
-		this.game = (Game) game;
+	public MessageProcessor(GameLeader gameLeader) {
+		this.gameLeader = gameLeader;
 
 	}
 
@@ -66,20 +66,10 @@ public class MessageProcessor extends Thread {
 		
 		if (command.length == 6) {
 			if (command[1].equals("add")) {
-				try {
-					game.addPlayer(new Player(name, new InetSocketAddress(
-							InetAddress.getByName(ipAddress), port)));
+					gameLeader.addFriend(name, ipAddress, port);
 					System.out.println("yeeeaaah i got the message: "+ name + "/" + ipAddress + "/"+ port);
-				} catch (UnknownHostException e) {
-					e.printStackTrace();
-				}
 			} else if (command[1].equals("remove")) {
-				try {
-					game.removePlayer(new Player(name, new InetSocketAddress(
-							InetAddress.getByName(ipAddress), port)));
-				} catch (UnknownHostException e) {
-					e.printStackTrace();
-				}
+					gameLeader.removeFriend(name, ipAddress, port);
 			} else {
 				System.out.println("The following command is corrupt: "
 						+ command);
@@ -111,9 +101,9 @@ public class MessageProcessor extends Thread {
 		if(command.length == 8){
 			try {
 				InetSocketAddress tempSocketAddress = new InetSocketAddress(InetAddress.getByName(ipAddress), port);
-				game.addMove(tempSocketAddress, move);
+				gameLeader.playMove(gameLeader.getGame().getPlayerBySocketAddress(tempSocketAddress), move);
 			} catch (UnknownHostException e) {
-				// TODO Auto-generated catch block
+				System.out.println("Following socket address is corrupt"+ ipAddress + "/" + port);
 				e.printStackTrace();
 			}
 		}else{

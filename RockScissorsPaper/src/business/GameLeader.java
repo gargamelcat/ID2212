@@ -29,7 +29,7 @@ public class GameLeader implements IGui {
 		sender = new Sender();
 		mainGame = new Game();
 		mainGame.addObserver(dataObserver);
-		messageProcessor = new MessageProcessor(mainGame);
+		messageProcessor = new MessageProcessor(this);
 	}
 
 	public void listen() {
@@ -63,7 +63,7 @@ public class GameLeader implements IGui {
 	}
 
 	@Override
-	public void addFriend(String name, String ipAddress, int port) {
+	public synchronized void addFriend(String name, String ipAddress, int port) {
 		if (mainGame.getMode() == Mode.AI) {
 			mainGame.removePlayer(mainGame.getPlayerByName("AI"));
 		}
@@ -72,6 +72,18 @@ public class GameLeader implements IGui {
 		Player tempPlayer = new Player(name, tempSocketAddr);
 		mainGame.addPlayer(tempPlayer);
 		distributePlayerList(tempPlayer);
+	}
+
+	public synchronized void removeFriend(String name, String ipAddress, int port) {
+
+		try {
+			mainGame.removePlayer(new Player(name, new InetSocketAddress(
+					InetAddress.getByName(ipAddress), port)));
+		} catch (UnknownHostException e) {
+			System.out.println("could not remove following player: " + name
+					+ "/" + ipAddress + "/" + port);
+			e.printStackTrace();
+		}
 	}
 
 	private void distributePlayerList(Player tempPlayer) {
