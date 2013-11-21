@@ -130,9 +130,7 @@ public class GameLeader implements IGui {
 				scoreCalc.calcScore(mainGame.getGame());
 			}
 			else {
-				
 			}
-			
 		}
 	}
 
