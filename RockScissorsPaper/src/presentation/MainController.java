@@ -22,6 +22,8 @@ public class MainController implements Observer {
 	LoginView loginView = null;
 	MainView mainView = null;
 	AddFriendView addFriendView = null;
+	WaitingView waitingView = null;
+	WaitingForPlayerModel waitingForPlayerModel = null;
 	IGui gameLeader = null;
 	PlayerListModel playerListModel = null;
 	Player me = null;
@@ -53,8 +55,9 @@ public class MainController implements Observer {
 				new addPlayerListener(), new exitListener(), playerListModel);
 		addFriendView = new AddFriendView(new addFriendListener(),
 				new cancelListener());
+		waitingForPlayerModel = new WaitingForPlayerModel();
+		waitingView = new WaitingView(new leaveGameListener(), waitingForPlayerModel);
 		loginView.setVisible(true);	
-		
 	}
 
 	class connectListener implements ActionListener {
@@ -126,13 +129,18 @@ public class MainController implements Observer {
 			addFriendView.setVisible(false);
 		}
 	}
+	
+	class leaveGameListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.exit(0);
+		}
+	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		playerListModel.setGame(gameLeader.getGame());
 		playerListModel.fireTableDataChanged();
 		System.out.println("observed some changes hoho");
-		
 	}
-
 }
