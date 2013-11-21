@@ -63,7 +63,8 @@ public class GameLeader implements IGui {
 		}
 		peerHandler = new PeerHandler(tempPlayer);
 		listen();
-		// scoreCalc.start();
+		System.out.println("Timer ON");
+		scoreCalc.start();
 		return mainGame.getPlayerBySocketAddress(tempSocketAddr);
 	}
 
@@ -73,6 +74,7 @@ public class GameLeader implements IGui {
 			mainGame.removePlayer(mainGame.getPlayerByName("AI"));
 			mainGame.setMode(Mode.PVP);
 		}
+
 		InetSocketAddress tempSocketAddr = new InetSocketAddress(ipAddress,
 				port);
 		Player tempPlayer = new Player(name, tempSocketAddr);
@@ -82,6 +84,7 @@ public class GameLeader implements IGui {
 			distributePlayerList(tempPlayer);
 		}
 	}
+
 
 	public synchronized void removeFriend(String name, String ipAddress,
 			int port) {
