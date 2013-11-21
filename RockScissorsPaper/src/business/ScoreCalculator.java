@@ -13,7 +13,8 @@ public class ScoreCalculator extends Thread {
 		
 	}
 	
-	public void Run (){
+	public void run (){
+		System.out.println("hello i am a thread");
 		waitMoves(20000);
 	}
 	

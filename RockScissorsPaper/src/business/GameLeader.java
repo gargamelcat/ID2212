@@ -132,9 +132,31 @@ public class GameLeader implements IGui {
 				scoreCalc.calcScore();
 			}
 			else {
+				distributeMove(me);
 			}
 		}
 	}
 
+	
+	private void distributeMove(Player me) {
+		ArrayList<Player> tempPlayerList = mainGame.getPlayerList();
 
+		for (int i = 0; i < tempPlayerList.size(); i++) {
+			Player playerToDistribute = tempPlayerList.get(i);
+			if (!me.comparePlayerBySocketAddress(playerToDistribute)) {
+				String nameToDistrubite = playerToDistribute.getName();
+				String ipAddressToDistribute = playerToDistribute
+						.getSocketAddress().getAddress().getHostAddress();
+				String portToDistribute = Integer.toString(playerToDistribute
+						.getSocketAddress().getPort());
+				String moveToDistribute = playerToDistribute.getMove().toString();
+				sender.sendMessageTo(me, "move;"
+						+ nameToDistrubite + ";" + ipAddressToDistribute + ";"
+						+ portToDistribute + ";" +moveToDistribute +";end");
+				System.out.println("Sending move: " + "move;"
+						+ nameToDistrubite + ";" + ipAddressToDistribute + ";"
+						+ portToDistribute + ";" +moveToDistribute +";end");
+			}
+		}
+	}
 }

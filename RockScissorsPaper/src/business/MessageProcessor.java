@@ -91,14 +91,14 @@ public class MessageProcessor extends Thread {
 		Move move = null;
 		String round = null;
 
-		name = command[2];
-		ipAddress = command[3];
-		port = Integer.parseInt(command[4]);
-		moveAsString = command[5];
+		name = command[1];
+		ipAddress = command[2];
+		port = Integer.parseInt(command[3]);
+		moveAsString = command[4];
 		move = convertStringToMove(moveAsString);
-		round = command[6];
+		round = command[5];
 		
-		if(command.length == 8){
+		if(command.length == 6){
 			try {
 				InetSocketAddress tempSocketAddress = new InetSocketAddress(InetAddress.getByName(ipAddress), port);
 				gameLeader.playMove(gameLeader.getGame().getPlayerBySocketAddress(tempSocketAddress), move);
