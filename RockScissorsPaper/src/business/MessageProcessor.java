@@ -102,6 +102,7 @@ public class MessageProcessor extends Thread {
 			try {
 				InetSocketAddress tempSocketAddress = new InetSocketAddress(InetAddress.getByName(ipAddress), port);
 				gameLeader.playMove(gameLeader.getGame().getPlayerBySocketAddress(tempSocketAddress), move);
+				System.out.println("yeaahh2 got move"+ move);
 			} catch (UnknownHostException e) {
 				System.out.println("Following socket address is corrupt"+ ipAddress + "/" + port);
 				e.printStackTrace();

@@ -2,6 +2,7 @@ package business;
 
 import data.Game;
 import data.Move;
+import data.Player;
 
 
 public class ScoreCalculator extends Thread {
@@ -46,23 +47,42 @@ public class ScoreCalculator extends Thread {
 		
 	}
 	
-	public boolean waitMoves (int timeOut){
-		long t= System.currentTimeMillis();
+	public void waitMoves (int timeOut){
+		/*long t= System.currentTimeMillis();
 		long end = t+timeOut;
 		boolean ready = true;	
-		while(System.currentTimeMillis() < end) {
+		while(true) {
 			for(int i=0; i < game.getPlayerList().size(); i++) {
-				if(game.getPlayerList().get(i).getMove() == Move.UNDEF) {
-					ready = false;
+				//ystem.out.println("Lets check this mother fucker if its NULL");
+
+				if(game.getPlayerList().get(i).getMove()!=null){
+				//	System.out.println("Oh its not null");
+
+					if(game.getPlayerList().get(i).getMove() == Move.UNDEF) {
+						ready = false;
+					}
+		while(true){
+			for(int i=0; i < game.getPlayerList().size(); i++) {
+				Player tempPlayer = game.getPlayerList().get(i);
+				
+				if(tempMove!=null){
+
+					if() {
+						ready = false;
+					}
 				}
+				}
+
 			}
 			if (ready) {
 				calcScore();
-				end = System.currentTimeMillis() + timeOut;
+				System.out.println("calculating score now");
+				//end = System.currentTimeMillis() + timeOut;
 			}
 			ready = true;
 		}
-		return ready;
+		*/
+		
 	}
 	
 	

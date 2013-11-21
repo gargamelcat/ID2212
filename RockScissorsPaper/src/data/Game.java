@@ -44,7 +44,7 @@ public class Game extends Observable implements IData {
 	}
 
 	@Override
-	public ArrayList<Player> getPlayerList() {
+	public synchronized ArrayList<Player> getPlayerList() {
 		return playerList;
 	}
 
@@ -54,7 +54,7 @@ public class Game extends Observable implements IData {
 	}
 
 	@Override
-	public Game getGame() {
+	public synchronized Game getGame() {
 		return this;
 	}
 

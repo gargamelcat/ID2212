@@ -17,7 +17,6 @@ import data.Mode;
 import data.Move;
 import data.Player;
 
-
 public class GameLeader implements IGui {
 
 	IData mainGame = null;
@@ -32,7 +31,7 @@ public class GameLeader implements IGui {
 		mainGame.addObserver(dataObserver);
 		scoreCalc = new ScoreCalculator(mainGame.getGame());
 		messageProcessor = new MessageProcessor(this);
-		
+
 	}
 
 	public void listen() {
@@ -62,7 +61,7 @@ public class GameLeader implements IGui {
 		}
 		peerHandler = new PeerHandler(tempPlayer);
 		listen();
-		scoreCalc.start();
+		//scoreCalc.start();
 		return mainGame.getPlayerBySocketAddress(tempSocketAddr);
 	}
 
@@ -75,14 +74,15 @@ public class GameLeader implements IGui {
 		InetSocketAddress tempSocketAddr = new InetSocketAddress(ipAddress,
 				port);
 		Player tempPlayer = new Player(name, tempSocketAddr);
-		
-		if(mainGame.getPlayerByName(name) == null){
+
+		if (mainGame.getPlayerByName(name) == null) {
 			mainGame.addPlayer(tempPlayer);
 			distributePlayerList(tempPlayer);
 		}
 	}
 
-	public synchronized void removeFriend(String name, String ipAddress, int port) {
+	public synchronized void removeFriend(String name, String ipAddress,
+			int port) {
 
 		try {
 			mainGame.removePlayer(new Player(name, new InetSocketAddress(
@@ -121,23 +121,23 @@ public class GameLeader implements IGui {
 	@Override
 	public synchronized void playMove(Player me, Move move) {
 		// @Joel check, need to be changed, round is fix right now
-		if(me.getMove() == Move.UNDEF){	
-			mainGame.addMove(me.getSocketAddress(), move);
-			if(mainGame.getMode() == Mode.AI) {
-				Random randomGenerator = new Random();
-				int randomInt = randomGenerator.nextInt(3);
-				if(randomInt == 0) mainGame.getPlayerByName("AI").setMove(Move.PAPER);
-				else if (randomInt == 1) mainGame.getPlayerByName("AI").setMove(Move.ROCK);
-				else if (randomInt == 2) mainGame.getPlayerByName("AI").setMove(Move.SCISSORS);		
-				scoreCalc.calcScore();
-			}
-			else {
+		mainGame.addMove(me.getSocketAddress(), move);
+		System.out.println("saving move: "+ me.getName() + "/" + me.getMove().toString());
+		if (mainGame.getMode() == Mode.AI) {
+			Random randomGenerator = new Random();
+			int randomInt = randomGenerator.nextInt(3);
+			if (randomInt == 0)
+				mainGame.getPlayerByName("AI").setMove(Move.PAPER);
+			else if (randomInt == 1)
+				mainGame.getPlayerByName("AI").setMove(Move.ROCK);
+			else if (randomInt == 2)
+				mainGame.getPlayerByName("AI").setMove(Move.SCISSORS);
+			scoreCalc.calcScore();
+		} else {
 				distributeMove(me);
-			}
 		}
 	}
 
-	
 	private void distributeMove(Player me) {
 		ArrayList<Player> tempPlayerList = mainGame.getPlayerList();
 
@@ -149,13 +149,14 @@ public class GameLeader implements IGui {
 						.getSocketAddress().getAddress().getHostAddress();
 				String portToDistribute = Integer.toString(playerToDistribute
 						.getSocketAddress().getPort());
-				String moveToDistribute = playerToDistribute.getMove().toString();
-				sender.sendMessageTo(me, "move;"
-						+ nameToDistrubite + ";" + ipAddressToDistribute + ";"
-						+ portToDistribute + ";" +moveToDistribute +";end");
+				String moveToDistribute = playerToDistribute.getMove()
+						.toString();
+				sender.sendMessageTo(me, "move;" + nameToDistrubite + ";"
+						+ ipAddressToDistribute + ";" + portToDistribute + ";"
+						+ moveToDistribute + ";end");
 				System.out.println("Sending move: " + "move;"
 						+ nameToDistrubite + ";" + ipAddressToDistribute + ";"
-						+ portToDistribute + ";" +moveToDistribute +";end");
+						+ portToDistribute + ";" + moveToDistribute + ";end");
 			}
 		}
 	}
