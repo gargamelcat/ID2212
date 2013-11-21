@@ -3,13 +3,16 @@ package data;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class Game implements IData {
+public class Game extends Observable implements IData {
 
 	private ArrayList<Player> playerList = null;
+	private Mode mode = null;
 
 	public Game() {
 		playerList = new ArrayList<Player>();
+		mode = Mode.AI;
 	}
 
 	@Override
@@ -62,5 +65,33 @@ public class Game implements IData {
 			System.out.println("player with this socket address does not exist: "+ socketAddress.getAddress()+"/"+socketAddress.getPort());
 		}
 		return searchedPlayer;
+	}
+	
+	@Override
+	public Player getPlayerByName(String name){
+		Player searchedPlayer = new Player();
+
+		for (int i = 0; i < playerList.size(); i++) {
+			if (playerList.get(i).getName().equals(name)) {
+				searchedPlayer = playerList.get(i);
+			}
+		}
+		if(searchedPlayer == null){
+			System.out.println("player with this name does not exist: " + name );
+		}
+		return searchedPlayer;
+	}
+
+	public Mode getMode() {
+		return mode;
+	}
+
+	public void setMode(Mode mode){
+		this.mode = mode;
+	}
+	
+	private void dataChanged(){
+		setChanged();
+		notifyObservers();
 	}
 }

@@ -18,23 +18,15 @@ public class MainTwo {
 		Player you = null;
 		Player otherPlayer = null;
 		try {
-			you = new Player( "listener", new InetSocketAddress(InetAddress.getByName("127.0.0.1"),4344));
-			otherPlayer = new Player("bliblabla", new InetSocketAddress(InetAddress.getByName("127.0.0.1"), 4444));
+			you = new Player( "Albert", new InetSocketAddress(InetAddress.getByName("127.0.0.1"),4445));
+			otherPlayer = new Player("Joel", new InetSocketAddress(InetAddress.getByName("127.0.0.1"), 4444));
 			
 			
 			
 			
-			if(you.getSocketAddress().getPort() == otherPlayer.getSocketAddress().getPort()&& you.getSocketAddress().getAddress().equals(otherPlayer.getSocketAddress().getAddress())){
-				System.out.println("gleich");
-			}else{
-				System.out.println("nicht gleich");
-			}
-				
-			System.out.println(you.getSocketAddress().getAddress());
-			System.out.println(otherPlayer.getSocketAddress().getAddress());
-			//GameLeader clientLeader = new GameLeader(otherPlayer);
+			//GameLeader clientLeader = new GameLeader();
 			
-			//clientLeader.send(otherPlayer, "player;add;joel;127.0.0.1;4444;end");
+			//clientLeader.send(otherPlayer, "player;add;Albert;127.0.0.1;4445;end");
 		
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block

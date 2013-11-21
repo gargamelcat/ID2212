@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.InetSocketAddress;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.UIManager;
 
@@ -14,7 +16,7 @@ import data.Player;
 import business.GameLeader;
 import business.IGui;
 
-public class MainController {
+public class MainController implements Observer {
 
 	private MainController mainController = null;
 	LoginView loginView = null;
@@ -27,7 +29,7 @@ public class MainController {
 	/**
 	 * Main method for MainController.
 	 * 
-	 * @param args
+	 * @param argsgame
 	 */
 	public static void main(String[] args) {
 
@@ -46,7 +48,7 @@ public class MainController {
 	 */
 	public MainController() {
 		mainController = this;
-		gameLeader = new GameLeader();
+		gameLeader = new GameLeader(this);
 		me = new Player("temp", new InetSocketAddress(0));
 		loginView = new LoginView(new connectListener());
 		playerListModel = new PlayerListModel();
@@ -110,7 +112,8 @@ public class MainController {
 	class addFriendListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+			gameLeader.addFriend(addPlayerView.getName(), addPlayerView.getIpAddress(), Integer.parseInt(addPlayerView.getPort()));
+			addPlayerView.setVisible(false);
 		}
 	}
 
@@ -119,6 +122,13 @@ public class MainController {
 		public void actionPerformed(ActionEvent e) {
 			addPlayerView.setVisible(false);
 		}
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		playerListModel.setGame(gameLeader.getGame());
+		playerListModel.fireTableDataChanged();
+		
 	}
 
 }

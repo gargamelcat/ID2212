@@ -58,12 +58,18 @@ public class MessageProcessor extends Thread {
 		ipAddress = command[3];
 		portAsString = command[4];
 		port = Integer.parseInt(command[4]);
-
+		
+		System.out.println("messageProcessor got name: " + name);
+		System.out.println("messageProcessor got address: " + ipAddress);
+		System.out.println("messageProcessor got address: " + port);
+		
+		
 		if (command.length == 6) {
 			if (command[1].equals("add")) {
 				try {
 					game.addPlayer(new Player(name, new InetSocketAddress(
 							InetAddress.getByName(ipAddress), port)));
+					System.out.println("yeeeaaah i got the message: "+ name + "/" + ipAddress + "/"+ port);
 				} catch (UnknownHostException e) {
 					e.printStackTrace();
 				}

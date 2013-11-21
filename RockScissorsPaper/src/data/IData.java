@@ -3,6 +3,7 @@ package data;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
+import java.util.Observer;
 
 
 /**
@@ -48,6 +49,11 @@ public interface IData {
 	ArrayList<Player> getPlayerList();
 	
 	Player getPlayerBySocketAddress(InetSocketAddress socketAddress);
+	Player getPlayerByName(String name);
+	
+	Mode getMode();
+	void setMode(Mode mode);
+	void addObserver(Observer observer);
 	
 	
 	

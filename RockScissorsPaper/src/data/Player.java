@@ -19,6 +19,10 @@ public class Player {
 		this.move = Move.UNDEF;
 		this.socketAddress = socketAddress;
 	}
+	
+	public Player(){
+		
+	}
 
 	public String getName() {
 		return name;
