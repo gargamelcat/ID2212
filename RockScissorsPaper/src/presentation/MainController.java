@@ -43,9 +43,6 @@ public class MainController implements Observer {
 		MainController mainController = new MainController();
 	}
 
-	/**
-	 * New MainView and LoginController.
-	 */
 	public MainController() {
 		mainController = this;
 		gameLeader = new GameLeader(this);

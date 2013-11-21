@@ -66,6 +66,7 @@ public class GameLeader implements IGui {
 	public synchronized void addFriend(String name, String ipAddress, int port) {
 		if (mainGame.getMode() == Mode.AI) {
 			mainGame.removePlayer(mainGame.getPlayerByName("AI"));
+			mainGame.setMode(Mode.PVP);
 		}
 		InetSocketAddress tempSocketAddr = new InetSocketAddress(ipAddress,
 				port);
