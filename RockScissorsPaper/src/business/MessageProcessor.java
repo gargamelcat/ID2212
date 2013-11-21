@@ -113,15 +113,16 @@ public class MessageProcessor extends Thread {
 	}
 
 	private Move convertStringToMove(String moveAsString){
+		System.out.println(">>>>>>>>>>>>>>>>>>< in switch case: "+ moveAsString);
 		Move result = null;
 		switch(moveAsString){
-		case "rock":
+		case "ROCK":
 			result = Move.ROCK;
 			break;
-		case "scissors":
+		case "SCISSORS":
 			result = Move.SCISSORS;
 			break;
-		case "paper":
+		case "PAPER":
 			result = Move.PAPER;
 			break;
 		default:
