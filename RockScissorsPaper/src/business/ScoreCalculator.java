@@ -31,8 +31,9 @@ public class ScoreCalculator {
 					}
 				}
 			}
-			game.getPlayerList().get(i).setScore(points);		
+			game.updatePlayersScore(game.getPlayerList().get(i).getSocketAddress(), points);
 		}	
+		for(int z = 0 ;z < sizeArray ;z++) game.addMove(game.getPlayerList().get(z).getSocketAddress(), Move.UNDEF); //Reset moves to UNDEF
 		
 		return game;
 		

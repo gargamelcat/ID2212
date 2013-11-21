@@ -6,6 +6,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 import presentation.MainView;
 import presentation.PlayerListModel;
@@ -15,6 +16,7 @@ import data.IData;
 import data.Mode;
 import data.Move;
 import data.Player;
+
 
 public class GameLeader implements IGui {
 
@@ -117,6 +119,22 @@ public class GameLeader implements IGui {
 	@Override
 	public synchronized void playMove(Player me, Move move) {
 		// @Joel check, need to be changed, round is fix right now
-		mainGame.addMove(me.getSocketAddress(), move);
+		if(me.getMove() == Move.UNDEF){	
+			mainGame.addMove(me.getSocketAddress(), move);
+			if(mainGame.getMode() == Mode.AI) {
+				Random randomGenerator = new Random();
+				int randomInt = randomGenerator.nextInt(3);
+				if(randomInt == 0) mainGame.getPlayerByName("AI").setMove(Move.PAPER);
+				else if (randomInt == 1) mainGame.getPlayerByName("AI").setMove(Move.ROCK);
+				else if (randomInt == 2) mainGame.getPlayerByName("AI").setMove(Move.PAPER);		
+				scoreCalc.calcScore(mainGame.getGame());
+			}
+			else {
+				
+			}
+			
+		}
 	}
+
+
 }
