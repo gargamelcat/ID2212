@@ -27,11 +27,12 @@ public class GameLeader implements IGui {
 	MessageProcessor messageProcessor = null;
 
 	public GameLeader(Observer dataObserver) {
-		scoreCalc = new ScoreCalculator();
 		sender = new Sender();
 		mainGame = new Game();
 		mainGame.addObserver(dataObserver);
+		scoreCalc = new ScoreCalculator(mainGame.getGame());
 		messageProcessor = new MessageProcessor(this);
+		
 	}
 
 	public void listen() {
@@ -61,6 +62,7 @@ public class GameLeader implements IGui {
 		}
 		peerHandler = new PeerHandler(tempPlayer);
 		listen();
+		scoreCalc.start();
 		return mainGame.getPlayerBySocketAddress(tempSocketAddr);
 	}
 
@@ -126,8 +128,8 @@ public class GameLeader implements IGui {
 				int randomInt = randomGenerator.nextInt(3);
 				if(randomInt == 0) mainGame.getPlayerByName("AI").setMove(Move.PAPER);
 				else if (randomInt == 1) mainGame.getPlayerByName("AI").setMove(Move.ROCK);
-				else if (randomInt == 2) mainGame.getPlayerByName("AI").setMove(Move.PAPER);		
-				scoreCalc.calcScore(mainGame.getGame());
+				else if (randomInt == 2) mainGame.getPlayerByName("AI").setMove(Move.SCISSORS);		
+				scoreCalc.calcScore();
 			}
 			else {
 			}

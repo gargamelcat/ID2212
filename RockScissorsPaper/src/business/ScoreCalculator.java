@@ -3,15 +3,21 @@ package business;
 import data.Game;
 import data.Move;
 
-public class ScoreCalculator {
 
+public class ScoreCalculator extends Thread {
+
+	Game game = null;
 	
-	public ScoreCalculator(){
-		
+	public ScoreCalculator(Game gameTemp){
+		game = gameTemp;
 		
 	}
 	
-	public Game calcScore(Game game){
+	public void Run (){
+		waitMoves(20000);
+	}
+	
+	public Game calcScore(){
 		
 		int sizeArray = game.getPlayerList().size(); 
 		for(int i = 0 ;i < sizeArray ;i++) {
@@ -39,7 +45,7 @@ public class ScoreCalculator {
 		
 	}
 	
-	public boolean waitMoves (Game game, int timeOut){
+	public boolean waitMoves (int timeOut){
 		long t= System.currentTimeMillis();
 		long end = t+timeOut;
 		boolean ready = true;	
@@ -50,7 +56,7 @@ public class ScoreCalculator {
 				}
 			}
 			if (ready) {
-				calcScore(game);
+				calcScore();
 				end = System.currentTimeMillis() + timeOut;
 			}
 			ready = true;
