@@ -48,11 +48,12 @@ public class ScoreCalculator {
 				if(game.getPlayerList().get(i).getMove() == Move.UNDEF) {
 					ready = false;
 				}
-				else {
-					calcScore(game);
-					end = System.currentTimeMillis() + timeOut;
-				}
 			}
+			if (ready) {
+				calcScore(game);
+				end = System.currentTimeMillis() + timeOut;
+			}
+			ready = true;
 		}
 		return ready;
 	}
