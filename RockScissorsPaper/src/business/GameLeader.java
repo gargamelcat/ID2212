@@ -2,6 +2,7 @@ package business;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
 
 import data.Game;
 import data.IData;
@@ -39,6 +40,14 @@ public class GameLeader implements IGui {
 		InetSocketAddress tempSocketAddr = new InetSocketAddress(ipAddress, port);
 		Player tempPlayer = new Player(name,tempSocketAddr);
 		mainGame.addPlayer(tempPlayer);
+		try {
+			InetSocketAddress AItempSocketAddr = new InetSocketAddress(InetAddress.getByName("000.000.000.000"), 0000);
+			Player AI = new Player("AI",AItempSocketAddr);
+			mainGame.addPlayer(AI);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		peerHandler = new PeerHandler(tempPlayer);
 		return mainGame.getPlayerBySocketAddress(tempSocketAddr);
 	}
