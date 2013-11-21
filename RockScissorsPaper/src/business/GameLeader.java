@@ -63,7 +63,7 @@ public class GameLeader implements IGui {
 		}
 		peerHandler = new PeerHandler(tempPlayer);
 		listen();
-		//scoreCalc.start();
+		// scoreCalc.start();
 		return mainGame.getPlayerBySocketAddress(tempSocketAddr);
 	}
 
@@ -124,7 +124,8 @@ public class GameLeader implements IGui {
 	public synchronized void playMove(Player me, Move move) {
 		// @Joel check, need to be changed, round is fix right now
 		mainGame.addMove(me.getSocketAddress(), move);
-		System.out.println("saving move: "+ me.getName() + "/" + me.getMove().toString());
+		System.out.println("saving move: " + me.getName() + "/"
+				+ me.getMove().toString());
 		if (mainGame.getMode() == Mode.AI) {
 			Random randomGenerator = new Random();
 			int randomInt = randomGenerator.nextInt(3);
@@ -136,11 +137,15 @@ public class GameLeader implements IGui {
 				mainGame.getPlayerByName("AI").setMove(Move.SCISSORS);
 			scoreCalc.calcScore();
 		} else {
-				distributeMove(mainGame.getPlayerBySocketAddress(me.getSocketAddress()));
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+					+ mainGame.getPlayerBySocketAddress(me.getSocketAddress())
+							.getMove().toString());
+			distributeMove(mainGame.getPlayerBySocketAddress(me
+					.getSocketAddress()));
 		}
 	}
-	
-	public synchronized void moveFromOtherPlayer(Player otherPlayer, Move move){
+
+	public synchronized void moveFromOtherPlayer(Player otherPlayer, Move move) {
 		mainGame.addMove(otherPlayer.getSocketAddress(), move);
 	}
 
@@ -148,21 +153,17 @@ public class GameLeader implements IGui {
 		ArrayList<Player> tempPlayerList = mainGame.getPlayerList();
 
 		for (int i = 0; i < tempPlayerList.size(); i++) {
-			Player playerToDistribute = tempPlayerList.get(i);
-			if (!me.comparePlayerBySocketAddress(playerToDistribute)) {
-				String nameToDistrubite = playerToDistribute.getName();
-				String ipAddressToDistribute = playerToDistribute
-						.getSocketAddress().getAddress().getHostAddress();
-				String portToDistribute = Integer.toString(playerToDistribute
-						.getSocketAddress().getPort());
-				String moveToDistribute = playerToDistribute.getMove()
-						.toString();
-				sender.sendMessageTo(me, "move;" + nameToDistrubite + ";"
-						+ ipAddressToDistribute + ";" + portToDistribute + ";"
-						+ moveToDistribute + ";end");
-				System.out.println("Sending move: " + "move;"
-						+ nameToDistrubite + ";" + ipAddressToDistribute + ";"
-						+ portToDistribute + ";" + moveToDistribute + ";end");
+
+			if (!me.comparePlayerBySocketAddress(tempPlayerList.get(i))) {
+				sender.sendMessageTo(tempPlayerList.get(i),
+						"move;"
+								+ me.getName()
+								+ ";"
+								+ me.getSocketAddress().getAddress()
+										.getHostAddress() + ";"
+								+ me.getSocketAddress().getPort() + ";"
+								+ me.getMove().toString() + ";end");
+
 			}
 		}
 	}
