@@ -70,8 +70,12 @@ public class GameLeader implements IGui {
 		InetSocketAddress tempSocketAddr = new InetSocketAddress(ipAddress,
 				port);
 		Player tempPlayer = new Player(name, tempSocketAddr);
-		mainGame.addPlayer(tempPlayer);
-		distributePlayerList(tempPlayer);
+		
+		if(mainGame.getPlayerByName(name) == null){
+			System.out.println("i got heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeereeeeee");
+			mainGame.addPlayer(tempPlayer);
+			distributePlayerList(tempPlayer);
+		}
 	}
 
 	public synchronized void removeFriend(String name, String ipAddress, int port) {
@@ -111,7 +115,7 @@ public class GameLeader implements IGui {
 	}
 
 	@Override
-	public void playMove(Player me, Move move) {
+	public synchronized void playMove(Player me, Move move) {
 		// @Joel check, need to be changed, round is fix right now
 		mainGame.addMove(me.getSocketAddress(), move);
 	}

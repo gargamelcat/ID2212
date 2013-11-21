@@ -73,7 +73,7 @@ public class Game extends Observable implements IData {
 	
 	@Override
 	public Player getPlayerByName(String name){
-		Player searchedPlayer = new Player();
+		Player searchedPlayer = null;
 
 		for (int i = 0; i < playerList.size(); i++) {
 			if (playerList.get(i).getName().equals(name)) {
