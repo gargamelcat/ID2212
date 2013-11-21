@@ -8,6 +8,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
+import javax.print.attribute.standard.MediaSize.Other;
+
 import presentation.MainView;
 import presentation.PlayerListModel;
 
@@ -134,8 +136,12 @@ public class GameLeader implements IGui {
 				mainGame.getPlayerByName("AI").setMove(Move.SCISSORS);
 			scoreCalc.calcScore();
 		} else {
-				distributeMove(me);
+				distributeMove(mainGame.getPlayerBySocketAddress(me.getSocketAddress()));
 		}
+	}
+	
+	public synchronized void moveFromOtherPlayer(Player otherPlayer, Move move){
+		mainGame.addMove(otherPlayer.getSocketAddress(), move);
 	}
 
 	private void distributeMove(Player me) {
