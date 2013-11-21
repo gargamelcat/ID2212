@@ -34,19 +34,26 @@ public class ScoreCalculator {
 			game.updatePlayersScore(game.getPlayerList().get(i).getSocketAddress(), points);
 		}	
 		for(int z = 0 ;z < sizeArray ;z++) game.addMove(game.getPlayerList().get(z).getSocketAddress(), Move.UNDEF); //Reset moves to UNDEF
-		
+
 		return game;
 		
 	}
 	
-	public boolean waitMoves (Game game){
-		
-		boolean ready = true;		
-		for(int i=0; i < game.getPlayerList().size(); i++) {
-			if(game.getPlayerList().get(i).getMove() == Move.UNDEF) {
-				ready = false;
-			}			
-		}	
+	public boolean waitMoves (Game game, int timeOut){
+		long t= System.currentTimeMillis();
+		long end = t+timeOut;
+		boolean ready = true;	
+		while(System.currentTimeMillis() < end) {
+			for(int i=0; i < game.getPlayerList().size(); i++) {
+				if(game.getPlayerList().get(i).getMove() == Move.UNDEF) {
+					ready = false;
+				}
+				else {
+					calcScore(game);
+					end = System.currentTimeMillis() + timeOut;
+				}
+			}
+		}
 		return ready;
 	}
 	
