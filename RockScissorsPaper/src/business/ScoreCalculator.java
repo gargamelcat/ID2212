@@ -43,6 +43,7 @@ public class ScoreCalculator extends Thread {
 						points += (other == Move.PAPER ? 1 : 0);
 					}
 				}
+				
 			}
 			if(points > winnerPoints){
 				winnerPoints = points;
