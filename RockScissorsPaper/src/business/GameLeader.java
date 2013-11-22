@@ -161,7 +161,6 @@ public class GameLeader implements IGui {
 										.getHostAddress() + ";"
 								+ me.getSocketAddress().getPort() + ";"
 								+ me.getMove().toString() + ";end");
-
 			}
 		}
 	}

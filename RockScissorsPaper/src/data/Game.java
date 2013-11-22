@@ -44,7 +44,6 @@ public class Game extends Observable implements IData {
 		playerToUpdate.setLastMove(playerToUpdate.getMove());
 		playerToUpdate.setMove(Move.UNDEF);
 		dataChanged();
-		continueWithGame();
 	}
 
 	@Override

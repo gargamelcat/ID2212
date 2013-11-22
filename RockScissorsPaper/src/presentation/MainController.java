@@ -93,12 +93,6 @@ public class MainController implements Observer {
 			} else {
 				gameLeader.playMove(me, Move.PAPER);
 			}
-
-			if (gameLeader.getGame().didEveryonePlay() == false) {
-				mainView.setVisible(false);
-				waitingView.setVisible(true);
-			}
-
 		}
 	}
 
@@ -147,10 +141,5 @@ public class MainController implements Observer {
 	public void update(Observable o, Object arg) {
 		playerListModel.setGame(gameLeader.getGame());
 		playerListModel.fireTableDataChanged();
-
-		if (arg == "continue") {
-			waitingView.setVisible(false);
-			mainView.setVisible(true);
-		}
 	}
 }
