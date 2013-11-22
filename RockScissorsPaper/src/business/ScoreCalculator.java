@@ -23,7 +23,7 @@ public class ScoreCalculator extends Thread {
 	
 	public Game calcScore(){
 		
-		int winnerPoints = -1;
+		int winnerPoints = 0;
 		int winnerID = -1;
 		int sizeArray = game.getPlayerList().size(); 
 		for(int i = 0 ;i < sizeArray ;i++) {
@@ -49,7 +49,7 @@ public class ScoreCalculator extends Thread {
 				winnerID = i;
 			}			
 		}
-		game.updatePlayersScore(game.getPlayerList().get(winnerID).getSocketAddress(), game.getPlayerList().get(winnerID).getScore()+1);
+		if(winnerID != -1)game.updatePlayersScore(game.getPlayerList().get(winnerID).getSocketAddress(), game.getPlayerList().get(winnerID).getScore()+1);
 		for(int z = 0 ;z < sizeArray ;z++){
 			game.deleteMove(game.getPlayerList().get(z).getSocketAddress()); //Reset moves to UNDEF
 		}
