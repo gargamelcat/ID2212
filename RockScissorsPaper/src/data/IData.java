@@ -54,6 +54,8 @@ public interface IData {
 	Mode getMode();
 	void setMode(Mode mode);
 	void addObserver(Observer observer);
+	void deleteMove(InetSocketAddress socketAddress);
+	boolean didEveryonePlay();
 	
 	
 	

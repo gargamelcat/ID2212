@@ -32,15 +32,38 @@ public class Game extends Observable implements IData {
 	@Override
 	public void addMove(InetSocketAddress socketAddress, Move move) {
 		Player playerToUpdate = getPlayerBySocketAddress(socketAddress);
-		playerToUpdate.setLastMove(playerToUpdate.getMove());
 		playerToUpdate.setMove(move);
+		System.out.println("notify observers after adding following move"+ playerToUpdate.getName() + "/" + playerToUpdate.getMove().toString());
 		dataChanged();
+	}
+
+	@Override
+	public void deleteMove(InetSocketAddress socketAddress) {
+		System.out.println("set all moves back to UNDEF and notify observers");
+		Player playerToUpdate = getPlayerBySocketAddress(socketAddress);
+		playerToUpdate.setLastMove(playerToUpdate.getMove());
+		playerToUpdate.setMove(Move.UNDEF);
+		dataChanged();
+		continueWithGame();
+	}
+
+	@Override
+	public boolean didEveryonePlay() {
+		boolean result = true;
+
+		for (int i = 0; i < playerList.size(); i++) {
+			if (playerList.get(i).getMove() == Move.UNDEF) {
+				result = false;
+			}
+		}
+		return result;
 	}
 
 	@Override
 	public void updatePlayersScore(InetSocketAddress socketAddress, int score) {
 		getPlayerBySocketAddress(socketAddress).setScore(score);
 		dataChanged();
+		continueWithGame();
 	}
 
 	@Override
@@ -60,21 +83,24 @@ public class Game extends Observable implements IData {
 
 	@Override
 	public Player getPlayerBySocketAddress(InetSocketAddress socketAddress) {
-		Player searchedPlayer = new Player(null , socketAddress);
+		Player searchedPlayer = new Player(null, socketAddress);
 
 		for (int i = 0; i < playerList.size(); i++) {
 			if (playerList.get(i).comparePlayerBySocketAddress(searchedPlayer)) {
 				searchedPlayer = playerList.get(i);
 			}
 		}
-		if(searchedPlayer.getName() == null){
-			System.out.println("player with this socket address does not exist: "+ socketAddress.getAddress()+"/"+socketAddress.getPort());
+		if (searchedPlayer.getName() == null) {
+			System.out
+					.println("player with this socket address does not exist: "
+							+ socketAddress.getAddress() + "/"
+							+ socketAddress.getPort());
 		}
 		return searchedPlayer;
 	}
-	
+
 	@Override
-	public Player getPlayerByName(String name){
+	public Player getPlayerByName(String name) {
 		Player searchedPlayer = null;
 
 		for (int i = 0; i < playerList.size(); i++) {
@@ -82,8 +108,8 @@ public class Game extends Observable implements IData {
 				searchedPlayer = playerList.get(i);
 			}
 		}
-		if(searchedPlayer == null){
-			System.out.println("player with this name does not exist: " + name );
+		if (searchedPlayer == null) {
+			System.out.println("player with this name does not exist: " + name);
 		}
 		return searchedPlayer;
 	}
@@ -92,13 +118,17 @@ public class Game extends Observable implements IData {
 		return mode;
 	}
 
-	public void setMode(Mode mode){
+	public void setMode(Mode mode) {
 		this.mode = mode;
 	}
-	
-	private void dataChanged(){
+
+	private void dataChanged() {
 		setChanged();
 		notifyObservers();
-		System.out.println("notified the observers right noww");
+	}
+	
+	private void continueWithGame(){
+		setChanged();
+		notifyObservers("continue");
 	}
 }

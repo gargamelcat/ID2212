@@ -28,7 +28,6 @@ public class MessageProcessor extends Thread {
 			}
 
 			message = MessageQueue.getInstance().getOldestEntry();
-			System.out.println(message);
 
 			String[] command = null;
 			command = message.split(";");
@@ -59,15 +58,10 @@ public class MessageProcessor extends Thread {
 		portAsString = command[4];
 		port = Integer.parseInt(command[4]);
 		
-		System.out.println("messageProcessor got name: " + name);
-		System.out.println("messageProcessor got address: " + ipAddress);
-		System.out.println("messageProcessor got address: " + port);
-		
 		
 		if (command.length == 6) {
 			if (command[1].equals("add")) {
 					gameLeader.addFriend(name, ipAddress, port);
-					System.out.println("yeeeaaah i got the message: "+ name + "/" + ipAddress + "/"+ port);
 			} else if (command[1].equals("remove")) {
 					gameLeader.removeFriend(name, ipAddress, port);
 			} else {
@@ -102,7 +96,6 @@ public class MessageProcessor extends Thread {
 			try {
 				InetSocketAddress tempSocketAddress = new InetSocketAddress(InetAddress.getByName(ipAddress), port);
 				gameLeader.moveFromOtherPlayer(gameLeader.getGame().getPlayerBySocketAddress(tempSocketAddress), move);
-				System.out.println("yeaahh2 got move"+ move);
 			} catch (UnknownHostException e) {
 				System.out.println("Following socket address is corrupt"+ ipAddress + "/" + port);
 				e.printStackTrace();
@@ -113,7 +106,6 @@ public class MessageProcessor extends Thread {
 	}
 
 	private Move convertStringToMove(String moveAsString){
-		System.out.println(">>>>>>>>>>>>>>>>>>< in switch case: "+ moveAsString);
 		Move result = null;
 		switch(moveAsString){
 		case "ROCK":

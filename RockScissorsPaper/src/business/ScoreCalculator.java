@@ -43,12 +43,14 @@ public class ScoreCalculator extends Thread {
 			}
 			game.updatePlayersScore(game.getPlayerList().get(i).getSocketAddress(), points);
 		}	
-		for(int z = 0 ;z < sizeArray ;z++) game.addMove(game.getPlayerList().get(z).getSocketAddress(), Move.UNDEF); //Reset moves to UNDEF
-
+		for(int z = 0 ;z < sizeArray ;z++){
+			game.deleteMove(game.getPlayerList().get(z).getSocketAddress()); //Reset moves to UNDEF
+		}
+		
 		return game;
 		
 	}
-	
+	/**
 	public void waitMoves (int timeOut){
 		long t= System.currentTimeMillis();
 		long end = t+timeOut;
@@ -71,6 +73,15 @@ public class ScoreCalculator extends Thread {
 			ready = true;
 		}
 	}
+**/
 	
+	public void waitMoves(int timeout){
+		while(true){
+			if(game.didEveryonePlay()){
+				System.out.println("waitMoves is true");
+				calcScore();
+			}
+		}
+	}
 }
 

@@ -45,7 +45,6 @@ public class Sender {
 			byte[] toServer = message.getBytes();
 			out.write(toServer, 0, toServer.length);
 			out.flush();
-			System.out.println("just tried to send"+ message);
 			byte[] fromServer = new byte[toServer.length];
 			int n = in.read(fromServer, 0, fromServer.length);
 			if (n != fromServer.length) {

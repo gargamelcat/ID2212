@@ -47,6 +47,7 @@ public class Player {
 	}
 
 	public void setMove(Move move) {
+		System.out.println(this.getName() +"  got following new move: " + move.toString() );
 		this.move = move;
 	}
 
@@ -55,6 +56,7 @@ public class Player {
 	}
 
 	public void setLastMove(Move lastMove) {
+		System.out.println(this.getName() + " set lat move to" + lastMove.toString() );
 		this.lastMove = lastMove;
 	}
 

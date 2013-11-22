@@ -56,8 +56,9 @@ public class MainController implements Observer {
 		addFriendView = new AddFriendView(new addFriendListener(),
 				new cancelListener());
 		waitingForPlayerModel = new WaitingForPlayerModel();
-		waitingView = new WaitingView(new leaveGameListener(), waitingForPlayerModel);
-		loginView.setVisible(true);	
+		waitingView = new WaitingView(new leaveGameListener(),
+				waitingForPlayerModel);
+		loginView.setVisible(true);
 	}
 
 	class connectListener implements ActionListener {
@@ -70,7 +71,7 @@ public class MainController implements Observer {
 			mainView.setUserName(loginView.getUserName());
 			mainView.setIpAddress(loginView.getIpAddress());
 			mainView.setPort(loginView.getPort());
-			
+
 			playerListModel.setGame(gameLeader.getGame());
 			System.out.println(playerListModel.getValueAt(0, 0));
 			System.out.println(playerListModel.getValueAt(0, 1));
@@ -92,6 +93,12 @@ public class MainController implements Observer {
 			} else {
 				gameLeader.playMove(me, Move.PAPER);
 			}
+
+			if (gameLeader.getGame().didEveryonePlay() == false) {
+				mainView.setVisible(false);
+				waitingView.setVisible(true);
+			}
+
 		}
 	}
 
@@ -113,11 +120,10 @@ public class MainController implements Observer {
 	class addFriendListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("direct from playerView: "+addFriendView.getName());
-			System.out.println("direct from playerView: "+addFriendView.getIpAddress());
-			System.out.println("direct from playerView: "+addFriendView.getPort());
-			
-			gameLeader.addFriend(addFriendView.getName(), addFriendView.getIpAddress(), Integer.parseInt(addFriendView.getPort()));
+
+			gameLeader.addFriend(addFriendView.getName(),
+					addFriendView.getIpAddress(),
+					Integer.parseInt(addFriendView.getPort()));
 			addFriendView.setVisible(false);
 			mainView.setVisible(true);
 		}
@@ -129,7 +135,7 @@ public class MainController implements Observer {
 			addFriendView.setVisible(false);
 		}
 	}
-	
+
 	class leaveGameListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -141,6 +147,10 @@ public class MainController implements Observer {
 	public void update(Observable o, Object arg) {
 		playerListModel.setGame(gameLeader.getGame());
 		playerListModel.fireTableDataChanged();
-		System.out.println("observed some changes hoho");
+
+		if (arg == "continue") {
+			waitingView.setVisible(false);
+			mainView.setVisible(true);
+		}
 	}
 }

@@ -63,8 +63,6 @@ public class GameLeader implements IGui {
 		}
 		peerHandler = new PeerHandler(tempPlayer);
 		listen();
-		System.out.println("Timer ON");
-		scoreCalc.start();
 		return mainGame.getPlayerBySocketAddress(tempSocketAddr);
 	}
 
@@ -83,8 +81,10 @@ public class GameLeader implements IGui {
 			mainGame.addPlayer(tempPlayer);
 			distributePlayerList(tempPlayer);
 		}
+		if (scoreCalc.isAlive() == false) {
+			scoreCalc.start();
+		}
 	}
-
 
 	public synchronized void removeFriend(String name, String ipAddress,
 			int port) {
@@ -127,8 +127,6 @@ public class GameLeader implements IGui {
 	public synchronized void playMove(Player me, Move move) {
 		// @Joel check, need to be changed, round is fix right now
 		mainGame.addMove(me.getSocketAddress(), move);
-		System.out.println("saving move: " + me.getName() + "/"
-				+ me.getMove().toString());
 		if (mainGame.getMode() == Mode.AI) {
 			Random randomGenerator = new Random();
 			int randomInt = randomGenerator.nextInt(3);
@@ -140,9 +138,6 @@ public class GameLeader implements IGui {
 				mainGame.getPlayerByName("AI").setMove(Move.SCISSORS);
 			scoreCalc.calcScore();
 		} else {
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-					+ mainGame.getPlayerBySocketAddress(me.getSocketAddress())
-							.getMove().toString());
 			distributeMove(mainGame.getPlayerBySocketAddress(me
 					.getSocketAddress()));
 		}

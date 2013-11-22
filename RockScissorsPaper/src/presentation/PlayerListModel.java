@@ -19,7 +19,6 @@ public class PlayerListModel extends AbstractTableModel {
 
 	public void setGame(IData game) {
 		this.game = game;
-		System.out.println("in player list model: " + this.game.getPlayerList().get(0).getName());
 	}
 
 	@Override
@@ -72,7 +71,7 @@ public class PlayerListModel extends AbstractTableModel {
         case 3:
             return "Score";
         case 4:
-            return "Move";
+            return "Last move";
         default: 
             throw new IllegalArgumentException(String.format("Column {0} does not exist", column));
         }
