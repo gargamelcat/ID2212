@@ -77,6 +77,7 @@ public class GameLeader implements IGui {
 				port);
 		Player tempPlayer = new Player(name, tempSocketAddr);
 
+		mainGame.deleteScore();
 		if (mainGame.getPlayerByName(name) == null) {
 			mainGame.addPlayer(tempPlayer);
 			distributePlayerList(tempPlayer);

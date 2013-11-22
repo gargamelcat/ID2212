@@ -130,4 +130,13 @@ public class Game extends Observable implements IData {
 		setChanged();
 		notifyObservers("continue");
 	}
+	
+	@Override
+	public void deleteScore(){
+		ArrayList<Player> tempPlayerList = getPlayerList();
+		
+		for(int i = 0; i < tempPlayerList.size(); i++){
+			tempPlayerList.get(i).setScore(0);
+		}
+	}
 }

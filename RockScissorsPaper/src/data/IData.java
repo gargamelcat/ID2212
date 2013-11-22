@@ -90,6 +90,14 @@ public interface IData {
 	 * @param Socketaddress
 	 */	
 	void deleteMove(InetSocketAddress socketAddress);
+
+			/**
+	 * This method deletes the score for all players
+	 * @param Socketaddress
+	 */	
+	void deleteScore();
+	
+	
 	
 		/**
 	 * This method checks if everyone did play during this round.
