@@ -45,16 +45,56 @@ public interface IData {
 	 * @return The actual game.
 	 */	
 	Game getGame();
-	
+
+		/**
+	 * This method will return a player list of all players that play the game right now.
+	 * @return  ArrayList<Player> Arraylist with all players.
+	 */	
 	ArrayList<Player> getPlayerList();
 	
+		/**
+	 * Returns a player that is identified by his socket address.
+	 * @param InetSocketAddress Socket address of the player you are looking for.
+	 * @return Player you are looking for.
+	 */	
 	Player getPlayerBySocketAddress(InetSocketAddress socketAddress);
+	
+	
+		/**
+	 * Returns a player taht is identified by name given by parameter.
+	 * @param name Name of the player you are looking for.
+	 * @return Player you are looking for.
+	 */	
 	Player getPlayerByName(String name);
 	
+		/**
+	 * This method returns the actual playing mode. Player versus player or Player versus AI.
+	 * @return Returns the mode.
+	 */	
 	Mode getMode();
+	
+		/**
+	 * Sets the game mode. AI or PVP
+	 * @param Game mode.
+	 */	
 	void setMode(Mode mode);
+	
+		/**
+	 * This method adds an observer to the data model. As soon some data changes, this observer will be notified.
+	 * @param Observer
+	 */	
 	void addObserver(Observer observer);
+	
+		/**
+	 * This method sets the move back to UNDEF for the player with the socket address given by parameter.
+	 * @param Socketaddress
+	 */	
 	void deleteMove(InetSocketAddress socketAddress);
+	
+		/**
+	 * This method checks if everyone did play during this round.
+	 * @return Boolean if everyone has played.
+	 */	
 	boolean didEveryonePlay();
 	
 	

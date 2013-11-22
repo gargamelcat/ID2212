@@ -34,5 +34,10 @@ public interface IGui {
 	 */
 	Game getGame();
 	
-	void playMove(Player me, Move hand);
+	/**
+	 * This method will return an object of the actual game.
+	 * @param Player Player that plays a move.
+	 * @param Move The move that the player played.
+	 */
+	void playMove(Player me, Move move);
 }
