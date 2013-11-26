@@ -19,10 +19,6 @@ public class TraderMain {
        //Naming.rebind("server.Hello", remoteTrader); 
        
         Trader trader = new Trader("joel");
-        System.out.println("trader created");
-        //UnicastRemoteObject.exportObject(trader);
-        
-        System.out.println("trader exported");
         remoteMarketPlace.registerTrader(trader);
     }
 }

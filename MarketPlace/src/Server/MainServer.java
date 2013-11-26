@@ -14,7 +14,7 @@ public class MainServer {
  
     public static void main(String[] args) throws RemoteException, MalformedURLException {
         try{
-        	LocateRegistry.getRegistry();
+        	LocateRegistry.getRegistry(1099).list();
         }
         catch (RemoteException e) {
         	LocateRegistry.createRegistry(1099);       	
