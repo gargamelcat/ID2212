@@ -3,6 +3,8 @@ package Server;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+
+import Client.Trader;
  
 public interface IMarketPlace extends Remote {
 	boolean registerTrader(Trader trader) throws RemoteException;

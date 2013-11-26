@@ -7,6 +7,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import Client.Trader;
+
 
 public class IMarketPlaceImpl extends UnicastRemoteObject implements
 		IMarketPlace {
@@ -22,6 +24,7 @@ public class IMarketPlaceImpl extends UnicastRemoteObject implements
 	public boolean registerTrader(Trader trader) throws RemoteException {
 		System.out.println("This trader is now registered: " + trader.getName());
 		this.trader = trader;
+		trader.notifySeller(new Item("beer", 1000));
 		return true;
 	}
 
