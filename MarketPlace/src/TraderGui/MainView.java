@@ -36,6 +36,7 @@ public class MainView extends JFrame {
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	private JLabel lblPrice;
+	private JButton buttonUpdate;
 
 	/**
 	 * Launch the application.
@@ -57,7 +58,7 @@ public class MainView extends JFrame {
 	 * Create the frame.
 	 */
 	public MainView(ActionListener buyItemListener,
-			ActionListener sellItemListener, ActionListener exitListener, ProductModel productModel) {
+			ActionListener sellItemListener, ActionListener exitListener, ActionListener updateListener, ProductModel productModel) {
 		this.productModel = productModel;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 660, 496);
@@ -168,14 +169,22 @@ public class MainView extends JFrame {
 		gbc_buttonBuyItem.gridx = 4;
 		gbc_buttonBuyItem.gridy = 9;
 		contentPane.add(buttonBuyItem, gbc_buttonBuyItem);
-								
-										JButton buttonExit = new JButton("Exit");
-										buttonExit.addActionListener(exitListener);
-										GridBagConstraints gbc_buttonExit = new GridBagConstraints();
-										gbc_buttonExit.insets = new Insets(0, 0, 5, 5);
-										gbc_buttonExit.gridx = 4;
-										gbc_buttonExit.gridy = 11;
-										contentPane.add(buttonExit, gbc_buttonExit);
+										
+										buttonUpdate = new JButton("Update");
+										buttonUpdate.addActionListener(updateListener);
+										GridBagConstraints gbc_buttonUpdate = new GridBagConstraints();
+										gbc_buttonUpdate.insets = new Insets(0, 0, 5, 5);
+										gbc_buttonUpdate.gridx = 4;
+										gbc_buttonUpdate.gridy = 10;
+										contentPane.add(buttonUpdate, gbc_buttonUpdate);
+										
+												JButton buttonExit = new JButton("Exit");
+												buttonExit.addActionListener(exitListener);
+												GridBagConstraints gbc_buttonExit = new GridBagConstraints();
+												gbc_buttonExit.insets = new Insets(0, 0, 5, 5);
+												gbc_buttonExit.gridx = 4;
+												gbc_buttonExit.gridy = 15;
+												contentPane.add(buttonExit, gbc_buttonExit);
 	}
 
 	public void setUserName(String userName) {

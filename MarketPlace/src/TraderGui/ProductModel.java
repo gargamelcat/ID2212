@@ -60,4 +60,8 @@ public class ProductModel extends AbstractTableModel {
             throw new IllegalArgumentException(String.format("Column {0} does not exist", column));
         }
     }	
+    
+    public Item getItemInRow(int row){
+    	return itemList.get(row);
+    }
 }

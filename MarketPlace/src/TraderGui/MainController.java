@@ -47,14 +47,14 @@ public class MainController implements Observer {
 		traderManager = new TraderManager();
 		loginView = new LoginView(new LoginListener());
 		productModel = new ProductModel();
-		mainView = new MainView(new BuyItemListener(), new SellItemListener(), new ExitListener(), productModel);
+		mainView = new MainView(new BuyItemListener(), new SellItemListener(), new ExitListener(), new UpdateListener(), productModel);
 		loginView.setVisible(true);
 	}
 
 	class LoginListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			traderManager.login(loginView.getName());
+			traderManager.login(loginView.getUserName());
 			loginView.setVisible(false);
 			productModel.fireTableDataChanged();
 			productModel.setItemList(traderManager.getItemList());
@@ -69,6 +69,8 @@ public class MainController implements Observer {
 			int itemPrice = mainView.getProductPrice();
 			if(itemName.length() >= 3 && itemPrice >= 0){
 			traderManager.sellItem(new Item(itemName, itemPrice));
+			productModel.setItemList(traderManager.getItemList());
+			productModel.fireTableDataChanged();
 			}else{
 				System.out.println("Name is less than 3 digits or price is 0. Please complete information and try again.");
 			}
@@ -78,7 +80,17 @@ public class MainController implements Observer {
 	class BuyItemListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("traderside:" + traderManager.getItemList().get(0).getName());
+			int row = mainView.getSelectedRow();
+			traderManager.buyItem(productModel.getItemInRow(row));
+		}
+	}
+	
+	class UpdateListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			productModel.setItemList(traderManager.getItemList());
+			productModel.fireTableDataChanged();
+			System.exit(0);
 		}
 	}
 
