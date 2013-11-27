@@ -5,6 +5,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 
@@ -16,13 +17,10 @@ public class TraderManager extends Observable implements IGui {
 
 	Trader me = null;
 	IMarketPlace remoteMarketPlace = null;
-
-	public static void main(String args[]) throws RemoteException,
-			NotBoundException, MalformedURLException {
-
-	}
+	LinkedList<String> messageLog = null;
 
 	public TraderManager() {
+		messageLog = new LinkedList<String>();
 	}
 
 	@Override
@@ -82,9 +80,22 @@ public class TraderManager extends Observable implements IGui {
 			e.printStackTrace();
 		}
 	}
-	
-	public void notifyChangesToGui(){
+
+	public void notifyChangesToGui(String sortOfChange) {
 		setChanged();
-		notifyObservers();
+		notifyObservers(sortOfChange);
+	}
+
+	public String getNewestLogMessage() {
+		String tempMessage = null;
+		if(messageLog.size() > 0){
+			tempMessage = messageLog.removeFirst();
+		}
+		return tempMessage;
+	}
+	
+	public void addMessageToLog(String message){
+		messageLog.add(message);
+		notifyChangesToGui("messageLog");
 	}
 }

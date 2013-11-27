@@ -107,7 +107,27 @@ public class MainController implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		productModel.setItemList(traderManager.getItemList());
-		productModel.fireTableDataChanged();
+		
+		if(arg == "serverdata"){
+			productModel.setItemList(traderManager.getItemList());
+			productModel.fireTableDataChanged();
+		}else if(arg == "messageLog"){
+			updateMessageLog();
+		}
+
+	}
+
+	private void updateMessageLog() {
+		boolean updateDone = false;
+		String tempMessage = null;
+		while(updateDone == false){
+			tempMessage = traderManager.getNewestLogMessage();
+			System.out.println("temp message in controller: " + tempMessage);
+			if(tempMessage !=null){
+				mainView.addMessageToLog(tempMessage);
+			}else{
+				updateDone = true;
+			}
+		}
 	}
 }
