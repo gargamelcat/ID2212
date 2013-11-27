@@ -5,6 +5,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 
 import Server.IMarketPlace;
@@ -14,9 +15,9 @@ import Server.Item;
 public class Trader extends UnicastRemoteObject implements ITrader {
 	private String name;
 
-	public Trader(String id) throws RemoteException {
+	public Trader(String name) throws RemoteException {
 		super();
-		this.name = id;
+		this.name = name;
 	}
 
 	public String getName() {
@@ -25,11 +26,12 @@ public class Trader extends UnicastRemoteObject implements ITrader {
 
 	@Override
 	public void notifySeller(Item item) throws RemoteException {
-		System.out.println("item got sold: " + item.getName());
+		System.out.println("You sold following item: " + item.getName());
 	}
 
 	@Override
 	public void notifyWish(Item item) throws RemoteException {
-		// TODO Auto-generated method stub
+		System.out.println("Following item in your wishlist is now available in the shop: " + item.getName());
+		System.out.println("The price is: " + item.getPrice());
 	}
 }
