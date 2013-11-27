@@ -77,8 +77,10 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace
                 // TODO Auto-generated method stub
         		ITrader seller = null;
         		for( Entry<ITrader, ArrayList<Item> > tempMap : clientList.entrySet()){
-        			if (tempMap.getValue().contains(item)) {
-                         seller = tempMap.getKey();
+        			if(tempMap.getValue() != null) {
+        				if (tempMap.getValue().contains(item)) {
+        					seller = tempMap.getKey();
+        				}
         			}
         		}
                 seller.notifySeller(item);
