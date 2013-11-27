@@ -65,7 +65,7 @@ public class TraderManager implements IGui {
 	@Override
 	public void sellItem(Item item) {
 		try {
-			remoteMarketPlace.sellItem(me, item);
+			remoteMarketPlace.sellItem(me, item.getName(), item.getPrice());
 		} catch (RemoteException e) {
 			System.out.println("could not sell item: " + item.getName());
 			e.printStackTrace();

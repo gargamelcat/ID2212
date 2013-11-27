@@ -57,6 +57,7 @@ public class MainController implements Observer {
 			traderManager.login(loginView.getName());
 			loginView.setVisible(false);
 			productModel.fireTableDataChanged();
+			productModel.setItemList(traderManager.getItemList());
 			mainView.setVisible(true);
 		}
 	}
@@ -77,7 +78,7 @@ public class MainController implements Observer {
 	class BuyItemListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+			System.out.println("traderside:" + traderManager.getItemList().get(0).getName());
 		}
 	}
 

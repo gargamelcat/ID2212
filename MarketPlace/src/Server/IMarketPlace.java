@@ -42,7 +42,7 @@ public interface IMarketPlace extends Remote {
 	 * @param ITrader Trader that want to sell the item.
 	 * @param Item Item that will be put into the marketplace.
 	 */
-	void sellItem(ITrader trader, Item item) throws RemoteException;
+	void sellItem(ITrader trader, String itemName, Integer price) throws RemoteException;
 	
 	/**
 	 * This method will puy an item.
