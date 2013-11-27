@@ -110,4 +110,8 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace
                 }
                 return tempList;
         }
+        
+        private void notifyChangesToAllTraders(){
+        	//needs to be implemented
+        }
 }
