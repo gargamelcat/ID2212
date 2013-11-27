@@ -31,5 +31,7 @@ public interface ITrader extends Remote {
 	 * @param Item Wished item that is avaliable now.
 	 */
 	void notifyWish(Item item) throws RemoteException;
+	
+	void dataChanged() throws RemoteException;
 	 
 } 

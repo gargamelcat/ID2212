@@ -14,10 +14,12 @@ import Server.Item;
 @SuppressWarnings("serial")
 public class Trader extends UnicastRemoteObject implements ITrader {
 	private String name;
+	private TraderManager traderManger = null;
 
-	public Trader(String name) throws RemoteException {
+	public Trader(TraderManager traderManager, String name) throws RemoteException {
 		super();
 		this.name = name;
+		this.traderManger = traderManager;
 	}
 
 	public String getName() {
@@ -33,5 +35,10 @@ public class Trader extends UnicastRemoteObject implements ITrader {
 	public void notifyWish(Item item) throws RemoteException {
 		System.out.println("Following item in your wishlist is now available in the shop: " + item.getName());
 		System.out.println("The price is: " + item.getPrice());
+	}
+
+	@Override
+	public void dataChanged() throws RemoteException {
+		traderManger.notifyChangesToGui();
 	}
 }

@@ -6,12 +6,13 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import Server.IMarketPlace;
 import Server.Item;
 import Server.MarketPlace;
 
-public class TraderManager implements IGui {
+public class TraderManager extends Observable implements IGui {
 
 	Trader me = null;
 	IMarketPlace remoteMarketPlace = null;
@@ -28,7 +29,7 @@ public class TraderManager implements IGui {
 	public void login(String name) {
 		Trader me;
 		try {
-			me = new Trader(name);
+			me = new Trader(this, name);
 			remoteMarketPlace = (IMarketPlace) Naming
 					.lookup("rmi://localhost/marketPlace");
 			remoteMarketPlace.registerTrader(me);
@@ -80,5 +81,10 @@ public class TraderManager implements IGui {
 			System.out.println("coud not buy item: " + item.getName());
 			e.printStackTrace();
 		}
+	}
+	
+	public void notifyChangesToGui(){
+		setChanged();
+		notifyObservers();
 	}
 }

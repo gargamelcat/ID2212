@@ -45,6 +45,7 @@ public class MainController implements Observer {
 	public MainController() {
 		mainController = this;
 		traderManager = new TraderManager();
+		traderManager.addObserver(this);
 		loginView = new LoginView(new LoginListener());
 		productModel = new ProductModel();
 		mainView = new MainView(new BuyItemListener(), new SellItemListener(), new ExitListener(), new UpdateListener(), productModel);
@@ -103,6 +104,7 @@ public class MainController implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		productModel.setItemList(traderManager.getItemList());
 		productModel.fireTableDataChanged();
 	}
 }
