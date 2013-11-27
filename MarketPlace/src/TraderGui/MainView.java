@@ -22,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
 import TraderGui.MainController.SellItemListener;
+import javax.swing.JTextArea;
 
 public class MainView extends JFrame {
 
@@ -37,6 +38,7 @@ public class MainView extends JFrame {
 	private JLabel lblNewLabel_1;
 	private JLabel lblPrice;
 	private JButton buttonUpdate;
+	private JTextArea messageLog;
 
 	/**
 	 * Launch the application.
@@ -61,17 +63,17 @@ public class MainView extends JFrame {
 			ActionListener sellItemListener, ActionListener exitListener, ActionListener updateListener, ProductModel productModel) {
 		this.productModel = productModel;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 660, 496);
+		setBounds(100, 100, 688, 603);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] { 0, 205, 0, 68, 0, 0, 3 };
-		gbl_contentPane.rowHeights = new int[] { 0, 0, 0, 0, -9, 0, 0, 0, 0, 38, 0, 0, 0, 0, 0, 0, 0, 3 };
+		gbl_contentPane.rowHeights = new int[] { 0, 0, 0, 0, -9, 0, 0, 0, 0, 38, 33, 0, 66, 133, 0, 3 };
 		gbl_contentPane.columnWeights = new double[] { 0.0, 1.0, 1.0, 0.0,
 				0.0, 0.0, Double.MIN_VALUE };
 		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0,
 				Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
@@ -151,7 +153,7 @@ public class MainView extends JFrame {
 		
 		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.gridheight = 7;
+		gbc_scrollPane.gridheight = 4;
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridwidth = 3;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
@@ -177,14 +179,23 @@ public class MainView extends JFrame {
 										gbc_buttonUpdate.gridx = 4;
 										gbc_buttonUpdate.gridy = 10;
 										contentPane.add(buttonUpdate, gbc_buttonUpdate);
-										
-												JButton buttonExit = new JButton("Exit");
-												buttonExit.addActionListener(exitListener);
-												GridBagConstraints gbc_buttonExit = new GridBagConstraints();
-												gbc_buttonExit.insets = new Insets(0, 0, 5, 5);
-												gbc_buttonExit.gridx = 4;
-												gbc_buttonExit.gridy = 15;
-												contentPane.add(buttonExit, gbc_buttonExit);
+												
+												messageLog = new JTextArea();
+												GridBagConstraints gbc_messageLog = new GridBagConstraints();
+												gbc_messageLog.gridwidth = 3;
+												gbc_messageLog.insets = new Insets(0, 0, 5, 5);
+												gbc_messageLog.fill = GridBagConstraints.BOTH;
+												gbc_messageLog.gridx = 1;
+												gbc_messageLog.gridy = 13;
+												contentPane.add(messageLog, gbc_messageLog);
+												
+														JButton buttonExit = new JButton("Exit");
+														buttonExit.addActionListener(exitListener);
+														GridBagConstraints gbc_buttonExit = new GridBagConstraints();
+														gbc_buttonExit.insets = new Insets(0, 0, 5, 5);
+														gbc_buttonExit.gridx = 4;
+														gbc_buttonExit.gridy = 13;
+														contentPane.add(buttonExit, gbc_buttonExit);
 	}
 
 	public void setUserName(String userName) {
@@ -202,5 +213,10 @@ public class MainView extends JFrame {
 	
 	public int getSelectedRow(){
 		return tableProduct.getSelectedRow();
+	}
+	
+	public void addMessageToLog(String message){
+		messageLog.setText(message + "\n" + messageLog.getText());
+		//messageLog.repaint();
 	}
 }

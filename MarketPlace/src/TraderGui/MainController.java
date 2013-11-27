@@ -59,6 +59,9 @@ public class MainController implements Observer {
 			loginView.setVisible(false);
 			productModel.fireTableDataChanged();
 			productModel.setItemList(traderManager.getItemList());
+			mainView.setName(loginView.getUserName());
+			mainView.addMessageToLog("huhu");
+			mainView.addMessageToLog("huhu2");
 			mainView.setVisible(true);
 		}
 	}
