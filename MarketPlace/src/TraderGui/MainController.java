@@ -90,7 +90,6 @@ public class MainController implements Observer {
 		public void actionPerformed(ActionEvent e) {
 			productModel.setItemList(traderManager.getItemList());
 			productModel.fireTableDataChanged();
-			System.exit(0);
 		}
 	}
 
