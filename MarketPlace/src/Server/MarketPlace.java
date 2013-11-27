@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
  
 import Client.ITrader;
@@ -74,8 +75,15 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace
         @Override
         public void buyItem(ITrader trader, Item item) throws RemoteException {
                 // TODO Auto-generated method stub
-                trader.notifySeller(item);
-                clientList.get(trader).remove(item);
+        		ITrader seller = null;
+        		for( Entry<ITrader, ArrayList<Item> > tempMap : clientList.entrySet()){
+        			if (tempMap.getValue().contains(item)) {
+                         seller = tempMap.getKey();
+        			}
+        		}
+                seller.notifySeller(item);
+                
+                clientList.get(seller).remove(item);
         }
  
         @Override
