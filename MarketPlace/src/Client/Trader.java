@@ -1,43 +1,37 @@
 package Client;
 
-import java.io.Serializable;
-import java.rmi.Remote;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
+import Server.IMarketPlace;
 import Server.Item;
 
-public  class Trader implements ITrader, Serializable{
+@SuppressWarnings("serial")
+public class Trader extends UnicastRemoteObject implements ITrader {
+	private String name;
 
-	private static final long serialVersionUID = 1L;
-	
-	String name = null;
-
-	public Trader(String name) throws RemoteException{
-		this.name = name;
+	public Trader(String id) throws RemoteException {
+		super();
+		this.name = id;
 	}
-	
-	public synchronized String getName() {
+
+	public String getName() {
 		return name;
 	}
 
-	public synchronized void setName(String name) {
-		this.name = name;
-	}
-
 	@Override
-	public synchronized boolean notifySeller(Item item)
-			throws RemoteException {
-		System.out.println("Name: " + item.getName() + " Price: "+ item.getPrice());
+	public boolean notifySeller(Item item) throws RemoteException {
+		System.out.println("item got sold: " + item.getName());
 		return false;
 	}
 
 	@Override
-	public synchronized boolean notifyWish(Item item) throws RemoteException {
+	public boolean notifyWish(Item item) throws RemoteException {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	
-	
 }

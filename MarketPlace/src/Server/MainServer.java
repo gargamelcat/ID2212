@@ -1,27 +1,19 @@
 package Server;
- 
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.net.MalformedURLException;
 
-import Client.ITrader;
-import Client.Trader;
- 
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
+
 public class MainServer {
- 
-    public static void main(String[] args) throws RemoteException, MalformedURLException {
-        try{
-        	LocateRegistry.getRegistry(1099).list();
-        }
-        catch (RemoteException e) {
-        	LocateRegistry.createRegistry(1099);       	
-        }
-        IMarketPlace remoteMarketplace = new IMarketPlaceImpl();
-        Naming.rebind("server.Hello", remoteMarketplace);
-        System.out.println("server.RMI Server is ready.");
-        
-    }
+
+	public static void main(String[] args) {
+		try {
+			new MarketPlace();
+		} catch (RemoteException re) {
+			System.out.println(re);
+			System.exit(1);
+		} catch (MalformedURLException me) {
+			System.out.println(me);
+			System.exit(1);
+		}
+	}
 }
