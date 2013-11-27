@@ -24,14 +24,12 @@ public class Trader extends UnicastRemoteObject implements ITrader {
 	}
 
 	@Override
-	public boolean notifySeller(Item item) throws RemoteException {
+	public void notifySeller(Item item) throws RemoteException {
 		System.out.println("item got sold: " + item.getName());
-		return false;
 	}
 
 	@Override
-	public boolean notifyWish(Item item) throws RemoteException {
+	public void notifyWish(Item item) throws RemoteException {
 		// TODO Auto-generated method stub
-		return false;
 	}
 }
