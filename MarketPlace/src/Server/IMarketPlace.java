@@ -49,7 +49,7 @@ public interface IMarketPlace extends Remote {
 	 * @param Item Item that will be bought.
 	 * @param ITrader Trader that will buy the item.
 	 */
-	void buyItem(ITrader trader, Item item) throws RemoteException;
+	boolean buyItem(ITrader trader, Item item) throws RemoteException;
 	
 	/**
 	 * This method will add a wish for a trader.

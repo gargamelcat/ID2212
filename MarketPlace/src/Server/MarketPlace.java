@@ -15,6 +15,7 @@ import java.util.Set;
 
 import Bank.BankImpl;
 import Bank.IBank;
+import Bank.RejectedException;
 import Client.ITrader;
 import Client.Trader;
 
@@ -90,23 +91,36 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 	}
 
 	@Override
-	public void buyItem(ITrader trader, Item item) throws RemoteException {
+	public boolean buyItem(ITrader trader, Item item) throws RemoteException {
 		// TODO Auto-generated method stub
 		ITrader seller = null;
+		boolean bought = false;
 		for (Entry<ITrader, ArrayList<Item>> tempMap : clientList.entrySet()) {
 			System.out.println("Iteration.");
 			if (tempMap.getValue() != null) {
 				for (int k = 0; k < tempMap.getValue().size(); k++) {
 					if (tempMap.getValue().get(k).getName()
 							.equals(item.getName())) {
-						tempMap.getValue().remove(k);
-						seller = tempMap.getKey();
+						if (bank.getAccount(trader.getName()).getBalance() >= item.getPrice()) {
+							seller = tempMap.getKey();
+							try {
+								bank.getAccount(trader.getName()).withdraw(item.price);
+								bank.getAccount(seller.getName()).deposit(item.price);
+							} catch (RejectedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							tempMap.getValue().remove(k);
+							seller.notifySeller(item);
+							bought = true;
+						}
 					}
 				}
 			}
 		}
-		seller.notifySeller(item);
 		notifyChangesToAllTraders();
+		if(!bought) System.out.println("NOT BOUGHT");
+		return bought;
 	}
 
 	@Override
