@@ -13,4 +13,7 @@ public interface IGui {
 	ArrayList<Item> getItemList();
 	void sellItem(Item item);
 	void buyItem(Item item);
+	void depositMoney(int money);
+	int getBalance();
+	
 }

@@ -47,4 +47,9 @@ public class Trader extends UnicastRemoteObject implements ITrader {
 	public void dataChanged() throws RemoteException {
 		traderManger.notifyChangesToGui("serverData");
 	}
+	
+	@Override
+	public void balanceChanged() throws RemoteException {
+		traderManger.notifyChangesToGui("balance");
+	}	
 }

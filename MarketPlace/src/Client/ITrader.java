@@ -33,5 +33,6 @@ public interface ITrader extends Remote {
 	void notifyWish(Item item) throws RemoteException;
 	
 	void dataChanged() throws RemoteException;
+	void balanceChanged() throws RemoteException;
 	 
 } 

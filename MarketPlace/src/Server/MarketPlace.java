@@ -13,6 +13,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import Bank.BankImpl;
+import Bank.IBank;
 import Client.ITrader;
 import Client.Trader;
 
@@ -21,6 +23,7 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 	// private List<ITrader> clientList = new ArrayList<>();
 	private Map<ITrader, ArrayList<Item>> clientList = new HashMap<ITrader, ArrayList<Item>>();
 	private ArrayList<Item> itemList = new ArrayList<Item>();
+	IBank bank = new BankImpl("UBS");
 
 	public MarketPlace() throws RemoteException, MalformedURLException {
 		super();
@@ -29,7 +32,9 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 		} catch (RemoteException e) {
 			LocateRegistry.createRegistry(1099);
 		}
+		
 		Naming.rebind("rmi://localhost/marketPlace", this);
+		Naming.rebind("rmi://localhost/bank", bank);
 	}
 
 	public Set<ITrader> getClients() {

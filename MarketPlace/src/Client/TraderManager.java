@@ -9,6 +9,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
 
+import Bank.AccountImpl;
+import Bank.IAccount;
+import Bank.IBank;
+import Bank.RejectedException;
 import Server.IMarketPlace;
 import Server.Item;
 import Server.MarketPlace;
@@ -18,7 +22,11 @@ public class TraderManager extends Observable implements IGui {
 	Trader me = null;
 	IMarketPlace remoteMarketPlace = null;
 	LinkedList<String> messageLog = null;
-
+	
+	IAccount myBankAccount = null;
+	IBank myBank = null;
+	
+	
 	public TraderManager() {
 		messageLog = new LinkedList<String>();
 	}
@@ -31,7 +39,11 @@ public class TraderManager extends Observable implements IGui {
 			remoteMarketPlace = (IMarketPlace) Naming
 					.lookup("rmi://localhost/marketPlace");
 			remoteMarketPlace.registerTrader(me);
-		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			
+			myBank = (IBank)Naming.lookup("rmi://localhost/bank");
+			myBankAccount = myBank.newAccount(me.getName());
+
+		} catch (RemoteException | MalformedURLException | NotBoundException | RejectedException e) {
 			System.out.println("Coud not register trader.");
 			e.printStackTrace();
 		}
@@ -88,14 +100,36 @@ public class TraderManager extends Observable implements IGui {
 
 	public String getNewestLogMessage() {
 		String tempMessage = null;
-		if(messageLog.size() > 0){
+		if (messageLog.size() > 0) {
 			tempMessage = messageLog.removeFirst();
 		}
 		return tempMessage;
 	}
-	
-	public void addMessageToLog(String message){
+
+	public void addMessageToLog(String message) {
 		messageLog.add(message);
 		notifyChangesToGui("messageLog");
+	}
+
+	@Override
+	public void depositMoney(int money) {
+		try {
+			myBankAccount.deposit(money);
+		} catch (RemoteException | RejectedException e) {
+			System.out.println("could not deposit money");
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public int getBalance() {
+		int balance = 0;
+		try {
+			balance = (int) myBankAccount.getBalance();
+		} catch (RemoteException e) {
+			System.out.println("could not get balance from bank");
+			e.printStackTrace();
+		}
+		return balance;
 	}
 }

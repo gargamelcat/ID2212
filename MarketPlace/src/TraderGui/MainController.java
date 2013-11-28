@@ -48,7 +48,7 @@ public class MainController implements Observer {
 		traderManager.addObserver(this);
 		loginView = new LoginView(new LoginListener());
 		productModel = new ProductModel();
-		mainView = new MainView(new BuyItemListener(), new SellItemListener(), new ExitListener(), new UpdateListener(), productModel);
+		mainView = new MainView(new BuyItemListener(), new SellItemListener(), new ExitListener(), new UpdateListener(), new DepositMoneyListener(), productModel);
 		loginView.setVisible(true);
 	}
 
@@ -60,8 +60,6 @@ public class MainController implements Observer {
 			productModel.fireTableDataChanged();
 			productModel.setItemList(traderManager.getItemList());
 			mainView.setName(loginView.getUserName());
-			mainView.addMessageToLog("huhu");
-			mainView.addMessageToLog("huhu2");
 			mainView.setVisible(true);
 		}
 	}
@@ -75,6 +73,7 @@ public class MainController implements Observer {
 			traderManager.sellItem(new Item(itemName, itemPrice));
 			productModel.setItemList(traderManager.getItemList());
 			productModel.fireTableDataChanged();
+			mainView.clearProductFields();
 			}else{
 				System.out.println("Name is less than 3 digits or price is 0. Please complete information and try again.");
 			}
@@ -104,6 +103,16 @@ public class MainController implements Observer {
 			System.exit(0);
 		}
 	}
+	
+	
+	class DepositMoneyListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			traderManager.depositMoney(mainView.getDeposit());
+			mainView.clearDepositField();
+			mainView.setBalance(traderManager.getBalance());
+		}
+	}	
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -113,6 +122,8 @@ public class MainController implements Observer {
 			productModel.fireTableDataChanged();
 		}else if(arg == "messageLog"){
 			updateMessageLog();
+		}else if(arg == "balance"){
+			mainView.setBalance(traderManager.getBalance());
 		}
 
 	}
