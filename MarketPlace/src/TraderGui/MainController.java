@@ -48,7 +48,7 @@ public class MainController implements Observer {
 		traderManager.addObserver(this);
 		loginView = new LoginView(new LoginListener());
 		productModel = new ProductModel();
-		mainView = new MainView(new BuyItemListener(), new SellItemListener(), new ExitListener(), new UpdateListener(), new DepositMoneyListener(), productModel);
+		mainView = new MainView(new BuyItemListener(), new SellItemListener(), new ExitListener(), new UpdateListener(), new DepositMoneyListener(), new WishListener(), productModel);
 		loginView.setVisible(true);
 	}
 
@@ -113,7 +113,13 @@ public class MainController implements Observer {
 			mainView.setBalance(traderManager.getBalance());
 		}
 	}	
-
+	class WishListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			traderManager.addWish(mainView.getWish());
+		}
+	}	
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		

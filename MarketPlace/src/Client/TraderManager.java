@@ -19,7 +19,7 @@ import Server.MarketPlace;
 
 public class TraderManager extends Observable implements IGui {
 
-	Trader me = null;
+	ITrader me = null;
 	IMarketPlace remoteMarketPlace = null;
 	LinkedList<String> messageLog = null;
 	
@@ -33,7 +33,6 @@ public class TraderManager extends Observable implements IGui {
 
 	@Override
 	public void login(String name) {
-		Trader me;
 		try {
 			me = new Trader(this, name);
 			remoteMarketPlace = (IMarketPlace) Naming
@@ -86,6 +85,7 @@ public class TraderManager extends Observable implements IGui {
 	@Override
 	public void buyItem(Item item) {
 		try {
+			System.out.println("buy item client side: "+ me.getName());
 			remoteMarketPlace.buyItem(me, item);
 		} catch (RemoteException e) {
 			System.out.println("coud not buy item: " + item.getName());
@@ -131,5 +131,15 @@ public class TraderManager extends Observable implements IGui {
 			e.printStackTrace();
 		}
 		return balance;
+	}
+
+	@Override
+	public void addWish(String wish) {
+		try {
+			remoteMarketPlace.addWish(me, wish);
+		} catch (RemoteException e) {
+			System.out.println("Wish could not be added");
+			e.printStackTrace();
+		}
 	}
 }

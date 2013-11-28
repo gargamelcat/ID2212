@@ -56,5 +56,5 @@ public interface IMarketPlace extends Remote {
 	 * @param ITrader Trader that adds the wish to the marketplace.
 	 * @param Item Item that the trader is looking for.
 	 */
-	void addWish(ITrader trader, Item Item) throws RemoteException;  
+	void addWish(ITrader trader, String wish) throws RemoteException;  
 }

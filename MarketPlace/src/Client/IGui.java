@@ -15,5 +15,6 @@ public interface IGui {
 	void buyItem(Item item);
 	void depositMoney(int money);
 	int getBalance();
+	void addWish(String wish);
 	
 }

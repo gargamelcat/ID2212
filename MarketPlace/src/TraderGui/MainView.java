@@ -46,6 +46,9 @@ public class MainView extends JFrame {
 	private JLabel labelBankName;
 	private JLabel lblDepositMoney;
 	private JTextField textFieldDeposit;
+	private JButton buttonAddWish;
+	private JLabel lblWish;
+	private JTextField textFieldWish;
 
 	/**
 	 * Launch the application.
@@ -67,7 +70,7 @@ public class MainView extends JFrame {
 	 * Create the frame.
 	 */
 	public MainView(ActionListener buyItemListener,
-			ActionListener sellItemListener, ActionListener exitListener, ActionListener updateListener, ActionListener depositMoneyListener, ProductModel productModel) {
+			ActionListener sellItemListener, ActionListener exitListener, ActionListener updateListener, ActionListener depositMoneyListener, ActionListener wishListener, ProductModel productModel) {
 		this.productModel = productModel;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 688, 603);
@@ -76,11 +79,11 @@ public class MainView extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] { 0, 227, 163, 93, 0, 0, 3 };
-		gbl_contentPane.rowHeights = new int[] { 0, 0, 0, 0, 0, -9, 0, 0, 0, 0, 0, 0, 38, 33, 0, 66, 133, 0, 3 };
+		gbl_contentPane.rowHeights = new int[] { 0, 0, 0, 0, 0, -9, 0, 0, 0, 0, 0, 0, 0, 44, 48, 50, 2, 133, 0, 3 };
 		gbl_contentPane.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0,
 				0.0, 0.0, Double.MIN_VALUE };
 		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0,
 				Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 						
@@ -168,7 +171,7 @@ public class MainView extends JFrame {
 		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 1;
-		gbc_lblNewLabel.gridy = 8;
+		gbc_lblNewLabel.gridy = 7;
 		contentPane.add(lblNewLabel, gbc_lblNewLabel);
 		
 		lblNewLabel_1 = new JLabel("Name:");
@@ -176,7 +179,7 @@ public class MainView extends JFrame {
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_1.gridx = 1;
-		gbc_lblNewLabel_1.gridy = 9;
+		gbc_lblNewLabel_1.gridy = 8;
 		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		textFieldItemName = new JTextField();
@@ -185,7 +188,7 @@ public class MainView extends JFrame {
 		gbc_textFieldItemName.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldItemName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldItemName.gridx = 2;
-		gbc_textFieldItemName.gridy = 9;
+		gbc_textFieldItemName.gridy = 8;
 		contentPane.add(textFieldItemName, gbc_textFieldItemName);
 		
 		lblPrice = new JLabel("Price:");
@@ -193,7 +196,7 @@ public class MainView extends JFrame {
 		gbc_lblPrice.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPrice.anchor = GridBagConstraints.WEST;
 		gbc_lblPrice.gridx = 1;
-		gbc_lblPrice.gridy = 10;
+		gbc_lblPrice.gridy = 9;
 		contentPane.add(lblPrice, gbc_lblPrice);
 		
 		textFieldItemPrice = new JTextField();
@@ -201,7 +204,7 @@ public class MainView extends JFrame {
 		gbc_textFieldItemPrice.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldItemPrice.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldItemPrice.gridx = 2;
-		gbc_textFieldItemPrice.gridy = 10;
+		gbc_textFieldItemPrice.gridy = 9;
 		contentPane.add(textFieldItemPrice, gbc_textFieldItemPrice);
 		textFieldItemPrice.setColumns(10);
 		
@@ -210,8 +213,33 @@ public class MainView extends JFrame {
 				GridBagConstraints gbc_buttonSellItem = new GridBagConstraints();
 				gbc_buttonSellItem.insets = new Insets(0, 0, 5, 5);
 				gbc_buttonSellItem.gridx = 4;
-				gbc_buttonSellItem.gridy = 10;
+				gbc_buttonSellItem.gridy = 9;
 				contentPane.add(buttonSellItem, gbc_buttonSellItem);
+		
+		lblWish = new JLabel("Wish:");
+		GridBagConstraints gbc_lblWish = new GridBagConstraints();
+		gbc_lblWish.anchor = GridBagConstraints.WEST;
+		gbc_lblWish.insets = new Insets(0, 0, 5, 5);
+		gbc_lblWish.gridx = 1;
+		gbc_lblWish.gridy = 11;
+		contentPane.add(lblWish, gbc_lblWish);
+		
+		textFieldWish = new JTextField();
+		textFieldWish.setColumns(10);
+		GridBagConstraints gbc_textFieldWish = new GridBagConstraints();
+		gbc_textFieldWish.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldWish.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldWish.gridx = 2;
+		gbc_textFieldWish.gridy = 11;
+		contentPane.add(textFieldWish, gbc_textFieldWish);
+		
+		buttonAddWish = new JButton("Add wish");
+		buttonAddWish.addActionListener(wishListener);
+		GridBagConstraints gbc_buttonAddWish = new GridBagConstraints();
+		gbc_buttonAddWish.insets = new Insets(0, 0, 5, 5);
+		gbc_buttonAddWish.gridx = 4;
+		gbc_buttonAddWish.gridy = 11;
+		contentPane.add(buttonAddWish, gbc_buttonAddWish);
 		
 		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -220,7 +248,7 @@ public class MainView extends JFrame {
 		gbc_scrollPane.gridwidth = 3;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 12;
+		gbc_scrollPane.gridy = 13;
 		contentPane.add(scrollPane, gbc_scrollPane);
 		
 		tableProduct = new JTable(productModel);
@@ -231,7 +259,7 @@ public class MainView extends JFrame {
 		GridBagConstraints gbc_buttonBuyItem = new GridBagConstraints();
 		gbc_buttonBuyItem.insets = new Insets(0, 0, 5, 5);
 		gbc_buttonBuyItem.gridx = 4;
-		gbc_buttonBuyItem.gridy = 12;
+		gbc_buttonBuyItem.gridy = 13;
 		contentPane.add(buttonBuyItem, gbc_buttonBuyItem);
 										
 										buttonUpdate = new JButton("Update");
@@ -239,7 +267,7 @@ public class MainView extends JFrame {
 										GridBagConstraints gbc_buttonUpdate = new GridBagConstraints();
 										gbc_buttonUpdate.insets = new Insets(0, 0, 5, 5);
 										gbc_buttonUpdate.gridx = 4;
-										gbc_buttonUpdate.gridy = 13;
+										gbc_buttonUpdate.gridy = 14;
 										contentPane.add(buttonUpdate, gbc_buttonUpdate);
 												
 												messageLog = new JTextArea();
@@ -248,7 +276,7 @@ public class MainView extends JFrame {
 												gbc_messageLog.insets = new Insets(0, 0, 5, 5);
 												gbc_messageLog.fill = GridBagConstraints.BOTH;
 												gbc_messageLog.gridx = 1;
-												gbc_messageLog.gridy = 16;
+												gbc_messageLog.gridy = 17;
 												contentPane.add(messageLog, gbc_messageLog);
 												
 														JButton buttonExit = new JButton("Exit");
@@ -256,7 +284,7 @@ public class MainView extends JFrame {
 														GridBagConstraints gbc_buttonExit = new GridBagConstraints();
 														gbc_buttonExit.insets = new Insets(0, 0, 5, 5);
 														gbc_buttonExit.gridx = 4;
-														gbc_buttonExit.gridy = 16;
+														gbc_buttonExit.gridy = 17;
 														contentPane.add(buttonExit, gbc_buttonExit);
 	}
 
@@ -302,5 +330,12 @@ public class MainView extends JFrame {
 	public void clearProductFields(){
 		textFieldItemName.setText("");
 		textFieldItemPrice.setText("");
+	}
+	
+	public String getWish(){
+		String tempWish = null;
+		tempWish = textFieldWish.getText();
+		textFieldWish.setText("");
+		return tempWish;
 	}
 }
