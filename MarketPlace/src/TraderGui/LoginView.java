@@ -86,7 +86,6 @@ public class LoginView extends JFrame {
 		gbc_textFieldUserName.gridy = 2;
 		contentPane.add(textFieldUserName, gbc_textFieldUserName);
 		textFieldUserName.setColumns(10);
-		textFieldUserName.setDocument(new JTextFieldLimit(10));
 		
 		JButton buttonConnect = new JButton("Connect");
 		buttonConnect.addActionListener(loginListener);

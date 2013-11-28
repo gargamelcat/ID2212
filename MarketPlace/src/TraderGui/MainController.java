@@ -59,7 +59,7 @@ public class MainController implements Observer {
 			loginView.setVisible(false);
 			productModel.fireTableDataChanged();
 			productModel.setItemList(traderManager.getItemList());
-			mainView.setName(loginView.getUserName());
+			mainView.setUserName(loginView.getUserName());
 			mainView.setVisible(true);
 		}
 	}
@@ -139,7 +139,6 @@ public class MainController implements Observer {
 		String tempMessage = null;
 		while(updateDone == false){
 			tempMessage = traderManager.getNewestLogMessage();
-			System.out.println("temp message in controller: " + tempMessage);
 			if(tempMessage !=null){
 				mainView.addMessageToLog(tempMessage);
 			}else{

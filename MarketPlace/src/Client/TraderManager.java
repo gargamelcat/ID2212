@@ -76,6 +76,8 @@ public class TraderManager extends Observable implements IGui {
 	public void sellItem(Item item) {
 		try {
 			remoteMarketPlace.sellItem(me, item.getName(), item.getPrice());
+			addMessageToLog("You put following item into the marketplace: "+ item.getName() + " Price: "+ item.getPrice());
+			notifyChangesToGui("messageLog");
 		} catch (RemoteException e) {
 			System.out.println("could not sell item: " + item.getName());
 			e.printStackTrace();
@@ -85,8 +87,12 @@ public class TraderManager extends Observable implements IGui {
 	@Override
 	public void buyItem(Item item) {
 		try {
-			System.out.println("buy item client side: "+ me.getName());
-			remoteMarketPlace.buyItem(me, item);
+			if(remoteMarketPlace.buyItem(me, item) == true){
+				addMessageToLog("You bought following item: " + item.getName() + " Price: " + item.getPrice());
+			}else{
+				addMessageToLog("You have not enough money to buy following item: " + item.getName() + " Price: " + item.getPrice());
+			}
+			notifyChangesToGui("messageLog");
 		} catch (RemoteException e) {
 			System.out.println("coud not buy item: " + item.getName());
 			e.printStackTrace();

@@ -289,8 +289,8 @@ public class MainView extends JFrame {
 	}
 
 	public void setUserName(String userName) {
-
-		labelUserName.setText("UserName: " + userName);
+		labelUserName.setText("User name: " + userName);
+		labelUserName.updateUI();
 	}
 	
 	public String getProductName(){

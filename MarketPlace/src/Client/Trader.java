@@ -35,7 +35,6 @@ public class Trader extends UnicastRemoteObject implements ITrader {
 
 	@Override
 	public void notifyWish(Item item) throws RemoteException {
-		System.out.println("_You can find now your desired item: " + item.getName() + "on the shop");
 		traderManger
 				.addMessageToLog("Following item in your wishlist is now available in the shop: "
 						+ item.getName()
