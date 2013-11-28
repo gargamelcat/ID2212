@@ -123,7 +123,7 @@ public class MainController implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		
-		if(arg == "serverdata"){
+		if(arg == "serverData"){
 			productModel.setItemList(traderManager.getItemList());
 			productModel.fireTableDataChanged();
 		}else if(arg == "messageLog"){

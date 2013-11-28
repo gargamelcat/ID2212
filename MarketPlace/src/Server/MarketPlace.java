@@ -128,6 +128,7 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
                 for (Entry<ITrader, ArrayList<Item>> tempMap : clientList.entrySet()) {
                         try {
                                 if (tempMap.getKey() != null) {
+                                	System.out.println(tempMap.getKey().getName());
                                         tempMap.getKey().dataChanged();
                                 }
                         } catch (RemoteException e) {
