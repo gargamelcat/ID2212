@@ -36,7 +36,7 @@ public class DataBaseConnection {
         int tableNameColumn = 3;
         DatabaseMetaData dbm = connection.getMetaData();
         for (ResultSet rs = dbm.getTables(null, null, null, null); rs.next();) {
-            if (rs.getString(tableNameColumn).equals(TABLE_NAME)) {
+            if (rs.getString(tableNameColumn).equals("Users")) {
                 exist = true;
                 rs.close();
                 break;
@@ -44,8 +44,13 @@ public class DataBaseConnection {
         }
         if (!exist) {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE " + TABLE_NAME
-                    + " (name VARCHAR(32) PRIMARY KEY, balance FLOAT)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS" + "`Users` ("
+            		   + "`name` varchar(16) COLLATE latin1_general_ci NOT NULL,"
+            		   + "`password` varchar(16) COLLATE latin1_general_ci NOT NULL,"
+            		   + "`sales` int(11) NOT NULL,"
+            		   + "`purchases` int(11) NOT NULL,"
+            		  + "PRIMARY KEY (`name`)"
+            		 + ")"  );
         }
         return connection;
     }
@@ -55,7 +60,7 @@ public class DataBaseConnection {
 
             Class.forName("com.mysql.jdbc.Driver");
             return DriverManager.getConnection(
-                    "jdbc:mysql://ideasrecursivas.com:3306/" + datasource, "ideasrec_rmi", "ideasrec_rmi");
+                    "jdbc:mysql://ideasrecursivas.com:3306/"+ datasource , "ideasrec_rmi", "ideasrec_rmi");
             
     }
 
