@@ -12,7 +12,6 @@ import java.util.Observer;
 
 import javax.swing.UIManager;
 
-
 import Client.TraderManager;
 import Server.Item;
 import Server.MarketPlace;
@@ -47,63 +46,67 @@ public class MainController implements Observer {
 		mainController = this;
 		traderManager = new TraderManager();
 		traderManager.addObserver(this);
-		loginView = new LoginView(new LoginListener(), new ShowRegisterWindowListener());
-		registerView = new RegisterView(new CreateNewUserListener(), new CancelRegistrationListener());
+		loginView = new LoginView(new LoginListener(),
+				new ShowRegisterWindowListener());
+		registerView = new RegisterView(new CreateNewUserListener(),
+				new CancelRegistrationListener());
 		productModel = new ProductModel();
-		mainView = new MainView(new BuyItemListener(), new SellItemListener(), new ExitListener(), new UpdateListener(), new DepositMoneyListener(), new WishListener(), productModel);
+		mainView = new MainView(new BuyItemListener(), new SellItemListener(),
+				new ExitListener(), new UpdateListener(),
+				new DepositMoneyListener(), new WishListener(), productModel);
 		loginView.setVisible(true);
 	}
 
 	class LoginListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(traderManager.login(loginView.getUserName(), loginView.getPassword())){
-			
-			loginView.setVisible(false);
-			productModel.fireTableDataChanged();
-			productModel.setItemList(traderManager.getItemList());
-			mainView.setUserName(loginView.getUserName());
-			mainView.setVisible(true);
-			}
-			else{
+			if (traderManager.login(loginView.getUserName(),
+					loginView.getPassword())) {
+
+				loginView.setVisible(false);
+				productModel.fireTableDataChanged();
+				productModel.setItemList(traderManager.getItemList());
+				mainView.setUserName(loginView.getUserName());
+				mainView.setVisible(true);
+			} else {
 				loginView.deleteTextFields();
-				System.out.println("Password or user name is wrong. Try again.");
+				System.out
+						.println("Password or user name is wrong. Try again.");
 			}
 		}
 	}
 
-	
-	
 	class ShowRegisterWindowListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			loginView.setVisible(false);
-			registerView.setVisible(true);	
+			registerView.setVisible(true);
 		}
 	}
-	
+
 	class CreateNewUserListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if(traderManager.registerUser(registerView.getUserName(), registerView.getPassword())){
-			
-			registerView.setVisible(false);
-			productModel.fireTableDataChanged();
-			productModel.setItemList(traderManager.getItemList());
-			mainView.setUserName(registerView.getUserName());
-			mainView.setVisible(true);
-			}
-			else{
+			if (traderManager.registerUser(registerView.getUserName(),
+					registerView.getPassword())) {
+
+				registerView.setVisible(false);
+				productModel.fireTableDataChanged();
+				productModel.setItemList(traderManager.getItemList());
+				mainView.setUserName(registerView.getUserName());
+				mainView.setVisible(true);
+			} else {
 				registerView.deleteTextFields();
-				System.out.println("Could not register user. Name may be used already.");
+				System.out
+						.println("Could not register user. Name may be used already.");
 			}
 		}
 	}
-	
+
 	class CancelRegistrationListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			loginView.setVisible(true);
-			registerView.setVisible(false);	
+			registerView.setVisible(false);
 		}
 	}
 
@@ -113,13 +116,15 @@ public class MainController implements Observer {
 			String itemName = mainView.getProductName();
 			int itemPrice = mainView.getProductPrice();
 			int amount = mainView.getAmount();
-			if(itemName.length() >= 3 && itemPrice >= 1 && amount >= 1){
-			traderManager.sellItem(new Item(itemName, itemPrice, amount));
-			productModel.setItemList(traderManager.getItemList());
-			productModel.fireTableDataChanged();
-			mainView.clearProductFields();
-			}else{
-				System.out.println("Name is less than 3 digits or price/amount is 0. Please complete information and try again.");
+			Item itemToSell = new Item(itemName, itemPrice, amount);
+			if (itemName.length() >= 3 && itemPrice >= 1 && amount >= 1) {
+				traderManager.sellItem(itemToSell);
+				productModel.setItemList(traderManager.getItemList());
+				productModel.fireTableDataChanged();
+				mainView.clearProductFields();
+			} else {
+				System.out
+						.println("Name is less than 3 digits or price/amount is 0. Please complete information and try again.");
 			}
 		}
 	}
@@ -131,7 +136,7 @@ public class MainController implements Observer {
 			traderManager.buyItem(productModel.getItemInRow(row));
 		}
 	}
-	
+
 	class UpdateListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -147,8 +152,7 @@ public class MainController implements Observer {
 			System.exit(0);
 		}
 	}
-	
-	
+
 	class DepositMoneyListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -156,23 +160,24 @@ public class MainController implements Observer {
 			mainView.clearDepositField();
 			mainView.setBalance(traderManager.getBalance());
 		}
-	}	
+	}
+
 	class WishListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			traderManager.addWish(mainView.getWish());
 		}
-	}	
-	
+	}
+
 	@Override
 	public void update(Observable o, Object arg) {
-		
-		if(arg == "serverData"){
+
+		if (arg == "serverData") {
 			productModel.setItemList(traderManager.getItemList());
 			productModel.fireTableDataChanged();
-		}else if(arg == "messageLog"){
+		} else if (arg == "messageLog") {
 			updateMessageLog();
-		}else if(arg == "balance"){
+		} else if (arg == "balance") {
 			mainView.setBalance(traderManager.getBalance());
 		}
 
@@ -181,11 +186,11 @@ public class MainController implements Observer {
 	private void updateMessageLog() {
 		boolean updateDone = false;
 		String tempMessage = null;
-		while(updateDone == false){
+		while (updateDone == false) {
 			tempMessage = traderManager.getNewestLogMessage();
-			if(tempMessage !=null){
+			if (tempMessage != null) {
 				mainView.addMessageToLog(tempMessage);
-			}else{
+			} else {
 				updateDone = true;
 			}
 		}

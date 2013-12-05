@@ -87,7 +87,6 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 	@Override
 	public void sellItem(ITrader trader, String itemName, Integer price,
 			Integer amount) {
-
 		try {
 			dbDriver.addProduct(trader.getName(), itemName, price, amount);
 		} catch (RemoteException e) {
