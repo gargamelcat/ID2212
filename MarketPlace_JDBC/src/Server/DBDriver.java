@@ -79,7 +79,7 @@ public class DBDriver {
 			System.out.println("HELLO LETS CREATE TABLES!");
 			Statement statement = connection.createStatement();
 			statement
-					.executeUpdate("CREATE TABLE IF NOT EXISTS"
+					.executeUpdate("CREATE TABLE IF NOT EXISTS "
 							+ TABLE_USERS
 							+ "("
 							+ "`name` varchar(16) COLLATE latin1_general_ci NOT NULL,"
@@ -87,13 +87,14 @@ public class DBDriver {
 							+ "`sales` int(11) NOT NULL,"
 							+ "`purchases` int(11) NOT NULL,"
 							+ "PRIMARY KEY (`name`)" + ")");
-			statement.executeUpdate("CREATE TABLE IF NOT EXISTS" + TABLE_ITEMS
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + TABLE_ITEMS
+					+ "("
 					+ "`name` varchar(16) COLLATE latin1_general_ci NOT NULL,"
 					+ "`price` int(11) NOT NULL,"
 					+ "`amount` int(11) NOT NULL," + "PRIMARY KEY (`name`)"
 					+ ")");
 			statement
-					.executeUpdate("CREATE TABLE IF NOT EXISTS"
+					.executeUpdate("CREATE TABLE IF NOT EXISTS "
 							+ TABLE_WISHES
 							+ "("
 							+ "`fkw_TraderName` varchar(16) COLLATE latin1_general_ci NOT NULL,"
@@ -103,7 +104,7 @@ public class DBDriver {
 							+ "primary key (fkw_TraderName, fkw_ItemName)"
 							+ ")");
 			statement
-					.executeUpdate("CREATE TABLE IF NOT EXISTS"
+					.executeUpdate("CREATE TABLE IF NOT EXISTS "
 							+ TABLE_SALES
 							+ "("
 							+ "`fks_TraderName` varchar(16) COLLATE latin1_general_ci NOT NULL,"
