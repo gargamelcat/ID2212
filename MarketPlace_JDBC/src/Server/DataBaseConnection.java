@@ -117,9 +117,11 @@ public class DataBaseConnection {
         deleteSaleStatement = connection.prepareStatement("DELETE FROM "
                 + TABLE_SALES + " WHERE fks_name = ?");
         
-        findWishStatement = connection.prepareStatement("BLA");
+        findWishStatement = connection.prepareStatement("SELECT fkw_name from "
+                + TABLE_WISHES + " WHERE fkw_itemID = ?");
         
-        findWishStatement = connection.prepareStatement("BLA");
+        addWishStatement = connection.prepareStatement("INSERT INTO "
+                + TABLE_WISHES + " VALUES (?, ?)");
         
     }
 
