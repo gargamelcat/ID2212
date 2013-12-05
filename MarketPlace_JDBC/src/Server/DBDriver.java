@@ -173,7 +173,6 @@ public class DBDriver {
 		} else {
 			System.out.println("Following trader does not exist: " + seller);
 		}
-
 	}
 
 	public boolean checkIfTraderExists(String name) {
