@@ -9,9 +9,8 @@ public class MainServer {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		try {
 			new MarketPlace();
-			DataBaseConnection blub = new DataBaseConnection("ideasrec_rmi");
-			blub.getConnection();
-			blub.addProduct("joel", new Item("gin", 20), 1);
+			DBDriver dbDriver = new DBDriver("ideasrec_rmi");
+			dbDriver.addProduct("albert", new Item("whiskey", 20), 1);
 			
 		} catch (RemoteException re) {
 			System.out.println(re);
