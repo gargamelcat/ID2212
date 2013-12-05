@@ -42,6 +42,7 @@ public class DBDriver {
 	private PreparedStatement getAllItemsStatement;
 	private PreparedStatement findItemInSalesStatement;
 	private PreparedStatement deleteItemStatement;
+	private PreparedStatement getCountStatement;
 
 	private String datasource;
 	private Connection connection;
@@ -139,7 +140,8 @@ public class DBDriver {
 				+ TABLE_SALES + " WHERE fks_ItemName = ?");
 
 		getAllItemsStatement = connection.prepareStatement("SELECT * from "
-				+ TABLE_ITEMS);
+				+ TABLE_ITEMS, ResultSet.TYPE_SCROLL_INSENSITIVE,
+				ResultSet.CONCUR_READ_ONLY);
 
 		addSellerLinkStatement = connection.prepareStatement("INSERT INTO "
 				+ TABLE_SALES + "( fks_TraderName, fks_ItemName ) VALUES"
@@ -160,6 +162,8 @@ public class DBDriver {
 
 		addWishStatement = connection.prepareStatement("INSERT INTO "
 				+ TABLE_WISHES + " VALUES (?, ?)");
+		
+		getCountStatement = connection.prepareStatement("SELECT COUNT(*) AS COUNT FROM Items");
 	}
 
 	public void addProduct(String traderName, String itemName, int price,
@@ -170,18 +174,13 @@ public class DBDriver {
 			if (checkItemExists(itemName) == false) {
 				try {
 					insertItemStatement.setString(1, itemName);
-
 					insertItemStatement.setInt(2, price);
 					insertItemStatement.setInt(3, amount);
 					insertItemStatement.executeUpdate();
 
-					if (affectedRows == 0) {
-						throw new SQLException(
-								"Creating user failed, no rows affected.");
-					}
-
 					addSellerLinkStatement.setString(1, traderName);
 					addSellerLinkStatement.setString(2, itemName);
+					addSellerLinkStatement.executeUpdate();
 
 				} catch (SQLException e) {
 					System.out.println("could not insert product");
@@ -334,16 +333,17 @@ public class DBDriver {
 		}
 
 		try {
+			ResultSet rsCount = getCountStatement.executeQuery();
+			rsCount.next();
+			int count = rsCount.getInt("COUNT");
 			
-		boolean hasNext = true;
-			while (hasNext == true) {
-				hasNext = rsItemList.next();
-				if(hasNext == true){
-					String tempName = rsItemList.getString("name");
-					int tempPrice = rsItemList.getInt("price");
-					int tempAmount = rsItemList.getInt("amount");
-					itemList.add(new Item(tempName, tempPrice, tempAmount));
-				}
+			rsItemList.next();
+			for (int i = 0; i < count ; i++) {
+				String tempName = rsItemList.getString("name");
+				int tempPrice = rsItemList.getInt("price");
+				int tempAmount = rsItemList.getInt("amount");
+				itemList.add(new Item(tempName, tempPrice, tempAmount));
+				rsItemList.next();
 			}
 		} catch (SQLException e) {
 			System.out
