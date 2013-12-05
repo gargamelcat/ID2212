@@ -98,7 +98,7 @@ public class TraderManager extends Observable implements IGui {
 	@Override
 	public void sellItem(Item item) {
 		try {
-			remoteMarketPlace.sellItem(me, item.getName(), item.getPrice());
+			remoteMarketPlace.sellItem(me, item.getName(), item.getPrice(), item.getAmount());
 			addMessageToLog("You put following item into the marketplace: "+ item.getName() + " Price: "+ item.getPrice());
 			notifyChangesToGui("messageLog");
 		} catch (RemoteException e) {

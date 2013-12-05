@@ -9,7 +9,6 @@ public class MainServer {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		try {
 			new MarketPlace();
-			DBDriver dbDriver = new DBDriver("ideasrec_rmi");
 			
 		} catch (RemoteException re) {
 			System.out.println(re);

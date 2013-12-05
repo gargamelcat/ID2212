@@ -112,13 +112,14 @@ public class MainController implements Observer {
 		public void actionPerformed(ActionEvent e) {
 			String itemName = mainView.getProductName();
 			int itemPrice = mainView.getProductPrice();
-			if(itemName.length() >= 3 && itemPrice >= 0){
-			traderManager.sellItem(new Item(itemName, itemPrice));
+			int amount = mainView.getAmount();
+			if(itemName.length() >= 3 && itemPrice >= 1 && amount >= 1){
+			traderManager.sellItem(new Item(itemName, itemPrice, amount));
 			productModel.setItemList(traderManager.getItemList());
 			productModel.fireTableDataChanged();
 			mainView.clearProductFields();
 			}else{
-				System.out.println("Name is less than 3 digits or price is 0. Please complete information and try again.");
+				System.out.println("Name is less than 3 digits or price/amount is 0. Please complete information and try again.");
 			}
 		}
 	}

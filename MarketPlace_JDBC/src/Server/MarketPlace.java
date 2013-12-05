@@ -47,9 +47,6 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 		Naming.rebind("rmi://localhost/bank", bank);
 	}
 
-	public Set<ITrader> getClients() {
-		return (clientList.keySet());
-	}
 
 	@Override
 	public boolean registerTrader(ITrader trader) throws RemoteException {
@@ -63,10 +60,7 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 
 	@Override
 	public void unregisterTrader(ITrader trader) throws RemoteException {
-		if (!clientList.containsKey(trader)) {
-			throw new RemoteException("client not registered");
-		}
-		clientList.remove(trader);
+		//todo
 	}
 
 	@Override
@@ -82,32 +76,20 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 	}
 
 	@Override
-	public void sellItem(ITrader trader, String itemName, Integer price)
-			throws RemoteException {
-		Item temp = new Item(itemName, price);
-		if (clientList.get(trader) == null) {
-			clientList.put(trader, new ArrayList<Item>());
-		}
-		clientList.get(trader).add(temp);
-		ITrader temptrader = null;
-		for (Entry<ITrader, ArrayList<Item>> tempMap : wishList.entrySet()) {
-			if (tempMap.getValue() != null) {
-				for (int k = 0; k < tempMap.getValue().size(); k++) {
-					if (tempMap.getValue().get(k).getName().equals(itemName)) {
-						tempMap.getValue().remove(k);
-						temptrader = tempMap.getKey();
-						temptrader.notifyWish(new Item(itemName, price));
-					}
-				}
+	public void sellItem(ITrader trader, String itemName, Integer price, Integer amount){
+		
+			try {
+				dbDriver.addProduct(trader.getName(), itemName, price, amount);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		}
-
 		notifyChangesToAllTraders();
 	}
 
 	@Override
 	public boolean buyItem(ITrader trader, Item item) throws RemoteException {
-		// TODO Auto-generated method stub
+		/** TODO Auto-generated method stub
 		ITrader seller = null;
 		boolean bought = false;
 		for (Entry<ITrader, ArrayList<Item>> tempMap : clientList.entrySet()) {
@@ -138,12 +120,13 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 			}
 		}
 		notifyChangesToAllTraders();
-		return bought;
+		**/
+		return false;
 	}
 
 	@Override
 	public void addWish(ITrader trader, String wish) throws RemoteException {
-		Item tempItem = new Item(wish, 0);
+		/**Item tempItem = new Item(wish, 0);
 		if (wishList.containsKey(trader)) {
 			wishList.get(trader).add(tempItem);
 		} else {
@@ -151,12 +134,12 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 			tempWishList.add(tempItem);
 			wishList.put(trader, tempWishList);
 		}
-
+**/
 	}
 
 	@Override
 	public ArrayList<Item> getItemList() throws RemoteException {
-		// TODO Auto-generated method stub
+		/** TODO Auto-generated method stub
 		if (clientList.values() == null) {
 			System.out.println("There is no items to buy");
 			return null;
@@ -166,20 +149,10 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 			if (lista != null) {
 				tempList.addAll(lista);
 			}
-		}
-		return tempList;
+		}**/
+		return null;
 	}
 
 	private void notifyChangesToAllTraders() {
-		for (Entry<ITrader, ArrayList<Item>> tempMap : clientList.entrySet()) {
-			try {
-				if (tempMap.getKey() != null) {
-					tempMap.getKey().dataChanged();
-				}
-			} catch (RemoteException e) {
-				System.out.println("could not notify traders.");
-				e.printStackTrace();
-			}
-		}
 	}
 }
