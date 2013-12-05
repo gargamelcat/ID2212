@@ -40,6 +40,8 @@ public class DBDriver {
 	private PreparedStatement addWishStatement;
 	private PreparedStatement findWishStatement;
 	private PreparedStatement getAllItemsStatement;
+	private PreparedStatement findItemInSalesStatement;
+	private PreparedStatement deleteItemStatement;
 
 	private String datasource;
 	private Connection connection;
@@ -131,7 +133,10 @@ public class DBDriver {
 				+ "( ?, ?, ? )");
 
 		findItemStatement = connection.prepareStatement("SELECT * from "
-				+ TABLE_WISHES + " WHERE name = ?");
+				+ TABLE_ITEMS + " WHERE name = ?");
+
+		findItemInSalesStatement = connection.prepareStatement("SELECT * from "
+				+ TABLE_SALES + " WHERE fks_ItemName = ?");
 
 		getAllItemsStatement = connection.prepareStatement("SELECT * from "
 				+ TABLE_ITEMS);
@@ -141,7 +146,10 @@ public class DBDriver {
 				+ "(?,?)");
 
 		deleteSaleStatement = connection.prepareStatement("DELETE FROM "
-				+ TABLE_SALES + " WHERE fks_name = ?");
+				+ TABLE_SALES + " WHERE fks_ItemName = ?");
+
+		deleteItemStatement = connection.prepareStatement("DELETE FROM "
+				+ TABLE_ITEMS + " WHERE name = ?");
 
 		deleteWishStatement = connection.prepareStatement("DELETE FROM "
 				+ TABLE_WISHES + " WHERE fkw_TraderName = ?");
@@ -159,26 +167,57 @@ public class DBDriver {
 		int affectedRows = 0;
 
 		if (checkIfTraderExists(traderName)) {
-			try {
-				insertItemStatement.setString(1, traderName);
+			if (checkItemExists(itemName) == false) {
+				try {
+					insertItemStatement.setString(1, itemName);
 
-				insertItemStatement.setInt(2, price);
-				insertItemStatement.setInt(3, amount);
+					insertItemStatement.setInt(2, price);
+					insertItemStatement.setInt(3, amount);
+					insertItemStatement.executeUpdate();
+
+					if (affectedRows == 0) {
+						throw new SQLException(
+								"Creating user failed, no rows affected.");
+					}
+
+					addSellerLinkStatement.setString(1, traderName);
+					addSellerLinkStatement.setString(2, itemName);
+
+				} catch (SQLException e) {
+					System.out.println("could not insert product");
+					e.printStackTrace();
+				}
+			} else {
+				System.out.println("Following item does already exist: "
+						+ itemName);
+			}
+		} else {
+			System.out
+					.println("Following trader does not exist: " + traderName);
+		}
+	}
+
+	public boolean addWish(String traderName, String itemName) {
+		boolean wishExists = false;
+		if (checkItemExists(itemName) == false) {
+			try {
+				insertItemStatement.setString(1, itemName);
+				insertItemStatement.setInt(2, 0);
+				insertItemStatement.setInt(3, 0);
 				insertItemStatement.executeUpdate();
 
-				if (affectedRows == 0) {
-					throw new SQLException(
-							"Creating user failed, no rows affected.");
-				}
-
+				addWishStatement.setString(1, traderName);
+				addWishStatement.setString(2, itemName);
+				addWishStatement.executeUpdate();
 			} catch (SQLException e) {
-				System.out.println("could not insert product");
+				System.out.println("Error in addWish/DBDriver");
 				e.printStackTrace();
 			}
-
 		} else {
-			System.out.println("Following trader does not exist: ");
+			wishExists = true;
 		}
+
+		return wishExists;
 	}
 
 	public boolean checkIfTraderExists(String name) {
@@ -200,8 +239,10 @@ public class DBDriver {
 
 	public void addTrader(ITrader trader) {
 		try {
-			if (checkIfTraderExists(trader.getName())) {
+			if (checkIfTraderExists(trader.getName()) == false) {
 				try {
+					System.out.println(trader.getName());
+					System.out.println(trader.getPassword());
 					registerUserStatement.setString(1, trader.getName());
 					registerUserStatement.setString(2, trader.getPassword());
 					registerUserStatement.executeUpdate();
@@ -270,7 +311,7 @@ public class DBDriver {
 		try {
 			findItemStatement.setString(1, name);
 
-			ResultSet itemresult = findWishStatement.executeQuery();
+			ResultSet itemresult = findItemStatement.executeQuery();
 			if (itemresult.next()) {
 				traderExists = true;
 			}
@@ -280,32 +321,6 @@ public class DBDriver {
 			e.printStackTrace();
 		}
 		return traderExists;
-	}
-
-	public void addWish(Trader trader, Item item) {
-		if (!checkIfWishExists(trader.getName(), item.getName())) {
-			try {
-				addWishStatement.setString(1, trader.getName());
-				addWishStatement.setString(2, item.getName());
-				addWishStatement.executeUpdate();
-
-				if (!checkItemExists(item.getName())) {
-					insertItemStatement.setString(0, item.getName());
-					insertItemStatement.setInt(1, 0);
-					insertItemStatement.setInt(0, 0);
-					insertItemStatement.executeUpdate();
-				}
-
-			} catch (SQLException e) {
-				System.out.println("could not add wished item: "
-						+ item.getName());
-				e.printStackTrace();
-			}
-
-		} else {
-			System.out.println("Following item is already in your wish list: "
-					+ item.getName());
-		}
 	}
 
 	public ArrayList<Item> getItemList() {
@@ -319,11 +334,16 @@ public class DBDriver {
 		}
 
 		try {
-			while (rsItemList.next()) {
-				String tempName = rsItemList.getString("name");
-				int tempPrice = rsItemList.getInt("price");
-				int tempAmount = rsItemList.getInt("amount");
-				itemList.add(new Item(tempName, tempPrice, tempAmount));
+			
+		boolean hasNext = true;
+			while (hasNext == true) {
+				hasNext = rsItemList.next();
+				if(hasNext == true){
+					String tempName = rsItemList.getString("name");
+					int tempPrice = rsItemList.getInt("price");
+					int tempAmount = rsItemList.getInt("amount");
+					itemList.add(new Item(tempName, tempPrice, tempAmount));
+				}
 			}
 		} catch (SQLException e) {
 			System.out
@@ -331,6 +351,40 @@ public class DBDriver {
 			e.printStackTrace();
 		}
 		return itemList;
+	}
+
+	public String getSellerForItem(Item item) {
+		ResultSet seller = null;
+		String sellerName = null;
+
+		try {
+			findItemInSalesStatement.setString(1, item.getName());
+			seller = findItemInSalesStatement.executeQuery();
+			if (seller.next()) {
+				sellerName = seller.getString("name");
+			} else {
+				System.out.println("There is no seller for following item: "
+						+ item.getName());
+			}
+		} catch (SQLException e) {
+			System.out.println("Exception in getSellerForName/DBDRIVER");
+			e.printStackTrace();
+		}
+		return sellerName;
+
+	}
+
+	public void removeItem(Item item) {
+		try {
+			deleteSaleStatement.setString(1, item.getName());
+			deleteSaleStatement.executeQuery();
+
+			deleteItemStatement.setString(1, item.getName());
+			deleteItemStatement.executeQuery();
+		} catch (SQLException e) {
+			System.out.println("Error in removeItem/DBDRriver");
+			e.printStackTrace();
+		}
 	}
 
 }

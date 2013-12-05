@@ -84,9 +84,9 @@ public class MainController implements Observer {
 	
 	class CreateNewUserListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if(traderManager.registerUser(loginView.getUserName(), loginView.getPassword())){
+			if(traderManager.registerUser(registerView.getUserName(), registerView.getPassword())){
 			
-			loginView.setVisible(false);
+			registerView.setVisible(false);
 			productModel.fireTableDataChanged();
 			productModel.setItemList(traderManager.getItemList());
 			mainView.setUserName(registerView.getUserName());

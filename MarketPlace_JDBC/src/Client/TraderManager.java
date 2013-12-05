@@ -75,7 +75,7 @@ public class TraderManager extends Observable implements IGui {
 	@Override
 	public void logout() {
 		try {
-			remoteMarketPlace.unregisterTrader(me);
+			remoteMarketPlace.logoutTrader(me);
 		} catch (RemoteException e) {
 			System.out.println("coud not unregister trader.");
 			e.printStackTrace();

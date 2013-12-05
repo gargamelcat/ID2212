@@ -30,7 +30,7 @@ public interface IMarketPlace extends Remote {
 	 * This method will unregister the trader in the marketplace.
 	 * @param ITrader Trader to unregister.
 	 */
-	void unregisterTrader(ITrader trader) throws RemoteException;
+	void logoutTrader(ITrader trader) throws RemoteException;
 	
 	
 	/**
