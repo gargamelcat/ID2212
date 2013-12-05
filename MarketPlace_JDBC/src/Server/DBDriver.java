@@ -235,4 +235,46 @@ public class DBDriver {
 		return passwordIsCorrect;
 	}
 
+	public boolean checkIfWishExists(String name, String item) {
+		boolean traderExists = false;
+		try {
+			findWishStatement.setString(1, name);
+			findWishStatement.setString(2, item);
+
+			ResultSet wish = findWishStatement.executeQuery();
+			if (wish.next()) {
+				traderExists = true;
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Could not find user: " + name);
+			e.printStackTrace();
+		}
+		return traderExists;
+	}
+
+	public void addWish(Trader trader, Item item) {
+		if (!checkIfWishExists(trader.getName(), item.getName())) {
+			try {
+				addWishStatement.setString(1, trader.getName());
+				addWishStatement.setString(2, item.getName());
+				addWishStatement.executeUpdate();
+
+				insertItemStatement.setString(0, item.getName());
+				insertItemStatement.setInt(1, 0);
+				insertItemStatement.setInt(0, 0);
+				insertItemStatement.executeUpdate();
+
+			} catch (SQLException e) {
+				System.out.println("could not add wished item: "
+						+ item.getName());
+				e.printStackTrace();
+			}
+
+		} else {
+			System.out.println("Following item is already in your wish list: "
+					+ item.getName());
+		}
+	}
+
 }

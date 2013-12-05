@@ -15,8 +15,9 @@ import Server.Item;
 public class Trader extends UnicastRemoteObject implements ITrader {
 	private String name;
 	private TraderManager traderManger = null;
+	private String password;
 
-	public Trader(TraderManager traderManager, String name)
+	public Trader(TraderManager traderManager, String name, String password)
 			throws RemoteException {
 		super();
 		this.name = name;
@@ -26,6 +27,10 @@ public class Trader extends UnicastRemoteObject implements ITrader {
 	public String getName() {
 		return name;
 	}
+	
+	public String getPassword() {
+		return password;
+	}	
 
 	@Override
 	public void notifySeller(Item item) throws RemoteException {
@@ -51,5 +56,7 @@ public class Trader extends UnicastRemoteObject implements ITrader {
 	@Override
 	public void balanceChanged() throws RemoteException {
 		traderManger.notifyChangesToGui("balance");
-	}	
+	}
+
+
 }

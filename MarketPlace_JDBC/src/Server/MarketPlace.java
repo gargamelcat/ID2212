@@ -5,6 +5,7 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -24,12 +25,21 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 	// private List<ITrader> clientList = new ArrayList<>();
 	private Map<ITrader, ArrayList<Item>> clientList = new HashMap<ITrader, ArrayList<Item>>();
 	private Map<ITrader, ArrayList<Item>> wishList = new HashMap<ITrader, ArrayList<Item>>();
+	private DBDriver dbDriver = null;
 
 	private ArrayList<Item> itemList = new ArrayList<Item>();
 	IBank bank = new BankImpl("UBS");
 
 	public MarketPlace() throws RemoteException, MalformedURLException {
 		super();
+		
+		try {
+			dbDriver = new DBDriver("ideasrec_rmi");
+		} catch (ClassNotFoundException | SQLException e1) {
+			System.out.println("Connection to database failed.");
+			e1.printStackTrace();
+		}
+		
 		try {
 			LocateRegistry.getRegistry(1099).list();
 		} catch (RemoteException e) {
@@ -44,11 +54,12 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 	}
 
 	@Override
-	public void registerTrader(ITrader trader) throws RemoteException {
-		if (clientList.containsKey(trader)) {
+	public boolean registerTrader(ITrader trader) throws RemoteException {
+		/**if (dbDriver.ch) { todo joel
 			throw new RemoteException("client already registered");
 		}
-		clientList.put(trader, null);
+		clientList.put(trader, null);**/
+		return true;
 	}
 
 	@Override

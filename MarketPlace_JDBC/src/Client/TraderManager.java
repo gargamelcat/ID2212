@@ -32,9 +32,30 @@ public class TraderManager extends Observable implements IGui {
 	}
 
 	@Override
-	public void login(String name) {
+	public boolean login(String name, String password) {
+		boolean loginSuccessful = false;
 		try {
-			me = new Trader(this, name);
+			me = new Trader(this, name, password);
+			remoteMarketPlace = (IMarketPlace) Naming
+					.lookup("rmi://localhost/marketPlace");
+			if(remoteMarketPlace.registerTrader(me)){
+				loginSuccessful = true;
+			}
+			
+			myBank = (IBank)Naming.lookup("rmi://localhost/bank");
+			myBankAccount = myBank.getAccount(name);
+
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			System.out.println("Coud not register trader.");
+			e.printStackTrace();
+		}
+		return loginSuccessful;
+	}
+	
+	@Override
+	public boolean registerUser(String name, String password) {
+		try {
+			me = new Trader(this, name, password);
 			remoteMarketPlace = (IMarketPlace) Naming
 					.lookup("rmi://localhost/marketPlace");
 			remoteMarketPlace.registerTrader(me);
@@ -46,7 +67,7 @@ public class TraderManager extends Observable implements IGui {
 			System.out.println("Coud not register trader.");
 			e.printStackTrace();
 		}
-
+		return true;
 	}
 
 	@Override
@@ -148,4 +169,6 @@ public class TraderManager extends Observable implements IGui {
 			e.printStackTrace();
 		}
 	}
+
+
 }

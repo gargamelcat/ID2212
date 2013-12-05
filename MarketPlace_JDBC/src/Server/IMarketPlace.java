@@ -22,14 +22,23 @@ public interface IMarketPlace extends Remote {
 	/**
 	 * This method will register the trader in the marketplace.
 	 * @param ITrader Trader to register.
+	 * @return boolean depending if password is correct and user exists.
 	 */
-	void registerTrader(ITrader trader) throws RemoteException;
+	boolean registerTrader(ITrader trader) throws RemoteException;
 	
 	/**
 	 * This method will unregister the trader in the marketplace.
 	 * @param ITrader Trader to unregister.
 	 */
 	void unregisterTrader(ITrader trader) throws RemoteException;
+	
+	
+	/**
+	 * This method will login the trader in the marketplace. The trader need already to be registered.
+	 * @param ITrader Trader to register.
+	 * @return Boolean If password or user name is wrong -> false.
+	 */
+	boolean loginTrader(ITrader trader) throws RemoteException;
 	
 	/**
 	 * This method will return a list with all available items in the marketplace.

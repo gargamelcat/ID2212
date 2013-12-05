@@ -21,6 +21,7 @@ public class MainController implements Observer {
 
 	private MainController mainController = null;
 	LoginView loginView = null;
+	RegisterView registerView = null;
 	MainView mainView = null;
 	TraderManager traderManager = null;
 	ProductModel productModel = null;
@@ -46,7 +47,8 @@ public class MainController implements Observer {
 		mainController = this;
 		traderManager = new TraderManager();
 		traderManager.addObserver(this);
-		loginView = new LoginView(new LoginListener());
+		loginView = new LoginView(new LoginListener(), new ShowRegisterWindowListener());
+		registerView = new RegisterView(new CreateNewUserListener(), new CancelRegistrationListener());
 		productModel = new ProductModel();
 		mainView = new MainView(new BuyItemListener(), new SellItemListener(), new ExitListener(), new UpdateListener(), new DepositMoneyListener(), new WishListener(), productModel);
 		loginView.setVisible(true);
@@ -55,12 +57,43 @@ public class MainController implements Observer {
 	class LoginListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			traderManager.login(loginView.getUserName());
+			if(traderManager.login(loginView.getUserName(), loginView.getPassword())){
+			
 			loginView.setVisible(false);
 			productModel.fireTableDataChanged();
 			productModel.setItemList(traderManager.getItemList());
 			mainView.setUserName(loginView.getUserName());
 			mainView.setVisible(true);
+			}
+			else{
+				loginView.deleteTextFields();
+				System.out.println("Password or user name is wrong. Try again.");
+			}
+		}
+	}
+
+	
+	
+	class ShowRegisterWindowListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			loginView.setVisible(false);
+			registerView.setVisible(true);	
+		}
+	}
+	
+	class CreateNewUserListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+		}
+	}
+	
+	class CancelRegistrationListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			loginView.setVisible(true);
+			registerView.setVisible(false);	
 		}
 	}
 

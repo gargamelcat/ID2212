@@ -8,7 +8,8 @@ import Server.Item;
 
 public interface IGui {
 
-	void login(String name);
+	boolean login(String name, String password);
+	boolean registerUser(String name, String password);
 	void logout();
 	ArrayList<Item> getItemList();
 	void sellItem(Item item);
