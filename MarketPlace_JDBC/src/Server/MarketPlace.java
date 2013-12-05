@@ -23,8 +23,6 @@ import Client.Trader;
 @SuppressWarnings("serial")
 public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 	// private List<ITrader> clientList = new ArrayList<>();
-	private Map<ITrader, ArrayList<Item>> clientList = new HashMap<ITrader, ArrayList<Item>>();
-	private Map<ITrader, ArrayList<Item>> wishList = new HashMap<ITrader, ArrayList<Item>>();
 	private DBDriver dbDriver = null;
 
 	private ArrayList<Item> itemList = new ArrayList<Item>();
