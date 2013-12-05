@@ -27,6 +27,8 @@ public class DataBaseConnection {
     
     private PreparedStatement getSalesStatement;
     private PreparedStatement setSaleStatement;
+    private PreparedStatement insertItemStatement;
+    private PreparedStatement addSellerLinkStatement;
     private PreparedStatement deleteSaleStatement;
     
     private PreparedStatement addWishStatement;
@@ -93,11 +95,12 @@ public class DataBaseConnection {
 
     public Connection getConnection()
             throws ClassNotFoundException, SQLException {
-
+    		Connection tempConnection = null;
             Class.forName("com.mysql.jdbc.Driver");
-            return DriverManager.getConnection(
+            tempConnection = DriverManager.getConnection(
                     "jdbc:mysql://ideasrecursivas.com:3306/"+ datasource , "ideasrec_rmi", "ideasrec_rmi");
-            
+            prepareStatements(tempConnection);
+            return tempConnection;
     }
 
     private void prepareStatements(Connection connection) throws SQLException {
@@ -111,8 +114,11 @@ public class DataBaseConnection {
         
         getSalesStatement = connection.prepareStatement("TO BE DONE");
         
-        setSaleStatement = connection.prepareStatement("INSERT INTO "
-                + TABLE_SALES + " VALUES (?, ?)");
+        insertItemStatement = connection.prepareStatement("INSERT INTO "  + TABLE_ITEMS + " ( name, price, amount) VALUES"
+				+ "( ?, ?, ? )", Statement.RETURN_GENERATED_KEYS);
+        
+        addSellerLinkStatement = connection.prepareStatement("INSERT INTO " + TABLE_SALES + "( fks_name, fks_itemID ) VALUES"
+        		+ "(?,?)");
         
         deleteSaleStatement = connection.prepareStatement("DELETE FROM "
                 + TABLE_SALES + " WHERE fks_name = ?");
@@ -122,7 +128,37 @@ public class DataBaseConnection {
         
         addWishStatement = connection.prepareStatement("INSERT INTO "
                 + TABLE_WISHES + " VALUES (?, ?)");
+    }
+    
+    public void addProduct(String seller, Item item, int amount){
+    	int affectedRows = 0;
+    	ResultSet generatedKeys = null;
+    	try {
+			insertItemStatement.setString(1, item.getName());
+
+    	insertItemStatement.setInt(2, item.getPrice());
+    	insertItemStatement.setInt(3, amount);
+    	affectedRows = insertItemStatement.executeUpdate();
+    	
+        if (affectedRows == 0) {
+            throw new SQLException("Creating user failed, no rows affected.");
+        }
+    	
+        generatedKeys = insertItemStatement.getGeneratedKeys();
+        if (generatedKeys.next()) {
+            addSellerLinkStatement.setString(1, seller);
+            addSellerLinkStatement.setInt(2, generatedKeys.getInt(1));
+            addSellerLinkStatement.executeUpdate();
+        } else {
+            throw new SQLException("Creating user failed, no generated key obtained.");
+        }
         
+    	System.out.println("id of " +  item.getName() + " is: " + generatedKeys.getInt(1));
+    	
+		} catch (SQLException e) {
+			System.out.println("could not insert product");
+			e.printStackTrace();
+		}
     }
 
     
