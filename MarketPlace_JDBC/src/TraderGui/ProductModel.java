@@ -24,7 +24,7 @@ public class ProductModel extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {
-		return 2;
+		return 3;
 	}
 
 	@Override
@@ -44,6 +44,9 @@ public class ProductModel extends AbstractTableModel {
 		case 1:
 			result = Integer.toString(itemList.get(rowIndex).getPrice());
 			break;
+		case 2: 
+			result = Integer.toString(itemList.get(rowIndex).getAmount());
+			break;
 		default:
 			throw new IllegalArgumentException(String.format("Column {0} does not exist", columnIndex));	
 		}
@@ -56,6 +59,8 @@ public class ProductModel extends AbstractTableModel {
             return "Product name";
         case 1:
             return "Price";
+        case 2: 
+        	return "Amount";
         default: 
             throw new IllegalArgumentException(String.format("Column {0} does not exist", column));
         }
