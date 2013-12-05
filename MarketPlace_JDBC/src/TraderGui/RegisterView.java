@@ -48,7 +48,7 @@ public class RegisterView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public RegisterView(ActionListener loginListener) {
+	public RegisterView(ActionListener registerListener, ActionListener cancelRegistrationListener) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 461, 281);
 		contentPane = new JPanel();
@@ -61,7 +61,7 @@ public class RegisterView extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JLabel lblWelcomeToThe = new JLabel("Add your name to login into the market place.");
+		JLabel lblWelcomeToThe = new JLabel("Add your name and password to create an account.");
 		GridBagConstraints gbc_lblWelcomeToThe = new GridBagConstraints();
 		gbc_lblWelcomeToThe.anchor = GridBagConstraints.WEST;
 		gbc_lblWelcomeToThe.gridwidth = 3;
@@ -88,8 +88,8 @@ public class RegisterView extends JFrame {
 			contentPane.add(textFieldUserName, gbc_textFieldUserName);
 			textFieldUserName.setColumns(10);
 		
-		JButton buttonConnect = new JButton("Connect");
-		buttonConnect.addActionListener(loginListener);
+		JButton buttonRegister = new JButton("Register");
+		buttonRegister.addActionListener(registerListener);
 		
 		JLabel labelPassword = new JLabel("Password:");
 		GridBagConstraints gbc_labelPassword = new GridBagConstraints();
@@ -107,12 +107,20 @@ public class RegisterView extends JFrame {
 		gbc_textFieldPassword.gridx = 3;
 		gbc_textFieldPassword.gridy = 5;
 		contentPane.add(textFieldPassword, gbc_textFieldPassword);
-		GridBagConstraints gbc_buttonConnect = new GridBagConstraints();
-		gbc_buttonConnect.anchor = GridBagConstraints.EAST;
-		gbc_buttonConnect.insets = new Insets(0, 0, 5, 5);
-		gbc_buttonConnect.gridx = 3;
-		gbc_buttonConnect.gridy = 7;
-		contentPane.add(buttonConnect, gbc_buttonConnect);
+		
+		JButton buttonCancelRegistration = new JButton("Cancel");
+		buttonCancelRegistration.addActionListener(cancelRegistrationListener);
+		GridBagConstraints gbc_buttonCancelRegistration = new GridBagConstraints();
+		gbc_buttonCancelRegistration.insets = new Insets(0, 0, 5, 5);
+		gbc_buttonCancelRegistration.gridx = 2;
+		gbc_buttonCancelRegistration.gridy = 7;
+		contentPane.add(buttonCancelRegistration, gbc_buttonCancelRegistration);
+		GridBagConstraints gbc_buttonRegister = new GridBagConstraints();
+		gbc_buttonRegister.anchor = GridBagConstraints.EAST;
+		gbc_buttonRegister.insets = new Insets(0, 0, 5, 5);
+		gbc_buttonRegister.gridx = 3;
+		gbc_buttonRegister.gridy = 7;
+		contentPane.add(buttonRegister, gbc_buttonRegister);
 	}
 
 	private class SwingAction extends AbstractAction {

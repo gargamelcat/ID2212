@@ -19,6 +19,14 @@ public interface ITrader extends Remote {
 	 */
     String getName() throws RemoteException;
     
+    
+	/**
+	 * This method will return of the password of this trader.
+	 * @return String Traders password.
+	 */
+    String getPassword() throws RemoteException;
+    
+    
 	/**
 	 * This method will notify a trader when his item got sold
 	 * @param Item The item that got sold.

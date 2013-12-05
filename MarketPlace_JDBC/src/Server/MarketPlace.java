@@ -32,14 +32,14 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 
 	public MarketPlace() throws RemoteException, MalformedURLException {
 		super();
-		
+
 		try {
 			dbDriver = new DBDriver("ideasrec_rmi");
 		} catch (ClassNotFoundException | SQLException e1) {
 			System.out.println("Connection to database failed.");
 			e1.printStackTrace();
 		}
-		
+
 		try {
 			LocateRegistry.getRegistry(1099).list();
 		} catch (RemoteException e) {
@@ -55,11 +55,12 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 
 	@Override
 	public boolean registerTrader(ITrader trader) throws RemoteException {
-		/**if (dbDriver.ch) { todo joel
-			throw new RemoteException("client already registered");
+		boolean registrationSuccessful = false;
+		if (dbDriver.checkIfTraderExists(trader.getName()) == false) {
+			dbDriver.addTrader(trader);
+			registrationSuccessful = true;
 		}
-		clientList.put(trader, null);**/
-		return true;
+		return registrationSuccessful;
 	}
 
 	@Override
@@ -68,6 +69,15 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 			throw new RemoteException("client not registered");
 		}
 		clientList.remove(trader);
+	}
+
+	@Override
+	public boolean loginTrader(ITrader trader) throws RemoteException {
+		boolean loginSuccessful = false;
+		if (dbDriver.checkPassword(trader)) {
+			loginSuccessful = true;
+		}
+		return loginSuccessful;
 	}
 
 	@Override
@@ -90,7 +100,7 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 				}
 			}
 		}
-		
+
 		notifyChangesToAllTraders();
 	}
 
@@ -104,11 +114,14 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 				for (int k = 0; k < tempMap.getValue().size(); k++) {
 					if (tempMap.getValue().get(k).getName()
 							.equals(item.getName())) {
-						if (bank.getAccount(trader.getName()).getBalance() >= item.getPrice()) {
+						if (bank.getAccount(trader.getName()).getBalance() >= item
+								.getPrice()) {
 							seller = tempMap.getKey();
 							try {
-								bank.getAccount(trader.getName()).withdraw(item.price);
-								bank.getAccount(seller.getName()).deposit(item.price);
+								bank.getAccount(trader.getName()).withdraw(
+										item.price);
+								bank.getAccount(seller.getName()).deposit(
+										item.price);
 								seller.balanceChanged();
 								trader.balanceChanged();
 							} catch (RejectedException e) {

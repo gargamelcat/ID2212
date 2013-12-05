@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
+import Client.ITrader;
 import Client.Trader;
 
 @SuppressWarnings("serial")
@@ -192,25 +193,30 @@ public class DBDriver {
 		return traderExists;
 	}
 
-	public void addTrader(Trader trader) {
-		if (checkIfTraderExists(trader.getName())) {
-			try {
-				registerUserStatement.setString(1, trader.getName());
-				registerUserStatement.setString(2, trader.getPassword());
-				registerUserStatement.executeUpdate();
-			} catch (SQLException e) {
-				System.out.println("could not create trader: "
-						+ trader.getName());
-				e.printStackTrace();
-			}
+	public void addTrader(ITrader trader) {
+		try {
+			if (checkIfTraderExists(trader.getName())) {
+				try {
+					registerUserStatement.setString(1, trader.getName());
+					registerUserStatement.setString(2, trader.getPassword());
+					registerUserStatement.executeUpdate();
+				} catch (SQLException e) {
+					System.out.println("could not create trader: "
+							+ trader.getName());
+					e.printStackTrace();
+				}
 
-		} else {
-			System.out.println("Following trader does not exist: "
-					+ trader.getName());
+			} else {
+				System.out.println("Following trader does not exist: "
+						+ trader.getName());
+			}
+		} catch (RemoteException e) {
+			System.out.println("Remote exception when trying to add a new trader.");
+			e.printStackTrace();
 		}
 	}
 
-	public boolean checkPassword(Trader trader) {
+	public boolean checkPassword(ITrader trader) {
 		boolean passwordIsCorrect = false;
 		String passwordInDB = null;
 		try {
@@ -227,9 +233,8 @@ public class DBDriver {
 				System.out.println("Following trader does not exist: "
 						+ trader.getName());
 			}
-		} catch (SQLException e) {
-			System.out.println("Could not check password for followin trader: "
-					+ trader.getName());
+		} catch (SQLException | RemoteException e) {
+			System.out.println("Exception in login trader. Server side");
 			e.printStackTrace();
 		}
 		return passwordIsCorrect;

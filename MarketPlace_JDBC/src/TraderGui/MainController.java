@@ -83,9 +83,19 @@ public class MainController implements Observer {
 	}
 	
 	class CreateNewUserListener implements ActionListener {
-		@Override
 		public void actionPerformed(ActionEvent e) {
+			if(traderManager.registerUser(loginView.getUserName(), loginView.getPassword())){
 			
+			loginView.setVisible(false);
+			productModel.fireTableDataChanged();
+			productModel.setItemList(traderManager.getItemList());
+			mainView.setUserName(registerView.getUserName());
+			mainView.setVisible(true);
+			}
+			else{
+				registerView.deleteTextFields();
+				System.out.println("Could not register user. Name may be used already.");
+			}
 		}
 	}
 	
