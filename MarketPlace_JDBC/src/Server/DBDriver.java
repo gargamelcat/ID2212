@@ -195,7 +195,7 @@ public class DBDriver {
 
 	public void addTrader(ITrader trader) {
 		try {
-			if (checkIfTraderExists(trader.getName())) {
+			if (checkIfTraderExists(trader.getName()) == false) {
 				try {
 					registerUserStatement.setString(1, trader.getName());
 					registerUserStatement.setString(2, trader.getPassword());
