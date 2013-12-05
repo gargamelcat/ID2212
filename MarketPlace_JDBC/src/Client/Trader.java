@@ -21,6 +21,7 @@ public class Trader extends UnicastRemoteObject implements ITrader {
 			throws RemoteException {
 		super();
 		this.name = name;
+		this.password = password;
 		this.traderManger = traderManager;
 	}
 

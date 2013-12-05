@@ -36,9 +36,11 @@ public class TraderManager extends Observable implements IGui {
 		boolean loginSuccessful = false;
 		try {
 			me = new Trader(this, name, password);
+			System.out.println(name);
+			System.out.println(password);
 			remoteMarketPlace = (IMarketPlace) Naming
 					.lookup("rmi://localhost/marketPlace");
-			if(remoteMarketPlace.registerTrader(me)){
+			if(remoteMarketPlace.loginTrader(me)){
 				loginSuccessful = true;
 			}
 			

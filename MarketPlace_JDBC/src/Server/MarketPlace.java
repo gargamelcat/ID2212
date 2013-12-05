@@ -74,7 +74,10 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 	@Override
 	public boolean loginTrader(ITrader trader) throws RemoteException {
 		boolean loginSuccessful = false;
+		System.out.println(trader.getName());
+		System.out.println(trader.getPassword());
 		if (dbDriver.checkPassword(trader)) {
+			System.out.println("pw ok");
 			loginSuccessful = true;
 		}
 		return loginSuccessful;
