@@ -377,10 +377,10 @@ public class DBDriver {
 	public void removeItem(Item item) {
 		try {
 			deleteSaleStatement.setString(1, item.getName());
-			deleteSaleStatement.executeQuery();
+			deleteSaleStatement.executeUpdate();
 
 			deleteItemStatement.setString(1, item.getName());
-			deleteItemStatement.executeQuery();
+			deleteItemStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Error in removeItem/DBDRriver");
 			e.printStackTrace();
