@@ -38,6 +38,7 @@ public class TraderManager extends Observable implements IGui {
 			me = new Trader(this, name, password);
 			System.out.println(name);
 			System.out.println(password);
+			System.out.println("im in trader manager");
 			remoteMarketPlace = (IMarketPlace) Naming
 					.lookup("rmi://localhost/marketPlace");
 			if(remoteMarketPlace.loginTrader(me)){
