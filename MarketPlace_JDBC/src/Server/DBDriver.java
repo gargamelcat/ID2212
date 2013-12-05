@@ -12,6 +12,8 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
+import Client.Trader;
+
 @SuppressWarnings("serial")
 public class DBDriver {
 
@@ -20,7 +22,7 @@ public class DBDriver {
 	public static final String TABLE_WISHES = "Wishes";
 	public static final String TABLE_SALES = "Sales";
 
-	private PreparedStatement registerUser;
+	private PreparedStatement registerUserStatement;
 	private PreparedStatement findUserStatement;
 	private PreparedStatement unregisterUserStatement;
 
@@ -34,7 +36,7 @@ public class DBDriver {
 	private PreparedStatement findWishStatement;
 
 	private String datasource;
-	private Connection connection; 
+	private Connection connection;
 
 	public DBDriver(String datasource) throws RemoteException,
 			ClassNotFoundException, SQLException {
@@ -45,19 +47,14 @@ public class DBDriver {
 		prepareStatements();
 	}
 
-	public void connect() throws ClassNotFoundException,
-			SQLException {
+	public void connect() throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
 		connection = DriverManager.getConnection(
 				"jdbc:mysql://ideasrecursivas.com:3306/" + datasource,
 				"ideasrec_rmi", "ideasrec_rmi");
 	}
 
-	
-	
-	
-	private void createDatasource() throws ClassNotFoundException,
-			SQLException {
+	private void createDatasource() throws ClassNotFoundException, SQLException {
 		boolean exist = false;
 		int tableNameColumn = 3;
 		DatabaseMetaData dbm = connection.getMetaData();
@@ -111,14 +108,9 @@ public class DBDriver {
 		}
 	}
 
-	
-	
-	
-	
-	
 	private void prepareStatements() throws SQLException {
-		registerUser = connection.prepareStatement("INSERT INTO " + TABLE_USERS
-				+ " VALUES (?, ?, 0, 0)");
+		registerUserStatement = connection.prepareStatement("INSERT INTO "
+				+ TABLE_USERS + " VALUES (?, ?, 0, 0)");
 		findUserStatement = connection.prepareStatement("SELECT * from "
 				+ TABLE_USERS + " WHERE NAME = ?");
 		unregisterUserStatement = connection.prepareStatement("DELETE FROM "
@@ -147,7 +139,7 @@ public class DBDriver {
 		int affectedRows = 0;
 		ResultSet generatedKeys = null;
 
-		if (checkifTraderExists(seller)) {
+		if (checkIfTraderExists(seller)) {
 			try {
 				insertItemStatement.setString(1, item.getName());
 
@@ -184,7 +176,7 @@ public class DBDriver {
 
 	}
 
-	public boolean checkifTraderExists(String name) {
+	public boolean checkIfTraderExists(String name) {
 		boolean traderExists = false;
 		try {
 			findUserStatement.setString(1, name);
@@ -199,6 +191,49 @@ public class DBDriver {
 			e.printStackTrace();
 		}
 		return traderExists;
+	}
+
+	public void addTrader(Trader trader) {
+		if (checkIfTraderExists(trader.getName())) {
+			try {
+				registerUserStatement.setString(1, trader.getName());
+				registerUserStatement.setString(2, trader.getPassword());
+				registerUserStatement.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("could not create trader: "
+						+ trader.getName());
+				e.printStackTrace();
+			}
+
+		} else {
+			System.out.println("Following trader does not exist: "
+					+ trader.getName());
+		}
+	}
+
+	public boolean checkPassword(Trader trader) {
+		boolean passwordIsCorrect = false;
+		String passwordInDB = null;
+		try {
+			findUserStatement.setString(1, trader.getName());
+
+			ResultSet resultSetOfTrader = findUserStatement.executeQuery();
+			if (resultSetOfTrader.next()) {
+				passwordInDB = resultSetOfTrader.getString("password");
+				if (passwordInDB.equals(trader.getPassword())) {
+					passwordIsCorrect = true;
+				}
+
+			} else {
+				System.out.println("Following trader does not exist: "
+						+ trader.getName());
+			}
+		} catch (SQLException e) {
+			System.out.println("Could not check password for followin trader: "
+					+ trader.getName());
+			e.printStackTrace();
+		}
+		return passwordIsCorrect;
 	}
 
 }
