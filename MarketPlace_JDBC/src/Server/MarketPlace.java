@@ -102,12 +102,12 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 		String sellerName = null;
 		ITrader sellerObject = null;
 
-		//if (bank.getAccount(trader.getName()).getBalance() >= item.getPrice()) {
+		if (bank.getAccount(trader.getName()).getBalance() >= item.getPrice()) {
 			sellerName = dbDriver.getSellerForItem(item);
 			dbDriver.removeItem(item);
-			//try {
-				//bank.getAccount(trader.getName()).withdraw(item.price);
-				//bank.getAccount(sellerName).deposit(item.getPrice());
+			try {
+				bank.getAccount(trader.getName()).withdraw(item.price);
+				bank.getAccount(sellerName).deposit(item.getPrice());
 				sellerObject = getTraderObjectByName(sellerName);
 				if (sellerObject != null) {
 					sellerObject.notifySeller(item);
@@ -119,11 +119,11 @@ public class MarketPlace extends UnicastRemoteObject implements IMarketPlace {
 									+ sellerName + "/" + item.getName());
 
 				}
-			//} catch (RejectedException e) {
-			//	System.out.println("Error in buyItem/MarketPlace");
-			//	e.printStackTrace();
-			//}
-		//}
+			} catch (RejectedException e) {
+				System.out.println("Error in buyItem/MarketPlace");
+				e.printStackTrace();
+			}
+		}
 		notifyChangesToAllTraders();
 		return false;
 	}

@@ -361,7 +361,7 @@ public class DBDriver {
 			findItemInSalesStatement.setString(1, item.getName());
 			seller = findItemInSalesStatement.executeQuery();
 			if (seller.next()) {
-				sellerName = seller.getString("name");
+				sellerName = seller.getString("fks_TraderName");
 			} else {
 				System.out.println("There is no seller for following item: "
 						+ item.getName());
